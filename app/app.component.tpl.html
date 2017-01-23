@@ -1,0 +1,21 @@
+<h1>Hello {{name}}</h1>
+<md-input-container>
+  <input md-input placeholder="Jeremy is?" value="a">
+</md-input-container>
+
+<md-card>
+  <md-card-title>Sample Card</md-card-title>
+  <md-card-content>
+    <md-radio-group name="radioGroup" [(ngModel)]="radioGroupValue">
+      <div style="height:500px;">
+        <ui-table [(data)]="data" [showSingleSelect]="true">
+          <ui-table-column display-name="Svc K" name="column1" [enable-edit]="false"></ui-table-column>
+          <ui-table-column display-name="RR" name="column2" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Sch Qty" name="column3" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Conf Qty" name="column4" [enable-edit]="true"></ui-table-column>
+        </ui-table>
+      </div>
+    </md-radio-group>
+  </md-card-content>
+</md-card>
+
