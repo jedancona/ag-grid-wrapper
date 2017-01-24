@@ -6,6 +6,7 @@ import {Grid, GridOptions, GridApi, ColumnApi, GridParams, ComponentUtil, ColDef
 import {Ng2FrameworkFactory} from "ag-grid-ng2";
 import {TableColumnComponent} from "./column/column";
 import {RowSingleSelectComponent} from "./row-single-select/row-single-select";
+import {RowActionMenuComponent} from "./row-action-menu/row-action-menu";
 import * as _ from 'lodash';
 import {Observable, Subject} from "rxjs";
 
@@ -58,6 +59,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
     this.setColumns();
     this.setDefaults();
     this.setSingleSelect();
+    this.setActionMenu();
 
     this.initializeGrid();
   };
@@ -110,7 +112,6 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   private setSingleSelect = (): void => {
     if (this.showSingleSelect) {
       let singleSelectCell = {
-
         headerName: "",
         field: "value",
         cellRendererFramework: RowSingleSelectComponent,
@@ -119,6 +120,21 @@ export class TableComponent implements OnDestroy, AfterViewInit {
         maxWidth: 30,
       };
       this.gridOptions.columnDefs.unshift(singleSelectCell);
+    }
+  };
+
+  private setActionMenu = (): void => {
+    if (this.actionMenu) {
+      let actionMenuCell = {
+        headerName: "",
+        field: "actionMenu",
+        data: this.actionMenu,
+        cellRendererFramework: RowActionMenuComponent,
+        width: 30,
+        minWidth: 30,
+        maxWidth: 30,
+      };
+      this.gridOptions.columnDefs.push(actionMenuCell);
     }
   };
 
@@ -166,6 +182,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   @Input() public slaveGrids: any = undefined;
   @Input('data') public rowData: any = undefined;
   @Input() public showSingleSelect: boolean = undefined;
+  @Input() public actionMenu: boolean = undefined;
   @Input() public floatingTopRowData: any = undefined;
   @Input() public floatingBottomRowData: any = undefined;
   @Input() public columnDefs: any = undefined;

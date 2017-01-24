@@ -5,13 +5,30 @@ import { Component } from '@angular/core';
   templateUrl: 'app/app.component.tpl.html',
 })
 export class AppComponent  {
-  name = ', Jeremy Sucks Balls';
+  name = ', Jeremy';
   data: any = [];
   radioGroupValue: any;
   constructor() {
-    for(let i = 0;i<100;i++){
+    for(let i = 0;i<25 ;i++){
     this.data.push({column1: 'col 1 row ' + i, column2: i + '', column3: i , column4: i + '', column5: i + '', column6: i + '', column7: i + ''});
     }
+  }
+
+  listActionMenu = {
+    'title': 'Manage Address Association',
+    'location': 'right',
+    'items': [
+      {
+        'name': 'Delete Address Association',
+        'icon': 'delete',
+        'method': 'deleteAssociation'
+      },
+      {
+        'name': 'View Address',
+        'action': 'view',
+        'method': 'viewAssociation'
+      }
+    ]
   }
 
 }
