@@ -27,12 +27,18 @@ export class AppComponent {
         {
           'name': 'View Address',
           'action': 'view',
-          'method': 'viewAssociation'
+          'method': this.viewAssociation
+        },
+        {
+          'name': 'Test Disable',
+          'action': 'boat',
+          'isDisable': this.validateLink,
+          'method': this.viewAssociation
         }
       ]
     };
 
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 2500; i++) {
       this.data.push({
         column1: 'col 1 row ' + i,
         column2: i + '',
@@ -45,12 +51,16 @@ export class AppComponent {
     }
   }
 
-  public deleteAssociation = (row: any): any => {
+  public deleteAssociation = (row: any): void => {
     console.log('in the delete', row);
   }
 
-  public viewAssociation = (row: any): any => {
+  public viewAssociation = (row: any): void => {
     console.log('in the view association', row);
+  }
+
+  public validateLink = (row: any): boolean => {
+    return row.column2 % 2 === 0;
   }
 
 }

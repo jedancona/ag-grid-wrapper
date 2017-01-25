@@ -14,7 +14,14 @@ export class RowActionMenuComponent implements AgRendererComponent {
     this.menuItems = params.colDef.data;
   }
 
-  public onClick = (method:any) : void =>{
+  public onClick = (method: any) : void =>{
     method(this.params.node.data);
+  }
+
+  public isDisabled = (method: any) : boolean => {
+    if(method){
+      return method(this.params.node.data);
+    }
+    return false;
   }
 }
