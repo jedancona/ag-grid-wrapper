@@ -6,8 +6,9 @@
     <h4>{{menuItems.title}}</h4>
     <md-divider></md-divider>
   </div>
-  <button md-menu-item *ngFor="let item of menuItems.items">
+  <button md-menu-item *ngFor="let item of menuItems.items" (click)="onClick(item.method)">
     <md-icon>{{item.icon}}</md-icon>
     <span>{{item.name}}</span>
   </button>
+
 </md-menu>
