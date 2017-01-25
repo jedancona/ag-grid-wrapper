@@ -178,6 +178,65 @@ export class TableComponent implements OnDestroy, AfterViewInit {
     });
   };
 
+  private onRowSelected($event: any) {
+    console.log('onRowSelected: ' + $event.node.data.name);
+  }
+
+  private onModelUpdated() {
+    console.log('onModelUpdated');
+  }
+
+  private onReady() {
+    console.log('onReady');
+  }
+
+  private onCellClicked($event:any) {
+    console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
+  }
+
+  private onCellValueChanged($event:any) {
+    console.log('onCellValueChanged: ' + $event.oldValue + ' to ' + $event.newValue);
+  }
+
+  private onCellDoubleClicked($event:any) {
+    console.log('onCellDoubleClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
+  }
+
+  private onCellContextMenu($event:any) {
+    console.log('onCellContextMenu: ' + $event.rowIndex + ' ' + $event.colDef.field);
+  }
+
+  private onCellFocused($event:any) {
+    console.log('onCellFocused: (' + $event.rowIndex + ',' + $event.colIndex + ')');
+  }
+
+
+  private onSelectionChanged() {
+    console.log('selectionChanged');
+  }
+
+  private onBeforeFilterChanged() {
+    console.log('beforeFilterChanged');
+  }
+
+  private onAfterFilterChanged() {
+    console.log('afterFilterChanged');
+  }
+
+  private onFilterModified() {
+    console.log('onFilterModified');
+  }
+
+  private onBeforeSortChanged() {
+    console.log('onBeforeSortChanged');
+  }
+
+  private onAfterSortChanged() {
+    console.log('onAfterSortChanged');
+  }
+
+
+
   @Input() public gridOptions: GridOptions;
   @Input() public slaveGrids: any = undefined;
   @Input('data') public rowData: any = undefined;
