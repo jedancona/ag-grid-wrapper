@@ -6,13 +6,14 @@ import {AppComponent}  from './app.component';
 import {MaterialModule} from '@angular/material';
 import {CommonComponentsModule} from "./components/components.module";
 import {RowSingleSelectComponent} from "./components/table/row-single-select/row-single-select";
+import { RowActionMenuComponent } from "./components/table/row-action-menu/row-action-menu";
 
 @NgModule({
   imports: [BrowserModule, FormsModule,
     MaterialModule.forRoot(),
-    CommonComponentsModule.withComponents([RowSingleSelectComponent]),
+    CommonComponentsModule.withComponents([RowSingleSelectComponent, RowActionMenuComponent]),
   ],
-  declarations: [AppComponent, RowSingleSelectComponent],
+  declarations: [AppComponent, RowSingleSelectComponent, RowActionMenuComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

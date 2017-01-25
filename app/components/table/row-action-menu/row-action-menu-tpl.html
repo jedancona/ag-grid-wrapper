@@ -1,0 +1,13 @@
+<button md-icon-button [mdMenuTriggerFor]="menu">
+  <md-icon>more_vert</md-icon>
+</button>
+<md-menu #menu="mdMenu">
+  <div>
+    <h4>{{menuItems.title}}</h4>
+    <md-divider></md-divider>
+  </div>
+  <button md-menu-item *ngFor="let item of menuItems.items">
+    <md-icon>{{item.icon}}</md-icon>
+    <span>{{item.name}}</span>
+  </button>
+</md-menu>
