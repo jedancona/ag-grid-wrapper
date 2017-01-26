@@ -9,6 +9,8 @@ export class AppComponent {
   data: any = [];
   radioGroupValue: any;
   listActionMenu: any;
+  selectionMode: boolean = true;
+  selectedRows: any[] = [];
 
   constructor() {
     this.init();
@@ -38,7 +40,7 @@ export class AppComponent {
       ]
     };
 
-    for (let i = 0; i < 2500; i++) {
+    for (let i = 0; i < 15; i++) {
       this.data.push({
         column1: 'col 1 row ' + i,
         column2: i + '',
@@ -61,6 +63,10 @@ export class AppComponent {
 
   public validateLink = (row: any): boolean => {
     return row.column2 % 2 === 0;
+  }
+
+  public selection = ($event: any) : void => {
+    this.selectedRows = $event;
   }
 
 }

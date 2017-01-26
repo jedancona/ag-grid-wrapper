@@ -9,6 +9,7 @@ import {RowSingleSelectComponent} from "./row-single-select/row-single-select";
 import {RowActionMenuComponent} from "./row-action-menu/row-action-menu";
 import * as _ from 'lodash';
 import {Observable, Subject} from "rxjs";
+import { RowMultiSelectComponent } from "./row/row-multi-select/row-multi-select-component";
 
 
 @Component({
@@ -59,6 +60,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
     this.setColumns();
     this.setDefaults();
     this.setSingleSelect();
+    this.setMultiSelect();
     this.setActionMenu();
 
     this.initializeGrid();
@@ -66,6 +68,8 @@ export class TableComponent implements OnDestroy, AfterViewInit {
 
   private initializeGrid = (): void => {
     new Grid(this._nativeElement.getElementsByClassName('ui-table')[0], this.gridOptions, this.gridParams);
+    this.gridOptions.rowDeselection = true;
+ //   this.gridOptions.suppressRowClickSelection = true;
 
     if (this.gridOptions.api) {
       this.api = this.gridOptions.api;
@@ -119,7 +123,23 @@ export class TableComponent implements OnDestroy, AfterViewInit {
         minWidth: 30,
         maxWidth: 30,
       };
+      this.gridOptions.rowSelection = 'single';
       this.gridOptions.columnDefs.unshift(singleSelectCell);
+    }
+  };
+
+  private setMultiSelect = (): void => {
+    if (this.showMultiSelect) {
+      let multiSelectCell = {
+        headerName: "",
+        field: "multiSelect",
+        width: 30,
+        minWidth: 30,
+        maxWidth: 30,
+        checkboxSelection: true
+      };
+      this.gridOptions.rowSelection = 'multiple';
+      this.gridOptions.columnDefs.unshift(multiSelectCell);
     }
   };
 
@@ -206,13 +226,20 @@ export class TableComponent implements OnDestroy, AfterViewInit {
     console.log('onCellContextMenu: ' + $event.rowIndex + ' ' + $event.colDef.field);
   }
 
-  private onCellFocused($event:any) {
-    console.log('onCellFocused: (' + $event.rowIndex + ',' + $event.colIndex + ')');
+  private onCellFocused = ($event:any) => {
+    console.log(this.showMultiSelect +  ' value of multiselect onCellFocused: (' + $event.rowIndex + ',' + $event.colIndex + ')');
   }
 
+  private onRowClicked = ($event: any): void => {
+    console.log("hey row row changes", $event);
+  }
 
-  private onSelectionChanged() {
-    console.log('selectionChanged');
+  private onSelectionChanged = (): void => {
+    var selectedRows = this.gridOptions.api.getSelectedRows();
+    selectedRows.forEach( function (selectedRow: any, index: any) {
+      console.log(selectedRow + " and the index " + index);
+    });
+    this.selectedRows.emit(selectedRows);
   }
 
   private onBeforeFilterChanged() {
@@ -241,6 +268,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   @Input() public slaveGrids: any = undefined;
   @Input('data') public rowData: any = undefined;
   @Input() public showSingleSelect: boolean = undefined;
+  @Input() public showMultiSelect: boolean = undefined;
   @Input() public actionMenu: boolean = undefined;
   @Input() public floatingTopRowData: any = undefined;
   @Input() public floatingBottomRowData: any = undefined;
@@ -456,4 +484,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   @Output() public displayedColumnsWidthChanged: EventEmitter<any>;
   @Output() public scrollVisibilityChanged: EventEmitter<any>;
   @Output() public flashCells: EventEmitter<any>;
+
+  //Custom
+  @Output() public selectedRows = new EventEmitter<any>();
 }

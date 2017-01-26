@@ -4,11 +4,11 @@
 </md-input-container>
 
 <md-card>
-  <md-card-title>Sample Card</md-card-title>
+  <md-card-title>Sample Table 1</md-card-title>
   <md-card-content>
     <md-radio-group name="radioGroup" [(ngModel)]="radioGroupValue">
       <div style="height:500px;">
-        <ui-table [(data)]="data" [showSingleSelect]="true"  [actionMenu]="listActionMenu">
+        <ui-table [(data)]="data"  [(showSingleSelect)]="selectionMode"  [actionMenu]="listActionMenu">
           <ui-table-column display-name="Svc K" name="column1" [enable-edit]="false"></ui-table-column>
           <ui-table-column display-name="RR" name="column2" [enable-edit]="true"></ui-table-column>
           <ui-table-column display-name="Sch Qty" name="column3" [enable-edit]="true"></ui-table-column>
@@ -19,3 +19,19 @@
   </md-card-content>
 </md-card>
 
+<md-card>
+  <md-card-title>Sample Table 2</md-card-title>
+  <md-card-content>
+    <span>Selected values: </span>
+    <span *ngFor="let item of selectedRows">{{item.column1 }}, </span>
+      <div style="height:500px;">
+        <ui-table (rowClicked)="onRowClicked($event)"
+          (selectedRows)="selection($event)" [(data)]="data"  [(showMultiSelect)]="selectionMode"  [actionMenu]="listActionMenu">
+          <ui-table-column display-name="Svc K" name="column1" [enable-edit]="false"></ui-table-column>
+          <ui-table-column display-name="RR" name="column2" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Sch Qty" name="column3" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Conf Qty" name="column4" [enable-edit]="true"></ui-table-column>
+        </ui-table>
+      </div>
+  </md-card-content>
+</md-card>
