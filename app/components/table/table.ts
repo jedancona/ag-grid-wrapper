@@ -9,7 +9,6 @@ import {RowSingleSelectComponent} from "./row-single-select/row-single-select";
 import {RowActionMenuComponent} from "./row-action-menu/row-action-menu";
 import * as _ from 'lodash';
 import {Observable, Subject} from "rxjs";
-import { RowMultiSelectComponent } from "./row/row-multi-select/row-multi-select-component";
 
 
 @Component({

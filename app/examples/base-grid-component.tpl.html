@@ -1,0 +1,13 @@
+<md-card>
+  <md-card-title>Base Table 1</md-card-title>
+  <md-card-content>
+      <div style="height:500px;">
+        <ui-table [(data)]="data">
+          <ui-table-column display-name="Svc K" name="column1" [enable-edit]="false"></ui-table-column>
+          <ui-table-column display-name="RR" name="column2" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Sch Qty" name="column3" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Conf Qty" name="column4" [enable-edit]="true"></ui-table-column>
+        </ui-table>
+      </div>
+  </md-card-content>
+</md-card>
