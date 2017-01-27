@@ -1,15 +1,23 @@
 import {
-  Component, ViewEncapsulation, AfterViewInit, ViewContainerRef, ElementRef, EventEmitter,
-  Input, Output, HostListener, OnDestroy
+  Component,
+  ViewEncapsulation,
+  AfterViewInit,
+  ViewContainerRef,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  HostListener,
+  OnDestroy
 } from "@angular/core";
 import {Grid, GridOptions, GridApi, ColumnApi, GridParams, ComponentUtil, ColDef} from "ag-grid/main";
 import {Ng2FrameworkFactory} from "ag-grid-ng2";
 import {TableColumnComponent} from "./column/column";
 import {RowSingleSelectComponent} from "./row-single-select/row-single-select";
 import {RowActionMenuComponent} from "./row-action-menu/row-action-menu";
-import * as _ from 'lodash';
-import {Observable, Subject} from "rxjs";
-
+import * as _ from "lodash";
+import {Subject} from "rxjs";
+import {RowAutoSaveFactory} from "./factories/row-auto-save/row-auto-save";
 
 @Component({
   selector: 'ui-table',
@@ -28,6 +36,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   private resizerTimeout: any = null;
 
   private gridParams: GridParams;
+  private gridFactoryExtendors: any;
   private colDefs: any = [];
 
   // making these public, so they are accessible to people using the ng2 component references
@@ -37,15 +46,16 @@ export class TableComponent implements OnDestroy, AfterViewInit {
 
   constructor(elementDef: ElementRef,
               private viewContainerRef: ViewContainerRef,
-              private ng2FrameworkFactory: Ng2FrameworkFactory) {
+              private ng2FrameworkFactory: Ng2FrameworkFactory,
+              private rowAutoSaveFactory: RowAutoSaveFactory) {
 
-    this.onApiRegistered = this._onApiRegistered;
     this._nativeElement = elementDef.nativeElement;
     // create all the events generically. this is done generically so that
     // if the list of grid events change, we don't need to change this code.
     this.createComponentEvents();
 
     this.ng2FrameworkFactory.setViewContainerRef(this.viewContainerRef);
+    this.rowAutoSaveFactory.setGridRegisteredListener(this._onApiRegistered);
   }
 
   ngAfterViewInit(): any {
@@ -67,8 +77,6 @@ export class TableComponent implements OnDestroy, AfterViewInit {
 
   private initializeGrid = (): void => {
     new Grid(this._nativeElement.getElementsByClassName('ui-table')[0], this.gridOptions, this.gridParams);
-    this.gridOptions.rowDeselection = true;
- //   this.gridOptions.suppressRowClickSelection = true;
 
     if (this.gridOptions.api) {
       this.api = this.gridOptions.api;
@@ -79,7 +87,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
       this.columnApi = this.gridOptions.columnApi;
     }
 
-    this._onApiRegistered.next(this.api);
+    this._onApiRegistered.next(this);
     this.api.addEventListener('columnResized', this.onResize);
 
     this._initialized = true;
@@ -97,8 +105,10 @@ export class TableComponent implements OnDestroy, AfterViewInit {
 
   private setDefaults = (): void => {
     _.defaults(this.gridOptions, {
-      rowHeight: 30,
       enableColResize: true,
+      rowHeight: 30,
+      rowDeselection: true,
+      singleClickEdit: true,
     });
   };
 
@@ -186,7 +196,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
         clearTimeout(this.resizerTimeout);
       }
       this._destroyed = true;
-      this.api.removeEventListener('columnResized',this.onResize);
+      this.api.removeEventListener('columnResized', this.onResize);
       this.api.destroy();
     }
   }
@@ -209,24 +219,24 @@ export class TableComponent implements OnDestroy, AfterViewInit {
     console.log('onReady');
   }
 
-  private onCellClicked($event:any) {
+  private onCellClicked($event: any) {
     console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
   }
 
-  private onCellValueChanged($event:any) {
+  private onCellValueChanged($event: any) {
     console.log('onCellValueChanged: ' + $event.oldValue + ' to ' + $event.newValue);
   }
 
-  private onCellDoubleClicked($event:any) {
+  private onCellDoubleClicked($event: any) {
     console.log('onCellDoubleClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
   }
 
-  private onCellContextMenu($event:any) {
+  private onCellContextMenu($event: any) {
     console.log('onCellContextMenu: ' + $event.rowIndex + ' ' + $event.colDef.field);
   }
 
-  private onCellFocused = ($event:any) => {
-    console.log(this.showMultiSelect +  ' value of multiselect onCellFocused: (' + $event.rowIndex + ',' + $event.colIndex + ')');
+  private onCellFocused = ($event: any) => {
+    console.log(this.showMultiSelect + ' value of multiselect onCellFocused: (' + $event.rowIndex + ',' + $event.colIndex + ')');
   }
 
   private onRowClicked = ($event: any): void => {
@@ -235,7 +245,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
 
   private onSelectionChanged = (): void => {
     var selectedRows = this.gridOptions.api.getSelectedRows();
-    selectedRows.forEach( function (selectedRow: any, index: any) {
+    selectedRows.forEach(function (selectedRow: any, index: any) {
       console.log(selectedRow + " and the index " + index);
     });
     this.selectedRows.emit(selectedRows);
@@ -261,6 +271,8 @@ export class TableComponent implements OnDestroy, AfterViewInit {
     console.log('onAfterSortChanged');
   }
 
+  private onRowEditingStarted = ($event: any): void => {
+  };
 
 
   @Input() public gridOptions: GridOptions;
