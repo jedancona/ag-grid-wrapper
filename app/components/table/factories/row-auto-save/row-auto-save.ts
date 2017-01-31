@@ -64,10 +64,13 @@ export class RowAutoSaveFactory {
 
     return (): Promise<any> => {
       if (gridRow.rowEditSavePromise) {
-        return gridRow.rowEditSavePromise;
+        return;
       }
+      gridRow.isSaving = true;
+      grid.api.refreshRows([gridRow]);
       let promise: Promise<any> = self.savePromise(gridRow.data);
       this.setSavePromise(gridRow, promise);
+
       if (self.savePromise) {
         gridRow.rowEditSavePromise.then(self.processSuccessPromise(grid, gridRow), self.processErrorPromise(grid, gridRow));
       } else {
@@ -105,14 +108,15 @@ export class RowAutoSaveFactory {
    * @returns {function} the success handling function
    */
   private processSuccessPromise = (grid: TableComponent, gridRow: any): any => {
-    var self = this;
     return (): any => {
-      this.cancelTimer(grid, gridRow);
+      console.debug('process success');
       delete gridRow.isSaving;
+      this.cancelTimer(grid, gridRow);
       delete gridRow.isDirty;
       delete gridRow.isError;
       delete gridRow.rowEditSaveTimer;
       delete gridRow.rowEditSavePromise;
+      grid.gridOptions.api.refreshRows([gridRow]);
     };
   };
 
@@ -129,6 +133,7 @@ export class RowAutoSaveFactory {
   private processErrorPromise = (grid: any, gridRow: any): any => {
     return (): any => {
       delete gridRow.isSaving;
+      this.cancelTimer(grid, gridRow);
       delete gridRow.rowEditSaveTimer;
       delete gridRow.rowEditSavePromise;
 
@@ -137,6 +142,7 @@ export class RowAutoSaveFactory {
         this.errorRows = [];
       }
       this.errorRows.push(gridRow);
+      grid.gridOptions.api.refreshRows([gridRow]);
     };
   };
 
@@ -272,7 +278,6 @@ export class RowAutoSaveFactory {
   };
 
   private onCellEditingStarted = ($event: any): void => {
-    //console.debug(this.debugStr + 'onCellEditingStarted', $event);
     this.beginCellEdit($event.node, $event.colDef);
   };
 
