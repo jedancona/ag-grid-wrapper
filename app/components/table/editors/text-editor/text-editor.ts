@@ -1,0 +1,40 @@
+import {Component, ViewContainerRef, ViewChild, AfterViewInit} from '@angular/core';
+
+import {AgEditorComponent} from 'ag-grid-ng2/main';
+
+@Component({
+  selector: 'text-cell',
+  template: `<input #input (blur)="onBlur($event)" [(ngModel)]="value">`
+})
+export class TextEditorComponent implements AgEditorComponent, AfterViewInit {
+  private params: any;
+  public value: number;
+  private cancelBeforeStart: boolean = false;
+
+  @ViewChild('input', {read: ViewContainerRef}) public input: any;
+
+  agInit(params: any): void {
+    this.params = params;
+    this.value = this.params.value;
+     console.debug('text editor');
+  }
+
+  getValue(): any {
+    return this.value;
+  }
+
+  isCancelBeforeStart(): boolean {
+    return this.cancelBeforeStart;
+  }
+
+  onBlur(event: any): void {
+    console.debug(event);
+    this.params.api.stopEditing();
+  }
+
+  // dont use afterGuiAttached for post gui events - hook into ngAfterViewInit instead for this
+  ngAfterViewInit() {
+    this.input.element.nativeElement.focus();
+  }
+
+}

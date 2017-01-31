@@ -17,7 +17,7 @@ export class NumericEditorComponent implements AgEditorComponent, AfterViewInit 
   agInit(params: any): void {
     this.params = params;
     this.value = this.params.value;
-    console.debug('numeric editor');
+    // console.debug('numeric editor');
     // only start edit if key pressed is a number, not a letter
     this.cancelBeforeStart = params.charPress && ('1234567890'.indexOf(params.charPress) < 0);
   }
@@ -37,7 +37,7 @@ export class NumericEditorComponent implements AgEditorComponent, AfterViewInit 
   }
 
   onBlur(event: any): void {
-    console.debug(event);
+    console.debug(this.params, event);
     this.params.api.stopEditing();
   }
 

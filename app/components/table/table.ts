@@ -8,7 +8,7 @@ import {
   Input,
   Output,
   HostListener,
-  OnDestroy
+  OnDestroy, ContentChildren, QueryList
 } from "@angular/core";
 import {Grid, GridOptions, GridApi, ColumnApi, GridParams, ComponentUtil, ColDef} from "ag-grid/main";
 import {Ng2FrameworkFactory} from "ag-grid-ng2";
@@ -44,6 +44,8 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   public columnApi: ColumnApi;
   public onApiRegistered: any;
 
+  @ContentChildren(TableColumnComponent) public columns: QueryList<TableColumnComponent>;
+
   constructor(elementDef: ElementRef,
               private viewContainerRef: ViewContainerRef,
               private ng2FrameworkFactory: Ng2FrameworkFactory,
@@ -66,6 +68,20 @@ export class TableComponent implements OnDestroy, AfterViewInit {
       frameworkFactory: this.ng2FrameworkFactory
     };
 
+    this.gridOptions.getRowStyle = (params: any): any => {
+      if (params && params.node) {
+        if (params.node.isSaving) {
+          return {'color': '#ccc'};
+        } else if (params.node.isError) {
+          return {'color': 'red'};
+        } else if (params.node.isDirty) {
+          return {'backgroud-color': 'blue'};
+        }
+      } else {
+        return null;
+      }
+    };
+
     this.setColumns();
     this.setDefaults();
     this.setSingleSelect();
@@ -76,6 +92,8 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   };
 
   private initializeGrid = (): void => {
+
+
     new Grid(this._nativeElement.getElementsByClassName('ui-table')[0], this.gridOptions, this.gridParams);
 
     if (this.gridOptions.api) {
@@ -98,6 +116,12 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   };
 
   private setColumns = (): void => {
+    if (this.columns && this.columns.length > 0) {
+      this.gridOptions.columnDefs = this.columns
+        .map((column: TableColumnComponent) => {
+          return column.toColDef();
+        });
+    }
     if (this.colDefs && this.colDefs.length > 0) {
       this.gridOptions.columnDefs = this.colDefs;
     }
@@ -240,14 +264,14 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   }
 
   private onRowClicked = ($event: any): void => {
-   // console.log("hey row row changes", $event);
+    // console.log("hey row row changes", $event);
   }
 
   private onSelectionChanged = (): void => {
-   // var selectedRows = this.gridOptions.api.getSelectedRows();
-   // selectedRows.forEach(function (selectedRow: any, index: any) {
-      //console.log(selectedRow + " and the index " + index);
-  //  });
+    // var selectedRows = this.gridOptions.api.getSelectedRows();
+    // selectedRows.forEach(function (selectedRow: any, index: any) {
+    //console.log(selectedRow + " and the index " + index);
+    //  });
     //this.selectedRows.emit(selectedRows);
   }
 

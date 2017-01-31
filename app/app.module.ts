@@ -11,6 +11,7 @@ import {SingleSelectGridComponent} from "./examples/single-select-grid-component
 import {APP_BASE_HREF} from "@angular/common";
 import {MultiSelectGridComponent} from "./examples/multi-select-grid-component";
 import {NumericEditorComponent} from "./components/table/editors/numeric-editor/numeric-editor";
+import {TextEditorComponent} from "./components/table/editors/text-editor/text-editor";
 
 const appRoutes: Routes = [
   {path: 'single-grid-grid', component: SingleSelectGridComponent, data: {title: "Rich Grid with Pure JavaScript"}},
@@ -27,6 +28,8 @@ const appRoutes: Routes = [
       SingleSelectGridComponent,
       MultiSelectGridComponent,
       NumericEditorComponent,
+      TextEditorComponent,
+
     ]),
     RouterModule.forRoot(appRoutes),
   ],
@@ -37,6 +40,7 @@ const appRoutes: Routes = [
     SingleSelectGridComponent,
     MultiSelectGridComponent,
     NumericEditorComponent,
+    TextEditorComponent,
   ],
   bootstrap: [AppComponent],
   providers: [{provide: APP_BASE_HREF, useValue: '/'}],
