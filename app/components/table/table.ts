@@ -208,67 +208,67 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   };
 
   private onRowSelected($event: any) {
-    console.log('onRowSelected: ' + $event.node.data.name);
+    //console.log('onRowSelected: ' + $event.node.data.name);
   }
 
   private onModelUpdated() {
-    console.log('onModelUpdated');
+    //console.log('onModelUpdated');
   }
 
   private onReady() {
-    console.log('onReady');
+    //console.log('onReady');
   }
 
   private onCellClicked($event: any) {
-    console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
+    //console.log('onCellClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
   }
 
   private onCellValueChanged($event: any) {
-    console.log('onCellValueChanged: ' + $event.oldValue + ' to ' + $event.newValue);
+    //console.log('onCellValueChanged: ' + $event.oldValue + ' to ' + $event.newValue);
   }
 
   private onCellDoubleClicked($event: any) {
-    console.log('onCellDoubleClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
+    //console.log('onCellDoubleClicked: ' + $event.rowIndex + ' ' + $event.colDef.field);
   }
 
   private onCellContextMenu($event: any) {
-    console.log('onCellContextMenu: ' + $event.rowIndex + ' ' + $event.colDef.field);
+    //console.log('onCellContextMenu: ' + $event.rowIndex + ' ' + $event.colDef.field);
   }
 
   private onCellFocused = ($event: any) => {
-    console.log(this.showMultiSelect + ' value of multiselect onCellFocused: (' + $event.rowIndex + ',' + $event.colIndex + ')');
+    //console.log(this.showMultiSelect + ' value of multiselect onCellFocused: (' + $event.rowIndex + ',' + $event.colIndex + ')');
   }
 
   private onRowClicked = ($event: any): void => {
-    console.log("hey row row changes", $event);
+   // console.log("hey row row changes", $event);
   }
 
   private onSelectionChanged = (): void => {
-    var selectedRows = this.gridOptions.api.getSelectedRows();
-    selectedRows.forEach(function (selectedRow: any, index: any) {
-      console.log(selectedRow + " and the index " + index);
-    });
-    this.selectedRows.emit(selectedRows);
+   // var selectedRows = this.gridOptions.api.getSelectedRows();
+   // selectedRows.forEach(function (selectedRow: any, index: any) {
+      //console.log(selectedRow + " and the index " + index);
+  //  });
+    //this.selectedRows.emit(selectedRows);
   }
 
   private onBeforeFilterChanged() {
-    console.log('beforeFilterChanged');
+    //console.log('beforeFilterChanged');
   }
 
   private onAfterFilterChanged() {
-    console.log('afterFilterChanged');
+    //console.log('afterFilterChanged');
   }
 
   private onFilterModified() {
-    console.log('onFilterModified');
+    //console.log('onFilterModified');
   }
 
   private onBeforeSortChanged() {
-    console.log('onBeforeSortChanged');
+    //console.log('onBeforeSortChanged');
   }
 
   private onAfterSortChanged() {
-    console.log('onAfterSortChanged');
+    //console.log('onAfterSortChanged');
   }
 
   private onRowEditingStarted = ($event: any): void => {
@@ -432,6 +432,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   /**
    * Outputs
    */
+  @Input() public onSaveRow: Promise<any>;
   @Output() public gridReady: EventEmitter<any>;
   @Output() public columnEverythingChanged: EventEmitter<any>;
   @Output() public newColumnsLoaded: EventEmitter<any>;

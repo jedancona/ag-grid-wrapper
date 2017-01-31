@@ -3,10 +3,10 @@
   <md-card-content>
     <md-radio-group name="radioGroup" [(ngModel)]="radioGroupValue">
       <div style="height:500px;">
-        <ui-table [(data)]="data" [(showSingleSelect)]="selectionMode" [actionMenu]="listActionMenu">
+        <ui-table [(data)]="data" [(showSingleSelect)]="selectionMode" [(onSaveRow)]="saveRow" [actionMenu]="listActionMenu">
           <ui-table-column display-name="Svc K" name="column1" [enable-edit]="false"></ui-table-column>
           <ui-table-column display-name="RR" name="column2" [enable-edit]="true"></ui-table-column>
-          <ui-table-column display-name="Sch Qty" name="column3" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Sch Qty" type="number" name="column3" [enable-edit]="true"></ui-table-column>
           <ui-table-column display-name="Conf Qty" name="column4" [enable-edit]="true"></ui-table-column>
         </ui-table>
       </div>
