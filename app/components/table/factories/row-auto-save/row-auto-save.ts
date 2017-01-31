@@ -150,7 +150,7 @@ export class RowAutoSaveFactory {
    * @param {array} rowArray the array from which to remove the row
    * @param {GridRow} gridRow the row that should be removed
    */
-  private removeRow = (rowArray: Array<any>, removeGridRow): void => {
+  private removeRow = (rowArray: Array<any>, removeGridRow: any): void => {
     if (!rowArray) {
       return;
     }
