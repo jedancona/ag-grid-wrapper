@@ -4,19 +4,35 @@ h1 {
   font-size: 250%;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   background: #d3d3d3;
+  height: 100%;
+  overflow: hidden;
+  padding: 0;
+  margin: 0
+}
+
+my-app {
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  height: 100%;
 }
 
 md-card {
   padding: 0 !important;
-  margin: 0 !important;
+  margin: 10px !important;
 }
 
 md-card > md-card-title {
   background: deeppink;
   color: white;
   padding: 15px 10px 15px 10px;
+
 }
 
 md-card > md-card-content {
@@ -26,3 +42,14 @@ md-card > md-card-content {
 .fill-remaining-space {
   flex: 1 1 auto;
 }
+
+md-toolbar {
+  flex: 0 1 auto;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+}
+
+.content-container {
+  flex: 1 1 auto;
+  overflow: auto;
+}
+

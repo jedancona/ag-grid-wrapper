@@ -3,6 +3,7 @@ import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {AppComponent} from "./app.component";
 import {MaterialModule} from "@angular/material";
+import {FlexLayoutModule} from "@angular/flex-layout";
 import {CommonComponentsModule} from "./components/components.module";
 import {RowSingleSelectComponent} from "./components/table/row-single-select/row-single-select";
 import {RowActionMenuComponent} from "./components/table/row-action-menu/row-action-menu";
@@ -23,6 +24,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     MaterialModule.forRoot(),
+    FlexLayoutModule.forRoot(),
     CommonComponentsModule.withComponents([RowSingleSelectComponent,
       RowActionMenuComponent,
       SingleSelectGridComponent,
