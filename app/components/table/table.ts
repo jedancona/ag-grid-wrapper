@@ -57,7 +57,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
     this.createComponentEvents();
 
     this.ng2FrameworkFactory.setViewContainerRef(this.viewContainerRef);
-    this.rowAutoSaveFactory.setGridRegisteredListener(this._onApiRegistered);
+    this.rowAutoSaveFactory.registerGridListener(this._onApiRegistered);
   }
 
   ngAfterViewInit(): any {
@@ -221,6 +221,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
       }
       this._destroyed = true;
       this.api.removeEventListener('columnResized', this.onResize);
+      this.rowAutoSaveFactory.unRegisterGridListener(this);
       this.api.destroy();
     }
   }

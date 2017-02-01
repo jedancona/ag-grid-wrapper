@@ -9,20 +9,34 @@ export class RowAutoSaveFactory {
   constructor() {
   }
 
-  private _onGridApiRegistered = (grid: TableComponent): void => {
+  public registerGridListener = (onGridApiRegistered: Subject<any>): void => {
+    onGridApiRegistered.subscribe(this._onGridApiRegistered)
+  };
 
-    this.setupPublicApi(grid.api);
-    this.setGridSavePromise(grid.api, grid.onSaveRow);
-    grid.cellEditingStarted.subscribe(this.onCellEditingStarted);
-    grid.cellEditingStopped.subscribe(this.onCellEditingStopped);
-    grid.cellValueChanged.subscribe(this.onCellValueChanged);
+  public unRegisterGridListener = (table: TableComponent): void => {
+    table.cellEditingStarted.unsubscribe();
+    table.cellEditingStopped.unsubscribe();
+    table.cellValueChanged.unsubscribe();
+    table.bodyScroll.unsubscribe();
+    this.destroyPublicApi(table.api);
+  };
+
+  private _onGridApiRegistered = (table: TableComponent): void => {
+
+    this.setupPublicApi(table.api);
+    this.setGridSavePromise(table.api, table.onSaveRow);
+    table.cellEditingStarted.subscribe(this.onCellEditingStarted);
+    table.cellEditingStopped.subscribe(this.onCellEditingStopped);
+    table.cellValueChanged.subscribe(this.onCellValueChanged);
     // we bind to the grid so we have context in order to
     // stop editing if the user begins scrolling the grid.
     // otherwise an error is thrown when the virtualized
     // row is destroyed.  Would like to do this another
     // way or possibly disable the scrolling while in edit mode.
-    grid.bodyScroll.subscribe(this.onBodyScroll.bind(grid));
+    table.bodyScroll.subscribe(this.onBodyScroll(table));
   };
+
+
 
   private setupPublicApi = (grid: any): void => {
     _.defaultsDeep(grid, {
@@ -40,13 +54,32 @@ export class RowAutoSaveFactory {
     })
   };
 
+  private destroyPublicApi = (grid: any): void => {
+    _.defaultsDeep(grid,{
+      rowEdit: {
+        setSavePromise: null,
+        getDirtyRows: null,
+        getErrorRows: null,
+        flushDirtyRows: null,
+        setRowsDirty: null,
+        setRowsClean: null,
+        dirtyRows: null,
+        errorRows: null,
+      }
+    });
+    delete grid.rowEdit;
+  };
+
   private setGridSavePromise = (grid: any, savePromise: Promise<any>) => {
     grid.rowEdit.savePromise = savePromise;
   };
 
-  private onBodyScroll ($event: any): void  {
-    let grid = this as TableComponent;
-    grid.api.stopEditing();
+  private onBodyScroll (table: TableComponent): any  {
+
+    return ($event?: any): void => {
+      setTimeout((): void => {table.api.stopEditing()});
+    };
+
   };
 
   private onCellEditingStarted = ($event: any): void => {
@@ -64,9 +97,7 @@ export class RowAutoSaveFactory {
     this.endCellEdit($event.api, $event.node, $event.colDef, $event.newValue, $event.oldValue);
   };
 
-  public setGridRegisteredListener = (onGridApiRegistered: Subject<any>): void => {
-    onGridApiRegistered.subscribe(this._onGridApiRegistered)
-  };
+
 
   /**
    * @ngdoc method
@@ -150,7 +181,6 @@ export class RowAutoSaveFactory {
    * @returns {function} the error handling function
    */
   private processErrorPromise = (grid: any, gridRow: any): any => {
-    var self = this;
     return (): any => {
       delete gridRow.isSaving;
       this.cancelTimer(grid, gridRow);
@@ -320,7 +350,7 @@ export class RowAutoSaveFactory {
    *
    */
   public flushDirtyRows = (grid: any): Promise<any> => {
-    var self = this;
+    let self = this;
     let promises = [] as Array<Promise<any>>;
     grid.rowEdit.getDirtyRows().forEach((gridRow: any): void => {
       self.saveRow(grid, gridRow)();
