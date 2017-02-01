@@ -4,7 +4,7 @@ import {AgEditorComponent} from 'ag-grid-ng2/main';
 
 @Component({
   selector: 'numeric-cell',
-  template: `<input #input type="number" (keydown)="onKeyDown($event)" (blur)="onBlur($event)" [(ngModel)]="value">`
+  template: `<input #input class="ag-cell-edit-input" type="number" (keydown)="onKeyDown($event)" (blur)="onBlur($event)" [(ngModel)]="value">`
 })
 export class NumericEditorComponent implements AgEditorComponent, AfterViewInit {
   private params: any;
@@ -37,7 +37,6 @@ export class NumericEditorComponent implements AgEditorComponent, AfterViewInit 
   }
 
   onBlur(event: any): void {
-    //console.debug(this.params, event);
     this.params.api.stopEditing();
   }
 
@@ -48,7 +47,7 @@ export class NumericEditorComponent implements AgEditorComponent, AfterViewInit 
 
   private getCharCodeFromEvent(event: any): any {
     event = event || window.event;
-    return (typeof event.which == "undefined") ? event.keyCode : event.which;
+    return (typeof event.which == 'undefined') ? event.keyCode : event.which;
   }
 
   private isCharNumeric(charStr: any): boolean {
@@ -56,8 +55,8 @@ export class NumericEditorComponent implements AgEditorComponent, AfterViewInit 
   }
 
   private isKeyPressedNumeric(event: any): boolean {
-    var charCode = this.getCharCodeFromEvent(event);
-    var charStr = String.fromCharCode(charCode);
+    let charCode = this.getCharCodeFromEvent(event);
+    let charStr = String.fromCharCode(charCode);
     return this.isCharNumeric(charStr);
   }
 }

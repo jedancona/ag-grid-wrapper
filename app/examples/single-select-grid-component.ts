@@ -1,5 +1,5 @@
-import {Component} from "@angular/core";
-import {BaseGridComponent} from "./base-grid";
+import {Component} from '@angular/core';
+import {BaseGridComponent} from './base-grid';
 
 @Component({
   selector: 'single-select-grid',

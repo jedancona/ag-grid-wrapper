@@ -4,7 +4,7 @@ import {AgEditorComponent} from 'ag-grid-ng2/main';
 
 @Component({
   selector: 'text-cell',
-  template: `<input #input type="text" (blur)="onBlur($event)" [(ngModel)]="value">`
+  template: `<input #input class="ag-cell-edit-input" type="text" (blur)="onBlur($event)" [(ngModel)]="value">`
 })
 export class TextEditorComponent implements AgEditorComponent, AfterViewInit {
   private params: any;
