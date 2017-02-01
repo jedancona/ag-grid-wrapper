@@ -1,22 +1,22 @@
-import {NgModule} from "@angular/core";
-import {FormsModule} from "@angular/forms";
-import {BrowserModule} from "@angular/platform-browser";
-import {AppComponent} from "./app.component";
-import {MaterialModule} from "@angular/material";
-import {FlexLayoutModule} from "@angular/flex-layout";
-import {CommonComponentsModule} from "./components/components.module";
-import {RowSingleSelectComponent} from "./components/table/row-single-select/row-single-select";
-import {RowActionMenuComponent} from "./components/table/row-action-menu/row-action-menu";
-import {Routes, RouterModule} from "@angular/router";
-import {SingleSelectGridComponent} from "./examples/single-select-grid-component";
-import {APP_BASE_HREF} from "@angular/common";
-import {MultiSelectGridComponent} from "./examples/multi-select-grid-component";
-import {NumericEditorComponent} from "./components/table/editors/numeric-editor/numeric-editor";
-import {TextEditorComponent} from "./components/table/editors/text-editor/text-editor";
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {BrowserModule} from '@angular/platform-browser';
+import {AppComponent} from './app.component';
+import {MaterialModule} from '@angular/material';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {CommonComponentsModule} from './components/components.module';
+import {RowSingleSelectComponent} from './components/table/row-single-select/row-single-select';
+import {RowActionMenuComponent} from './components/table/row-action-menu/row-action-menu';
+import {Routes, RouterModule} from '@angular/router';
+import {SingleSelectGridComponent} from './examples/single-select-grid-component';
+import {APP_BASE_HREF} from '@angular/common';
+import {MultiSelectGridComponent} from './examples/multi-select-grid-component';
+import {NumericEditorComponent} from './components/table/editors/numeric-editor/numeric-editor';
+import {TextEditorComponent} from './components/table/editors/text-editor/text-editor';
 
 const appRoutes: Routes = [
-  {path: 'single-grid-grid', component: SingleSelectGridComponent, data: {title: "Rich Grid with Pure JavaScript"}},
-  {path: 'multi-select-grid', component: MultiSelectGridComponent, data: {title: "Using Dynamic Components"}},
+  {path: 'single-grid-grid', component: SingleSelectGridComponent, data: {title: 'Rich Grid with Pure JavaScript'}},
+  {path: 'multi-select-grid', component: MultiSelectGridComponent, data: {title: 'Using Dynamic Components'}},
   {path: '', redirectTo: 'base-grid', pathMatch: 'full'}
 ];
 @NgModule({

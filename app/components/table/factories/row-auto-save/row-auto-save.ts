@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {Subject} from "rxjs";
-import * as _ from "lodash";
-import {TableComponent} from "../../table";
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
+import * as _ from 'lodash';
+import {TableComponent} from '../../table';
 
 @Injectable()
 export class RowAutoSaveFactory {
@@ -83,17 +83,17 @@ export class RowAutoSaveFactory {
   };
 
   private onCellEditingStarted = ($event: any): void => {
-    //console.debug('onCellEditingStarted', $event);
+    // console.debug('onCellEditingStarted', $event);
     this.beginCellEdit($event.api, $event.node, $event.colDef);
   };
 
   private onCellEditingStopped = ($event: any): void => {
-    //this.endCellEdit($event.api, $event.node, $event.colDef, $event.newValue, $event.oldValue);
+    // this.endCellEdit($event.api, $event.node, $event.colDef, $event.newValue, $event.oldValue);
   };
 
   private onCellValueChanged = ($event: any): void => {
     // fires on cell editing stopped regardless of whether value changed.
-    //console.debug('onCellValueChanged: ' + $event.oldValue + ' to ' + $event.newValue);
+    // console.debug('onCellValueChanged: ' + $event.oldValue + ' to ' + $event.newValue);
     this.endCellEdit($event.api, $event.node, $event.colDef, $event.newValue, $event.oldValue);
   };
 
@@ -125,7 +125,7 @@ export class RowAutoSaveFactory {
       if (promise) {
         gridRow.rowEditSavePromise.then(self.processSuccessPromise(grid, gridRow), self.processErrorPromise(grid, gridRow));
       } else {
-        console.error('A promise was not returned when saveRow event was raised, either nobody is listening to event or event did not return a promise');
+        // console.error('A promise was not returned when saveRow event was raised, either nobody is listening to event or event did not return a promise');
       }
 
       return promise;
@@ -233,7 +233,7 @@ export class RowAutoSaveFactory {
    */
   private beginCellEdit = (grid: any, gridRow: any, colDef?: any): void => {
     if (!gridRow) {
-      console.debug('Unable to find row in grid data, time cannot be cancelled');
+      // console.debug('Unable to find row in grid data, time cannot be cancelled');
       return;
     }
     this.cancelTimer(grid, gridRow);
@@ -257,7 +257,7 @@ export class RowAutoSaveFactory {
   private endCellEdit = (grid: any, gridRow: any, colDef: any, newValue: any, previousValue: any): void => {
 
     if (!gridRow) {
-      console.debug('Unable to find rowEntity in grid data, dirty flag cannot be set');
+      // console.debug('Unable to find rowEntity in grid data, dirty flag cannot be set');
       return;
     }
     if (newValue !== previousValue || gridRow.isDirty) {
@@ -383,7 +383,7 @@ export class RowAutoSaveFactory {
         delete gridRow.isError;
         this.considerSetTimer(grid, gridRow);
       } else {
-        console.debug("requested row not found in rowEdit.setRowsDirty, row was: " + gridRow);
+        // console.debug('requested row not found in rowEdit.setRowsDirty, row was: ' + gridRow);
       }
     });
   };
@@ -409,7 +409,7 @@ export class RowAutoSaveFactory {
         delete gridRow.isError;
         this.removeRow(grid.rowEdit.errorRows, gridRow);
       } else {
-        console.debug("requested row not found in rowEdit.setRowsClean, row was: " + gridRow);
+        // console.debug('requested row not found in rowEdit.setRowsClean, row was: ' + gridRow);
       }
     });
   };

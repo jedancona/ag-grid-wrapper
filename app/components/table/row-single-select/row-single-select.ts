@@ -1,5 +1,5 @@
-import {ViewEncapsulation, Component} from "@angular/core";
-import {AgRendererComponent} from "ag-grid-ng2";
+import {ViewEncapsulation, Component} from '@angular/core';
+import {AgRendererComponent} from 'ag-grid-ng2';
 @Component({
   selector: 'row-single-select',
   templateUrl: 'app/components/table/row-single-select/row-single-select.tpl.html',
@@ -15,7 +15,6 @@ export class RowSingleSelectComponent implements AgRendererComponent {
   }
 
   public onBlur = (): void => {
-    console.debug('click radio');
     this.params.api.gridCore.gridOptions.onCellEditingStopped.emit(this.params);
   }
 }
