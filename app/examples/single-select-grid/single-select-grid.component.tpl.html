@@ -1,0 +1,15 @@
+<md-card>
+  <md-card-title>Sample Table 1</md-card-title>
+  <md-card-content>
+    <md-radio-group name="radioGroup" [(ngModel)]="radioGroupValue">
+      <div style="height:250px;">
+        <ui-table [(data)]="data" [debug]="true" [(showSingleSelect)]="selectionMode" [onSaveRow]="saveRow" [actionMenu]="listActionMenu">
+          <ui-table-column display-name="Svc K" name="column1" [enable-edit]="false"></ui-table-column>
+          <ui-table-column display-name="RR" name="column2" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Sch Qty" type="number" name="column3" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Conf Qty" name="column4" [enable-edit]="true"></ui-table-column>
+        </ui-table>
+      </div>
+    </md-radio-group>
+  </md-card-content>
+</md-card>
