@@ -1,10 +1,10 @@
-import {Component, ViewContainerRef, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, ViewContainerRef, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
 
 import {AgEditorComponent} from 'ag-grid-ng2/main';
 
 @Component({
   selector: 'text-cell',
-  template: `<input #input (blur)="onBlur($event)" [(ngModel)]="value">`
+  template: `<input #input type="text" (blur)="onBlur($event)" [(ngModel)]="value">`
 })
 export class TextEditorComponent implements AgEditorComponent, AfterViewInit {
   private params: any;
@@ -16,7 +16,6 @@ export class TextEditorComponent implements AgEditorComponent, AfterViewInit {
   agInit(params: any): void {
     this.params = params;
     this.value = this.params.value;
-     console.debug('text editor');
   }
 
   getValue(): any {
@@ -28,7 +27,6 @@ export class TextEditorComponent implements AgEditorComponent, AfterViewInit {
   }
 
   onBlur(event: any): void {
-    console.debug(event);
     this.params.api.stopEditing();
   }
 

@@ -13,4 +13,9 @@ export class RowSingleSelectComponent implements AgRendererComponent {
   agInit(params: any): void {
     this.params = params
   }
+
+  public onBlur = (): void => {
+    console.debug('click radio');
+    this.params.api.gridCore.gridOptions.onCellEditingStopped.emit(this.params);
+  }
 }

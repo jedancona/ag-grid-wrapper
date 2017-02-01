@@ -40,7 +40,7 @@ export class BaseGridComponent {
       ]
     };
 
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 50; i++) {
       this.data.push({
         column1: 'col 1 row ' + i,
         column2: i + '',
