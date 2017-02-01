@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
-import {BaseGridComponent} from './base-grid';
+import {BaseGridComponent} from '../base-grid';
 
 @Component({
-  selector: 'single-select-grid',
-  templateUrl: 'app/examples/single-select-grid.component.tpl.html',
+  selector: 'multi-grid-screen',
+  templateUrl: 'app/examples/multi-grid-screen/multi-grid-screen.component.tpl.html',
 })
-export class SingleSelectGridComponent extends BaseGridComponent {
+export class MultiGridScreenComponent extends BaseGridComponent {
   public data2: any = [];
 
   constructor() {

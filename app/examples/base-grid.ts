@@ -5,7 +5,6 @@ import { Component } from "@angular/core";
   templateUrl: 'app/examples/base-grid.component.tpl.html',
 })
 export class BaseGridComponent {
-  name = ', Jeremy';
   data: any = [];
   radioGroupValue: any;
   listActionMenu: any;
