@@ -16,6 +16,12 @@ export class RowAutoSaveFactory {
     grid.cellEditingStarted.subscribe(this.onCellEditingStarted);
     grid.cellEditingStopped.subscribe(this.onCellEditingStopped);
     grid.cellValueChanged.subscribe(this.onCellValueChanged);
+    // we bind to the grid so we have context in order to
+    // stop editing if the user begins scrolling the grid.
+    // otherwise an error is thrown when the virtualized
+    // row is destroyed.  Would like to do this another
+    // way or possibly disable the scrolling while in edit mode.
+    grid.bodyScroll.subscribe(this.onBodyScroll.bind(grid));
   };
 
   private setupPublicApi = (grid: any): void => {
@@ -36,6 +42,11 @@ export class RowAutoSaveFactory {
 
   private setGridSavePromise = (grid: any, savePromise: Promise<any>) => {
     grid.rowEdit.savePromise = savePromise;
+  };
+
+  private onBodyScroll ($event: any): void  {
+    let grid = this as TableComponent;
+    grid.api.stopEditing();
   };
 
   private onCellEditingStarted = ($event: any): void => {

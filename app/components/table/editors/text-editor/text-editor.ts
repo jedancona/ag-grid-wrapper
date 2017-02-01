@@ -1,4 +1,4 @@
-import {Component, ViewContainerRef, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, ViewContainerRef, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
 
 import {AgEditorComponent} from 'ag-grid-ng2/main';
 
@@ -16,7 +16,6 @@ export class TextEditorComponent implements AgEditorComponent, AfterViewInit {
   agInit(params: any): void {
     this.params = params;
     this.value = this.params.value;
-     console.debug('text editor');
   }
 
   getValue(): any {

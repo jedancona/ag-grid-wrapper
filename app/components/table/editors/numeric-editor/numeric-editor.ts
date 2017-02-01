@@ -37,7 +37,7 @@ export class NumericEditorComponent implements AgEditorComponent, AfterViewInit 
   }
 
   onBlur(event: any): void {
-    console.debug(this.params, event);
+    //console.debug(this.params, event);
     this.params.api.stopEditing();
   }
 
