@@ -6,33 +6,20 @@ import {TableComponent} from "../../table";
 @Injectable()
 export class RowAutoSaveFactory {
 
-  private grid: any;
-  private savePromise: any;
-
-  private dirtyRows: Array<any> = [];
-  private errorRows: Array<any> = [];
-
-  private debugStr: string = 'RowAutoSaveFactory: ';
-
   constructor() {
   }
 
   private _onGridApiRegistered = (grid: TableComponent): void => {
-    this.grid = grid;
-    this.setupPublicApi();
 
-    this.savePromise = this.grid.onSaveRow;
-
-    this.grid.cellFocused.subscribe(this.onCellFocused);
-    this.grid.selectionChanged.subscribe(this.onSelectionChanged);
-    this.grid.rowSelected.subscribe(this.onRowSelected);
-    this.grid.cellEditingStarted.subscribe(this.onCellEditingStarted);
-    this.grid.cellEditingStopped.subscribe(this.onCellEditingStopped);
-    this.grid.cellValueChanged.subscribe(this.onCellValueChanged);
+    this.setupPublicApi(grid.api);
+    this.setGridSavePromise(grid.api, grid.onSaveRow);
+    grid.cellEditingStarted.subscribe(this.onCellEditingStarted);
+    grid.cellEditingStopped.subscribe(this.onCellEditingStopped);
+    grid.cellValueChanged.subscribe(this.onCellValueChanged);
   };
 
-  private setupPublicApi = (): void => {
-    _.defaultsDeep(this.grid.api, {
+  private setupPublicApi = (grid: any): void => {
+    _.defaultsDeep(grid, {
       rowEdit: {
         setSavePromise: this.setSavePromise,
         getDirtyRows: this.getDirtyRows,
@@ -40,8 +27,30 @@ export class RowAutoSaveFactory {
         flushDirtyRows: this.flushDirtyRows,
         setRowsDirty: this.setRowsDirty,
         setRowsClean: this.setRowsClean,
+        dirtyRows: [],
+        errorRows: [],
+
       }
     })
+  };
+
+  private setGridSavePromise = (grid: any, savePromise: Promise<any>) => {
+    grid.rowEdit.savePromise = savePromise;
+  };
+
+  private onCellEditingStarted = ($event: any): void => {
+    //console.debug('onCellEditingStarted', $event);
+    this.beginCellEdit($event.api, $event.node, $event.colDef);
+  };
+
+  private onCellEditingStopped = ($event: any): void => {
+    //this.endCellEdit($event.api, $event.node, $event.colDef, $event.newValue, $event.oldValue);
+  };
+
+  private onCellValueChanged = ($event: any): void => {
+    // fires on cell editing stopped regardless of whether value changed.
+    //console.debug('onCellValueChanged: ' + $event.oldValue + ' to ' + $event.newValue);
+    this.endCellEdit($event.api, $event.node, $event.colDef, $event.newValue, $event.oldValue);
   };
 
   public setGridRegisteredListener = (onGridApiRegistered: Subject<any>): void => {
@@ -59,19 +68,19 @@ export class RowAutoSaveFactory {
    * @returns {function} the saveRow function returns a function.  That function
    * in turn, when called, returns a promise relating to the save callback
    */
-  private saveRow = (grid: TableComponent, gridRow: any): any => {
+  private saveRow = (grid: any, gridRow: any): any => {
     let self = this;
 
     return (): Promise<any> => {
       if (gridRow.rowEditSavePromise) {
-        return;
+        return gridRow.rowEditSavePromise;
       }
       gridRow.isSaving = true;
-      grid.api.refreshRows([gridRow]);
-      let promise: Promise<any> = self.savePromise(gridRow.data);
+      grid.refreshRows([gridRow]);
+      let promise: Promise<any> = grid.rowEdit.savePromise(gridRow.data);
       this.setSavePromise(gridRow, promise);
 
-      if (self.savePromise) {
+      if (promise) {
         gridRow.rowEditSavePromise.then(self.processSuccessPromise(grid, gridRow), self.processErrorPromise(grid, gridRow));
       } else {
         console.error('A promise was not returned when saveRow event was raised, either nobody is listening to event or event did not return a promise');
@@ -107,16 +116,15 @@ export class RowAutoSaveFactory {
    * @param {GridRow} gridRow the row that has been saved
    * @returns {function} the success handling function
    */
-  private processSuccessPromise = (grid: TableComponent, gridRow: any): any => {
+  private processSuccessPromise = (grid: any, gridRow: any): any => {
     return (): any => {
-      console.debug('process success');
       delete gridRow.isSaving;
       this.cancelTimer(grid, gridRow);
       delete gridRow.isDirty;
       delete gridRow.isError;
       delete gridRow.rowEditSaveTimer;
       delete gridRow.rowEditSavePromise;
-      grid.gridOptions.api.refreshRows([gridRow]);
+      grid.refreshRows([gridRow]);
     };
   };
 
@@ -131,18 +139,20 @@ export class RowAutoSaveFactory {
    * @returns {function} the error handling function
    */
   private processErrorPromise = (grid: any, gridRow: any): any => {
+    var self = this;
     return (): any => {
       delete gridRow.isSaving;
       this.cancelTimer(grid, gridRow);
       delete gridRow.rowEditSaveTimer;
       delete gridRow.rowEditSavePromise;
-
       gridRow.isError = true;
-      if (!this.errorRows) {
-        this.errorRows = [];
+      if (!grid.rowEdit.errorRows) {
+        grid.rowEdit.errorRows = [];
       }
-      this.errorRows.push(gridRow);
-      grid.gridOptions.api.refreshRows([gridRow]);
+      grid.rowEdit.errorRows.push(gridRow);
+      grid.refreshRows([gridRow]);
+      this.removeRow(grid.rowEdit.errorRows, gridRow);
+      this.removeRow(grid.rowEdit.dirtyRows, gridRow);
     };
   };
 
@@ -180,8 +190,7 @@ export class RowAutoSaveFactory {
    * was edited
    * editing has commenced
    */
-  private beginCellEdit = (gridRow: any, colDef?: any): void => {
-    let grid = this.grid;
+  private beginCellEdit = (grid: any, gridRow: any, colDef?: any): void => {
     if (!gridRow) {
       console.debug('Unable to find row in grid data, time cannot be cancelled');
       return;
@@ -204,8 +213,8 @@ export class RowAutoSaveFactory {
    * @param {object} newValue the newValue of the cell that was edited
    * @param {object} oldValue the oldValue of the cell that was edited
    */
-  private endCellEdit = (gridRow: any, colDef: any, newValue: any, previousValue: any): void => {
-    let grid = this.grid;
+  private endCellEdit = (grid: any, gridRow: any, colDef: any, newValue: any, previousValue: any): void => {
+
     if (!gridRow) {
       console.debug('Unable to find rowEntity in grid data, dirty flag cannot be set');
       return;
@@ -214,7 +223,7 @@ export class RowAutoSaveFactory {
 
       if (!gridRow.isDirty) {
         gridRow.isDirty = true;
-        this.dirtyRows.push(gridRow);
+        grid.rowEdit.dirtyRows.push(gridRow);
       }
       delete gridRow.isError;
       this.considerSetTimer(grid, gridRow);
@@ -232,11 +241,11 @@ export class RowAutoSaveFactory {
    * @param {GridRow} gridRow the row for which the timer should be adjusted
    *
    */
-  private considerSetTimer = (grid: TableComponent, gridRow: any): void => {
+  private considerSetTimer = (grid: any, gridRow: any): void => {
     this.cancelTimer(grid, gridRow);
     if (gridRow.isDirty && !gridRow.isSaving) {
       let waitTime = 2000;
-      gridRow.rowEditSaveTimer = setInterval(this.saveRow(grid, gridRow));
+      gridRow.rowEditSaveTimer = setInterval(this.saveRow(grid, gridRow), waitTime);
     }
   };
 
@@ -250,56 +259,118 @@ export class RowAutoSaveFactory {
    * @param {GridRow} gridRow the row for which the timer should be adjusted
    *
    */
-  private cancelTimer = (grid: TableComponent, gridRow: any): void => {
+  private cancelTimer = (grid: any, gridRow: any): void => {
     if (gridRow && gridRow.rowEditSaveTimer && !gridRow.isSaving) {
       clearInterval(gridRow.rowEditSaveTimer);
       delete gridRow.rowEnditSaveTimer;
     }
   };
 
-  public getDirtyRows = (): Array<any> => {
-    return this.dirtyRows ? this.dirtyRows : [];
+  /**
+   * @ngdoc method
+   * @methodOf table.factories:RowAutoSaveFactory
+   * @name getDirtyRows
+   * @description Returns all currently dirty rows
+   * <pre>
+   *      gridApi.rowEdit.getDirtyRows(grid)
+   * </pre>
+   * @returns {array} An array of gridRows that are currently dirty
+   *
+   */
+  public getDirtyRows = (grid: any): Array<any> => {
+    return grid.rowEdit.dirtyRows ? grid.rowEdit.dirtyRows : [];
   };
 
-  public getErrorRows = (): Array<any> => {
-    return this.errorRows ? this.errorRows : [];
+  /**
+   * @ngdoc method
+   * @methodOf table.factories:RowAutoSaveFactory
+   * @name getErrorRows
+   * @description Returns all currently errored rows
+   * <pre>
+   *      gridApi.rowEdit.getErrorRows(grid)
+   * </pre>
+   * @returns {array} An array of gridRows that are currently in error
+   *
+   */
+  public getErrorRows = (grid: any): Array<any> => {
+    return grid.rowEdit.errorRows ? grid.rowEdit.errorRows : [];
   };
 
-  public flushDirtyRows = (): any => {
-    return true;
+  /**
+   * @ngdoc method
+   * @methodOf table.factories:RowAutoSaveFactory
+   * @name flushDirtyRows
+   * @description Triggers a save event for all currently dirty rows, could
+   * be used where user presses a save button or navigates away from the page
+   * @param {object} grid the grid for which dirty rows should be flushed
+   * @returns {promise} a promise that represents the aggregate of all
+   * of the individual save promises - i.e. it will be resolved when all
+   * the individual save promises have been resolved.
+   *
+   */
+  public flushDirtyRows = (grid: any): Promise<any> => {
+    var self = this;
+    let promises = [] as Array<Promise<any>>;
+    grid.rowEdit.getDirtyRows().forEach((gridRow: any): void => {
+      self.saveRow(grid, gridRow)();
+      promises.push(gridRow.rowEditSavePromise);
+    });
+    return Promise.all(promises);
   };
 
-  public setRowsDirty = (rows: any): void => {
-
+  /**
+   * @ngdoc method
+   * @methodOf table.factories:RowAutoSaveFactory
+   * @name setRowsDirty
+   * @description Sets each of the rows passed in dataRows
+   * to be dirty.
+   * @param {object} grid the grid for which rows should be set dirty
+   * @param {array} rowArray the nodes for which the gridRows
+   * should be set dirty.
+   *
+   */
+  public setRowsDirty = (grid: any, rowArray: Array<any>): void => {
+    rowArray.forEach((gridRow: any, index: number): void => {
+      if (gridRow) {
+        if (!grid.rowEdit.dirtyRows) {
+          grid.rowEdit.dirtyRows = [];
+        }
+        if (!gridRow.isDirty) {
+          gridRow.isDirty = true;
+          grid.rowEdit.dirtyRows.push(gridRow);
+        }
+        delete gridRow.isError;
+        this.considerSetTimer(grid, gridRow);
+      } else {
+        console.debug("requested row not found in rowEdit.setRowsDirty, row was: " + gridRow);
+      }
+    });
   };
 
-  public setRowsClean = (rows: any): void => {
-
-  };
-
-  private onCellEditingStarted = ($event: any): void => {
-    this.beginCellEdit($event.node, $event.colDef);
-  };
-
-  private onCellEditingStopped = ($event: any): void => {
-    //console.debug(this.debugStr + 'onCellEditingStopped', $event);
-  };
-
-  private onCellFocused = ($event: any): void => {
-    //console.debug(this.debugStr + 'onCellFocused', $event);
-  };
-
-  private onCellValueChanged = ($event: any): void => {
-    //console.debug('onCellValueChanged: ' + $event.oldValue + ' to ' + $event.newValue);
-    this.endCellEdit($event.node, $event.colDef, $event.newValue, $event.oldValue);
-  };
-
-  private onSelectionChanged = ($event: any): void => {
-    //console.debug(this.debugStr + 'onSelectionChanged', $event);
-  };
-
-  private onRowSelected = ($event: any): void => {
-    //console.debug(this.debugStr + 'onRowSelected', $event);
+  /**
+   * @ngdoc method
+   * @methodOf table.factories:RowAutoSaveFactory
+   * @name setRowsClean
+   * @description Sets each of the rows passed in dataRows
+   * to be clean, clearing the dirty flag and the error flag, and removing
+   * the rows from the dirty and error caches.
+   * @param {object} grid the grid for which rows should be set clean
+   * @param {array} rowArray the row nodes for which the gridRows
+   * should be set clean.
+   *
+   */
+  public setRowsClean = (grid: any, rowArray: Array<any>): void => {
+    rowArray.forEach((gridRow: any, index: number): void => {
+      if (gridRow) {
+        delete gridRow.isDirty;
+        this.removeRow(grid.rowEdit.dirtyRows, gridRow);
+        this.cancelTimer(grid, gridRow);
+        delete gridRow.isError;
+        this.removeRow(grid.rowEdit.errorRows, gridRow);
+      } else {
+        console.debug("requested row not found in rowEdit.setRowsClean, row was: " + gridRow);
+      }
+    });
   };
 
 }
