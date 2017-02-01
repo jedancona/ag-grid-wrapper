@@ -1,3 +1,4 @@
+
 <md-toolbar color="primary">
   <span>
     <md-menu #appMenu="mdMenu">
@@ -14,9 +15,11 @@
   </span>
 
   <!-- This fills the remaining space of the current row -->
-  <span class="example-fill-remaining-space"></span>
+  <span class="fill-remaining-space"></span>
 
   <span>Ag Grid Wrapper Demo</span>
 </md-toolbar>
+<div style="flex: 1 1 auto;overflow: auto">
+  <router-outlet></router-outlet>
+</div>
 
-<router-outlet></router-outlet>
