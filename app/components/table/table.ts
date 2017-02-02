@@ -22,7 +22,7 @@ import {RowAutoSaveFactory} from "./factories/row-auto-save/row-auto-save";
 @Component({
   selector: 'ui-table',
   templateUrl: 'app/components/table/table.tpl.html',
-  styleUrls: ['app/components/table/table.less'],
+  styleUrls: ['app/components/table/table.css'],
   // tell angular we don't want view encapsulation, we don't want a shadow root
   encapsulation: ViewEncapsulation.None
 })
@@ -149,12 +149,13 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   private setSingleSelect = (): void => {
     if (this.showSingleSelect) {
       let singleSelectCell = {
-        headerName: "",
-        field: "value",
+        headerName: '',
+        field: 'singleSelect',
         cellRendererFramework: RowSingleSelectComponent,
         width: 30,
         minWidth: 30,
         maxWidth: 30,
+        cellClass: 'ag-grid-single-select-cell',
       };
       this.gridOptions.rowSelection = 'single';
       this.gridOptions.columnDefs.unshift(singleSelectCell);
@@ -164,12 +165,13 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   private setMultiSelect = (): void => {
     if (this.showMultiSelect) {
       let multiSelectCell = {
-        headerName: "",
-        field: "multiSelect",
+        headerName: '',
+        field: 'multiSelect',
         width: 30,
         minWidth: 30,
         maxWidth: 30,
-        checkboxSelection: true
+        checkboxSelection: true,
+        cellClass: 'ag-grid-multi-select-cell',
       };
       this.gridOptions.rowSelection = 'multiple';
       this.gridOptions.columnDefs.unshift(multiSelectCell);
@@ -179,13 +181,14 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   private setActionMenu = (): void => {
     if (this.actionMenu) {
       let actionMenuCell = {
-        headerName: "",
-        field: "actionMenu",
+        headerName: '',
+        field: 'actionMenu"',
         data: this.actionMenu,
         cellRendererFramework: RowActionMenuComponent,
         width: 30,
         minWidth: 30,
         maxWidth: 30,
+        cellClass: 'ag-grid-action-menu-cell',
       };
       this.gridOptions.columnDefs.push(actionMenuCell);
     }
