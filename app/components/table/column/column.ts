@@ -3,6 +3,8 @@ import {GridApi, ColumnApi, GridParams, ColDef} from "ag-grid/main";
 import * as _ from "lodash";
 import {NumericEditorComponent} from "../editors/numeric-editor/numeric-editor";
 import {TextEditorComponent} from "../editors/text-editor/text-editor";
+import { DateCellRendererComponent } from "../cell/render/date-cell-renderer.component";
+import { ETCodeCellRendererComponent } from "../cell/render/et-code-cell-renderer.component";
 
 @Component({
   selector: 'ui-table-column',
@@ -20,6 +22,7 @@ export class TableColumnComponent {
   public api: GridApi;
   public columnApi: ColumnApi;
   public cellEditorFramework: any;
+  public cellRendererFramework: any;
 
   @ContentChildren(TableColumnComponent) public childColumns: QueryList<TableColumnComponent>;
 
@@ -40,6 +43,7 @@ export class TableColumnComponent {
 
   public toColDef(): ColDef {
     this.setColumnTypeEditor();
+    this.setColumnCellFilter();
     let colDef: ColDef = this.createColDefFromGridColumn(this);
 
     if (this.hasChildColumns()) {
@@ -55,6 +59,15 @@ export class TableColumnComponent {
     }
     if (this.type === 'number') {
       this.cellEditorFramework = NumericEditorComponent;
+    }
+  }
+
+  private setColumnCellFilter = () : void => {
+    if(this.type === 'date'){
+      this.cellRendererFramework = DateCellRendererComponent;
+      if(this.cellFilter){
+        console.log('date with a filter', this.cellFilter);
+      }
     }
   }
 
@@ -81,6 +94,7 @@ export class TableColumnComponent {
   @Input('enable-edit') public editable: boolean = true;
   @Input('cell-editor') public cellEditor: string = undefined;
   @Input('minWidth') public minWidth: number = undefined;
+  @Input('cell-filter') public cellFilter: string = undefined;
 
 
 }

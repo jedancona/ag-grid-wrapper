@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { BaseGridComponent } from "../base-grid";
+import { Http } from "@angular/http";
 
 @Component({
   selector: 'multi-select-grid',
@@ -7,5 +8,14 @@ import { BaseGridComponent } from "../base-grid";
 })
 export class MultiSelectGridComponent extends  BaseGridComponent
 {
-
+  constructor(private http: Http) {
+    super();
+    console.log('in constructor');
+    this.data = this.data.slice();
+    http.get('app/examples/data/contact.json')
+      .map(res => res.json())
+      .subscribe(data => this.data = data,
+        err => console.log(err),
+        () => console.log('Completed'));
+  }
 }
