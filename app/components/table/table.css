@@ -4,6 +4,10 @@
   height: 100%;
 }
 
+/*
+Custom Styles
+ */
+
 ag-grid-ng2 {
   display: inline-block;
 }
@@ -951,7 +955,8 @@ ag-grid-ng2 {
 }
 
 .ag-material .ag-cell-focus {
-  border: 1px solid #d3d3d3;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid #d3d3d3;
 }
 
 .ag-material .ag-cell-no-focus {
@@ -1162,7 +1167,7 @@ ag-grid-ng2 {
 }
 
 .ag-material .ag-row-odd {
-  background-color: #d9deed;
+  background-color: #fdfdfd;
 }
 
 .ag-material .ag-row-even {
@@ -1170,7 +1175,7 @@ ag-grid-ng2 {
 }
 
 .ag-material .ag-row-selected {
-  background-color: #f5f5f5;
+  background-color: #c9dde1;
 }
 
 .ag-material .ag-floating-top .ag-row {
@@ -1488,12 +1493,34 @@ ag-grid-ng2 {
 }
 
 .ag-material .ag-row-hover {
-  background-color: #eee !important;
+  background-color: #c9dde1 !important;
 }
 
+
+
 .ag-material .ag-cell-not-inline-editing {
-  padding-top: 6px;
+  padding-top: 4px;
 }
+
+.ag-material .ag-cell-not-inline-editing.ag-grid-action-menu-cell {
+  padding-top: 0px !important;
+  line-height: 30px;
+}
+
+.ag-material .ag-cell-not-inline-editing.ag-grid-action-menu-cell row-action-menu button[md-icon-button] {
+  height: 30px;
+  width: 30px;
+  line-height: 30px;
+}
+
+.ag-material .ag-cell-not-inline-editing.ag-grid-single-select-cell {
+  padding-top: 2px;
+}
+
+.ag-material .ag-cell-not-inline-editing.ag-grid-multi-select-cell {
+  padding-top: 2px;
+}
+
 
 .ag-material .ag-header-cell-menu-button:hover {
   border: 1px solid #808080;
@@ -1508,8 +1535,10 @@ ag-grid-ng2 {
 }
 
 .ag-material .ag-selection-checkbox {
-  padding-right: 12px;
-  padding-left: 12px;
+  padding-right: 4px;
+  padding-left: 4px;
 }
+
+
 
 
