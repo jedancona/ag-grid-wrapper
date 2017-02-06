@@ -4,10 +4,6 @@
   height: 100%;
 }
 
-/*
-Custom Styles
- */
-
 ag-grid-ng2 {
   display: inline-block;
 }
@@ -521,6 +517,8 @@ ag-grid-ng2 {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  border-bottom: solid 1px transparent;
+
 }
 
 .ag-scrolls .ag-row {
@@ -613,11 +611,6 @@ ag-grid-ng2 {
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
-}
-
-.ag-cell-edit-input {
-  width: 100%;
-  height: 100%;
 }
 
 .ag-group-cell-entire-row {
@@ -894,9 +887,7 @@ ag-grid-ng2 {
 
 .ag-material {
   line-height: 1.4;
-  font-family: Roboto;
-  font-size: 14px;
-  color: #666;
+  color: #616161;
   /* this is for the rowGroupPanel, that appears along the top of the grid */
   /* this is for the column drops that appear in the toolPanel */
 }
@@ -908,10 +899,6 @@ ag-grid-ng2 {
 
 .ag-material .ag-root {
   border: none;
-}
-
-.ag-material .ag-cell-not-inline-editing {
-  padding: 2px;
 }
 
 .ag-material .ag-cell-range-selected-1:not(.ag-cell-focus) {
@@ -956,7 +943,9 @@ ag-grid-ng2 {
 
 .ag-material .ag-cell-focus {
   border-top: 1px solid transparent;
+  border-left: 1px solid transparent;
   border-bottom: 1px solid #d3d3d3;
+  outline-color: transparent;
 }
 
 .ag-material .ag-cell-no-focus {
@@ -970,6 +959,16 @@ ag-grid-ng2 {
 }
 
 .ag-material .ag-rtl .ag-cell-no-focus {
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
+}
+
+.ag-material .ag-ltr .ag-cell-focus {
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
+}
+
+.ag-material .ag-rtl .ag-cell-focus {
   border-right: 1px solid transparent;
   border-left: 1px solid transparent;
 }
@@ -1115,6 +1114,9 @@ ag-grid-ng2 {
 
 .ag-material .ag-header-cell-text {
   padding-left: 2px;
+  font-size: 12px;
+  line-height: 17px;
+  font-weight: normal;
 }
 
 .ag-material .ag-header-group-cell-label {
@@ -1263,7 +1265,7 @@ ag-grid-ng2 {
   border: 1px solid #808080;
   background-color: #fff;
   cursor: default;
-  font-family: Roboto;
+  font-family: inherit;
   font-size: 14px;
 }
 
@@ -1493,24 +1495,92 @@ ag-grid-ng2 {
 }
 
 .ag-material .ag-row-hover {
-  background-color: #c9dde1 !important;
+  background-color: #c9dde1;
+}
+
+.ag-material .ag-cell-not-inline-editing.editable {
+  background-color: transparent;
+}
+
+.ag-material .ag-cell-not-inline-editing:first-child {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ag-material .ag-cell-not-inline-editing div.inner-cell {
+  color: rgba(0,0,0,0.87);
+  line-height: 17px;
+  margin: 3px;
+  padding-top: 2px;
+  padding-left: 3px;
+  height: auto;
+  width: auto;
+  overflow: hidden;
+  text-overflow: clip;
+  border: solid 1px transparent;
+}
+
+.ag-material .ag-cell-not-inline-editing.editable div.inner-cell {
+  border-top: solid 1px rgba(75, 97, 142, .1);
+  border-left: solid 1px rgba(75, 97, 142, .1);
+  border-right: solid 2px rgba(75, 97, 142, .2);
+  border-bottom: solid 2px rgba(75, 97, 142, .2);
 }
 
 
+.ag-material .ag-cell-inline-editing:first-child {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
 
-.ag-material .ag-cell-not-inline-editing {
-  padding-top: 4px;
+.ag-material .ag-cell-inline-editing div.editor {
+  line-height: 17px;
+  margin: 3px;
+  padding-top: 2px;
+  padding-left: 3px;
+  padding-right: 0px;
+  height: auto;
+  width: auto;
+  border-top: solid 1px rgba(75, 97, 142, .6);
+  border-left: solid 1px rgba(75, 97, 142, .6);
+  border-right: solid 2px rgba(75, 97, 142, .8);
+  border-bottom: solid 2px rgba(75, 97, 142, .8);
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.ag-material .ag-cell-inline-editing div.editor input {
+  font: inherit;
+  border: none;
+  outline: 0;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  display: block;
+}
+
+.ag-material .ag-cell-inline-editing div.editor input[type=number]::-webkit-inner-spin-button,
+.ag-material .ag-cell-inline-editing div.editor input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.ag-material .ag-cell-inline-editing div.editor input::-ms-clear {
+  display: none;
 }
 
 .ag-material .ag-cell-not-inline-editing.ag-grid-action-menu-cell {
   padding-top: 0px !important;
-  line-height: 30px;
+  line-height: 24px;
 }
 
 .ag-material .ag-cell-not-inline-editing.ag-grid-action-menu-cell row-action-menu button[md-icon-button] {
-  height: 30px;
-  width: 30px;
-  line-height: 30px;
+  height: 24px;
+  width: 24px;
+  line-height: 24px;
 }
 
 .ag-material .ag-cell-not-inline-editing.ag-grid-single-select-cell {
@@ -1521,13 +1591,31 @@ ag-grid-ng2 {
   padding-top: 2px;
 }
 
-
 .ag-material .ag-header-cell-menu-button:hover {
   border: 1px solid #808080;
 }
 
 .ag-material .ag-header-cell-label {
   text-align: left;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  position: relative;
+  height: 100%;
+}
+
+.ag-material .ag-header-cell-label .ag-header-cell-text {
+  display: inline-block;
+  white-space: normal;
+  position: absolute;
+  bottom: 0px;
+  margin-bottom: 3px;
+}
+
+.ag-material .ag-header-cell .ag-header-icon {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  display: block;
 }
 
 .ag-material .ag-header {

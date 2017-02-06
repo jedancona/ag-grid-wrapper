@@ -13,7 +13,7 @@ export class MultiGridScreenComponent extends BaseGridComponent {
 
     for (let i = 0; i < 10; i++) {
       this.data2.push({
-        column1: 'col 1 row ' + i,
+        column1: 'long string of data col 1 row ' + i,
         column2: i + '',
         column3: i,
         column4: i + '',

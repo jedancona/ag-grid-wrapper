@@ -4,7 +4,7 @@ import {AgEditorComponent} from 'ag-grid-ng2/main';
 
 @Component({
   selector: 'numeric-cell',
-  template: `<input #input class="ag-cell-edit-input" type="number" (keydown)="onKeyDown($event)" (blur)="onBlur($event)" [(ngModel)]="value">`
+  template: `<div class="editor"><input #input type="number" (keydown)="onKeyDown($event)" (blur)="onBlur($event)" [(ngModel)]="value"></div>`
 })
 export class NumericEditorComponent implements AgEditorComponent, AfterViewInit {
   private params: any;
