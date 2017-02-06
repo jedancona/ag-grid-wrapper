@@ -4,10 +4,15 @@
 
       <div style="height:250px;">
         <ui-table [(data)]="data" [(showSingleSelect)]="selectionMode" [onSaveRow]="saveRow" [actionMenu]="listActionMenu">
-          <ui-table-column display-name="Svc K" name="column1" [enable-edit]="false"></ui-table-column>
-          <ui-table-column display-name="RR" name="column2" [enable-edit]="true"></ui-table-column>
-          <ui-table-column display-name="Sch Qty" type="number" name="column3" [enable-edit]="true"></ui-table-column>
-          <ui-table-column display-name="Conf Qty" name="column4" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Svc Req K" name="column1" [enable-edit]="false"></ui-table-column>
+          <ui-table-column display-name="Repl Ind" name="column2" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Rate Sch" type="number" name="column3" [enable-edit]="false"></ui-table-column>
+          <ui-table-column display-name="Svc Req Name" name="column4" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Service Requester" name="column5" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Svc Req Agent" name="column6" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Svc Req Agent Code" name="column7" [enable-edit]="false"></ui-table-column>
+          <ui-table-column display-name="MDCQ/MSQ" name="column8" [enable-edit]="false"></ui-table-column>
+          <ui-table-column display-name="MRPL" name="column9" [enable-edit]="false"></ui-table-column>
         </ui-table>
       </div>
 
@@ -20,10 +25,11 @@
       <div style="height:250px;">
         <ui-table [(data)]="data2" [onSaveRow]="saveRow2">
           <ui-table-column display-name="Svc K" name="column1" [enable-edit]="false"></ui-table-column>
-          <ui-table-column display-name="RR" name="column2" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="RR" name="column2" [enable-edit]="false"></ui-table-column>
           <ui-table-column display-name="Sch Qty" type="number" name="column3" [enable-edit]="true"></ui-table-column>
           <ui-table-column display-name="Conf Qty" name="column4" [enable-edit]="true"></ui-table-column>
           <ui-table-column display-name="Rank" name="column5" [enable-edit]="true"></ui-table-column>
+          <ui-table-column display-name="Cycle" name="column6" [enable-edit]="true"></ui-table-column>
         </ui-table>
       </div>
   </md-card-content>

@@ -18,6 +18,7 @@ import {SingleSelectGridComponent} from './examples/single-select-grid/single-se
 import {MultiGridScreenComponent} from './examples/multi-grid-screen/multi-grid-screen.component';
 import {MultiSelectGridComponent} from './examples/multi-select-grid/multi-select-grid.component';
 import { DateCellRendererComponent } from "./components/table/cell/render/date-cell-renderer.component";
+import { DefaultCellRendererComponent } from "./components/table/cell/render/default-cell-renderer.component";
 import { ETCodeCellRendererComponent } from "./components/table/cell/render/et-code-cell-renderer.component";
 
 const appRoutes: Routes = [
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
       TextEditorComponent,
       ETCodeCellRendererComponent,
       DateCellRendererComponent,
+      DefaultCellRendererComponent,
 
     ]),
     RouterModule.forRoot(appRoutes),
@@ -58,6 +60,7 @@ const appRoutes: Routes = [
     MultiSelectGridComponent,
     ETCodeCellRendererComponent,
     DateCellRendererComponent,
+    DefaultCellRendererComponent,
 
 
   ],

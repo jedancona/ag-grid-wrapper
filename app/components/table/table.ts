@@ -128,11 +128,27 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   };
 
   private setDefaults = (): void => {
+
+    // TODO: Extract to a HeaderCellRenderer
+    let headerCellTemplate = `<div class="ag-header-cell">
+                                <div id="agResizeBar" class="ag-header-cell-resize"></div>
+                                <span id="agMenu" class="ag-header-icon ag-header-cell-menu-button"></span>
+                                <div id="agHeaderCellLabel" class="ag-header-cell-label">
+                                    <div id="agText" class="ag-header-cell-text"></div>
+                                  
+                                    <div id="agNoSort" class="ag-header-icon ag-sort-none-icon"></div>
+                                    <div id="agFilter" class="ag-header-icon ag-filter-icon"></div>                                    
+                                </div>
+                                <div id="agSortAsc" class="ag-header-icon ag-sort-ascending-icon"><i class="material-icons">arrow_drop_up</i></div>
+                                <div id="agSortDesc" class="ag-header-icon ag-sort-descending-icon"><i class="material-icons">arrow_drop_down</i></div>
+                            </div>`;
+
     _.defaults(this.gridOptions, {
       enableColResize: true,
       rowHeight: 30,
       rowDeselection: true,
       singleClickEdit: true,
+      headerCellTemplate: headerCellTemplate
     });
   };
 
@@ -334,7 +350,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   @Input() public rowHeight: any = undefined;
   @Input() public rowBuffer: any = undefined;
   @Input() public colWidth: any = undefined;
-  @Input() public headerHeight: any = undefined;
+  @Input() public headerHeight: any = 40;
   @Input() public groupDefaultExpanded: any = undefined;
   @Input() public minColWidth: any = undefined;
   @Input() public maxColWidth: any = undefined;
