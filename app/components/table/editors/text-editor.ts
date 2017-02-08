@@ -10,12 +10,22 @@ export class TextEditorComponent implements AgEditorComponent, AfterViewInit {
   private params: any;
   public value: number;
   private cancelBeforeStart: boolean = false;
+  private timeoutCancel: any;
 
   @ViewChild('input', {read: ViewContainerRef}) public input: any;
 
   agInit(params: any): void {
     this.params = params;
     this.value = this.params.value;
+
+    if(this.timeoutCancel) {
+      clearTimeout(this.timeoutCancel);
+    }
+
+    // if the row is floating a.k.a footer row do not allow editing.
+    if (this.params.node.floating) {
+      this.cancelBeforeStart = true;
+    }
   }
 
   getValue(): any {
@@ -27,7 +37,9 @@ export class TextEditorComponent implements AgEditorComponent, AfterViewInit {
   }
 
   onBlur(event: any): void {
-    this.params.api.stopEditing();
+    /*this.timeoutCancel = setTimeout((): void => {
+      this.params.api.stopEditing();
+    },200);*/
   }
 
   // dont use afterGuiAttached for post gui events - hook into ngAfterViewInit instead for this

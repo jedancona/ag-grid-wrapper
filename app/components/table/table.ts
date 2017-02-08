@@ -17,7 +17,8 @@ import {RowSingleSelectComponent} from "./row-single-select/row-single-select";
 import {RowActionMenuComponent} from "./row-action-menu/row-action-menu";
 import * as _ from "lodash";
 import {Subject} from "rxjs";
-import {RowAutoSaveFactory} from "./factories/row-auto-save/row-auto-save";
+import {RowAutoSaveFactory} from "./factories/row-auto-save";
+import {RowFooterAggregationFactory} from "./factories/row-footer-aggregation";
 
 @Component({
   selector: 'ui-table',
@@ -49,7 +50,8 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   constructor(elementDef: ElementRef,
               private viewContainerRef: ViewContainerRef,
               private ng2FrameworkFactory: Ng2FrameworkFactory,
-              private rowAutoSaveFactory: RowAutoSaveFactory) {
+              private rowAutoSaveFactory: RowAutoSaveFactory,
+              private rowFooterFactory: RowFooterAggregationFactory) {
 
     this._nativeElement = elementDef.nativeElement;
     // create all the events generically. this is done generically so that
@@ -57,11 +59,17 @@ export class TableComponent implements OnDestroy, AfterViewInit {
     this.createComponentEvents();
 
     this.ng2FrameworkFactory.setViewContainerRef(this.viewContainerRef);
-    this.rowAutoSaveFactory.registerGridListener(this._onApiRegistered);
+
+
   }
 
   ngAfterViewInit(): any {
     this.gridOptions = ComponentUtil.copyAttributesToGridOptions(this.gridOptions, this);
+
+    this.rowAutoSaveFactory.registerGridListener(this._onApiRegistered);
+    if (this.showFooter) {
+      this.rowFooterFactory.registerGridListener(this._onApiRegistered);
+    }
 
     this.gridParams = {
       globalEventListener: this.globalEventListener.bind(this),
@@ -79,6 +87,18 @@ export class TableComponent implements OnDestroy, AfterViewInit {
         }
       } else {
         return null;
+      }
+    };
+
+    this.gridOptions.getRowHeight = (params: any): any => {
+      if (params && params.node) {
+        if (params.node.floating) {
+          return 40;
+        }
+        else {
+          return 30;
+        }
+
       }
     };
 
@@ -116,15 +136,33 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   };
 
   private setColumns = (): void => {
+    let self = this;
     if (this.columns && this.columns.length > 0) {
       this.gridOptions.columnDefs = this.columns
         .map((column: TableColumnComponent) => {
+          if (self.showFooter) {
+            column.floatingCellRenderer = this.getFooterCellRenderer();
+          }
+
           return column.toColDef();
         });
     }
     if (this.colDefs && this.colDefs.length > 0) {
       this.gridOptions.columnDefs = this.colDefs;
     }
+
+  };
+
+  private getFooterCellRenderer = (): any => {
+    return (params: any): any => {
+      if (params.colDef.aggregationType && params.node.floating) {
+        return '<div class="footer-cell" ><div class="footer-cell-title" >' + params.value + '</div></div>';
+      }
+      else {
+        return '';
+      }
+
+    };
   };
 
   private setDefaults = (): void => {
@@ -172,6 +210,8 @@ export class TableComponent implements OnDestroy, AfterViewInit {
         minWidth: 30,
         maxWidth: 30,
         cellClass: 'ag-grid-single-select-cell',
+        // apply the floating cell renderer so this does not display in the footer
+        floatingCellRenderer: this.getFooterCellRenderer(),
       };
       this.gridOptions.rowSelection = 'single';
       this.gridOptions.columnDefs.unshift(singleSelectCell);
@@ -188,6 +228,8 @@ export class TableComponent implements OnDestroy, AfterViewInit {
         maxWidth: 30,
         checkboxSelection: true,
         cellClass: 'ag-grid-multi-select-cell',
+        // apply the floating cell renderer so this does not display in the footer
+        floatingCellRenderer: this.getFooterCellRenderer(),
       };
       this.gridOptions.rowSelection = 'multiple';
       this.gridOptions.columnDefs.unshift(multiSelectCell);
@@ -318,12 +360,14 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   private onRowEditingStarted = ($event: any): void => {
   };
 
+  @Input() public suppressKeepFocus: boolean = false;
 
   @Input() public gridOptions: GridOptions;
   @Input() public slaveGrids: any = undefined;
   @Input('data') public rowData: any = undefined;
   @Input() public showSingleSelect: boolean = undefined;
   @Input() public showMultiSelect: boolean = undefined;
+  @Input() public showFooter: boolean = false;
   @Input() public actionMenu: boolean = undefined;
   @Input() public floatingTopRowData: any = undefined;
   @Input() public floatingBottomRowData: any = undefined;

@@ -20,6 +20,11 @@ export class NumericEditorComponent implements AgEditorComponent, AfterViewInit 
     // console.debug('numeric editor');
     // only start edit if key pressed is a number, not a letter
     this.cancelBeforeStart = params.charPress && ('1234567890'.indexOf(params.charPress) < 0);
+
+    // if the row is floating a.k.a footer row do not allow editing.
+    if( this.params.node.floating) {
+      this.cancelBeforeStart = true;
+    }
   }
 
   getValue(): any {
@@ -37,7 +42,7 @@ export class NumericEditorComponent implements AgEditorComponent, AfterViewInit 
   }
 
   onBlur(event: any): void {
-    this.params.api.stopEditing();
+    //this.params.api.stopEditing();
   }
 
   // dont use afterGuiAttached for post gui events - hook into ngAfterViewInit instead for this

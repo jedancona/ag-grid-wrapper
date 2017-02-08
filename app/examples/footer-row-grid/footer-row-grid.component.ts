@@ -1,10 +1,11 @@
-import { Component } from "@angular/core";
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'base-grid',
-  templateUrl: 'app/examples/base-grid.component.tpl.html',
+  selector: 'footer-row-grid',
+  templateUrl: 'app/examples/footer-row-grid/footer-row-grid.component.tpl.html',
 })
-export class BaseGridComponent {
+export class FooterRowGridComponent {
+
   data: any = [];
   radioGroupValue: any;
   listActionMenu: any;
@@ -40,17 +41,41 @@ export class BaseGridComponent {
     };
 
     for (let i = 0; i < 50; i++) {
-      this.data.push({
+
+      let rowObj: any = {
         column1: 'col 1 row ' + i,
         column2: i + '',
         column3: 0,
         column4: i,
         column5: i + '',
         column6: i + '',
-        column7: i + ''
-      });
+        column7: i + '',
+        column8: i,
+        column9: 'R',
+        column10: i
+      };
+      if (i % 2 === 0) {
+        rowObj.column1 = 'D';
+      }
+      else {
+        rowObj.column1 = 'R';
+      }
+
+      this.data.push(rowObj);
     }
-  }
+  };
+
+  public saveRow = (rowEntity: any): Promise<any> => {
+    let self = this;
+    return new Promise(resolve => {
+      setTimeout(() => resolve(self.processResolve(rowEntity)), 5000);
+    });
+  };
+
+  public processResolve = (rowEntity: any): any => {
+    console.debug('SavingRow', rowEntity);
+    return {success: 'true'};
+  };
 
   public deleteAssociation = (row: any): void => {
     console.log('in the delete', row);
@@ -64,7 +89,7 @@ export class BaseGridComponent {
     return row.column2 % 2 === 0;
   }
 
-  public selection = ($event: any) : void => {
+  public selection = ($event: any): void => {
     this.selectedRows = $event;
   }
 
