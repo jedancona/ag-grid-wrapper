@@ -1,11 +1,12 @@
 import {Component, ViewEncapsulation, Input, ContentChildren, QueryList} from "@angular/core";
 import {GridApi, ColumnApi, GridParams, ColDef} from "ag-grid/main";
 import * as _ from "lodash";
-import {NumericEditorComponent} from "../editors/numeric-editor/numeric-editor";
-import {TextEditorComponent} from "../editors/text-editor/text-editor";
+import {NumericEditorComponent} from "../editors/numeric-editor";
+import {TextEditorComponent} from "../editors/text-editor";
 import { DateCellRendererComponent } from "../cell/render/date-cell-renderer.component";
 import { ETCodeCellRendererComponent } from "../cell/render/et-code-cell-renderer.component";
 import {DefaultCellRendererComponent} from "../cell/render/default-cell-renderer.component";
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'ui-table-column',
@@ -105,6 +106,9 @@ export class TableColumnComponent {
   @Input('cell-editor') public cellEditor: string = undefined;
   @Input('minWidth') public minWidth: number = undefined;
   @Input('cell-filter') public cellFilter: string = undefined;
+  @Input('floatingCellRenderer') public floatingCellRenderer: any = undefined;
+  @Input('aggregationType') public aggregationType: string = undefined;
+  @Input('aggregationTypeNetExpression') public aggregationTypeNetExpression: any = undefined;
 
 
 }

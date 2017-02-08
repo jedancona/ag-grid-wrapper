@@ -1185,7 +1185,20 @@ ag-grid-ng2 {
 }
 
 .ag-material .ag-floating-bottom .ag-row {
-  background-color: #f0f0f0;
+  background-color: #fff;
+}
+
+.ag-material .ag-floating-bottom .footer-cell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.ag-material .ag-floating-bottom .footer-cell-title {
+  position: absolute;
+  bottom: 0px;
+  font-size: 12px;
+  white-space: normal;
 }
 
 .ag-material .ag-overlay-loading-wrapper {
@@ -1208,11 +1221,6 @@ ag-grid-ng2 {
 }
 
 .ag-material .ag-group-cell-entire-row {
-  background-color: #fff;
-  padding: 2px;
-}
-
-.ag-material .ag-footer-cell-entire-row {
   background-color: #fff;
   padding: 2px;
 }
@@ -1498,18 +1506,18 @@ ag-grid-ng2 {
   background-color: #c9dde1;
 }
 
-.ag-material .ag-cell-not-inline-editing.editable {
+.ag-material .ag-body-container .ag-cell-not-inline-editing.editable {
   background-color: transparent;
 }
 
-.ag-material .ag-cell-not-inline-editing:first-child {
+.ag-material .ag-body-container .ag-cell-not-inline-editing:first-child {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.ag-material .ag-cell-not-inline-editing div.inner-cell {
-  color: rgba(0,0,0,0.87);
+.ag-material .ag-body-container .ag-cell-not-inline-editing div.inner-cell {
+  color: rgba(0, 0, 0, 0.87);
   line-height: 17px;
   margin: 3px;
   padding-top: 2px;
@@ -1521,22 +1529,21 @@ ag-grid-ng2 {
   border: solid 1px transparent;
 }
 
-.ag-material .ag-cell-not-inline-editing.editable div.inner-cell {
+.ag-material .ag-body-container .ag-cell-not-inline-editing.editable div.inner-cell {
   border-top: solid 1px rgba(75, 97, 142, .1);
   border-left: solid 1px rgba(75, 97, 142, .1);
   border-right: solid 2px rgba(75, 97, 142, .2);
   border-bottom: solid 2px rgba(75, 97, 142, .2);
 }
 
-
-.ag-material .ag-cell-inline-editing:first-child {
+.ag-material .ag-body-container .ag-cell-inline-editing:first-child {
   display: block;
   width: 100%;
   height: 100%;
   border: none;
 }
 
-.ag-material .ag-cell-inline-editing div.editor {
+.ag-material .ag-body-container .ag-cell-inline-editing div.editor {
   line-height: 17px;
   margin: 3px;
   padding-top: 2px;
@@ -1552,7 +1559,7 @@ ag-grid-ng2 {
   overflow: hidden;
 }
 
-.ag-material .ag-cell-inline-editing div.editor input {
+.ag-material .ag-body-container .ag-cell-inline-editing div.editor input {
   font: inherit;
   border: none;
   outline: 0;
@@ -1562,36 +1569,36 @@ ag-grid-ng2 {
   display: block;
 }
 
-.ag-material .ag-cell-inline-editing div.editor input[type=number]::-webkit-inner-spin-button,
-.ag-material .ag-cell-inline-editing div.editor input[type=number]::-webkit-outer-spin-button {
+.ag-material .ag-body-container .ag-cell-inline-editing div.editor input[type=number]::-webkit-inner-spin-button,
+.ag-material .ag-body-container .ag-cell-inline-editing div.editor input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.ag-material .ag-cell-inline-editing div.editor input::-ms-clear {
+.ag-material .ag-body-container .ag-cell-inline-editing div.editor input::-ms-clear {
   display: none;
 }
 
-.ag-material .ag-cell-not-inline-editing.ag-grid-action-menu-cell {
+.ag-material .ag-body-container .ag-cell-not-inline-editing.ag-grid-action-menu-cell {
   padding-top: 0px !important;
   line-height: 24px;
 }
 
-.ag-material .ag-cell-not-inline-editing.ag-grid-action-menu-cell row-action-menu button[md-icon-button] {
+.ag-material .ag-body-container .ag-cell-not-inline-editing.ag-grid-action-menu-cell row-action-menu button[md-icon-button] {
   height: 24px;
   width: 24px;
   line-height: 24px;
 }
 
-.ag-material .ag-cell-not-inline-editing.ag-grid-single-select-cell {
+.ag-material .ag-body-container .ag-cell-not-inline-editing.ag-grid-single-select-cell {
   padding-top: 2px;
 }
 
-.ag-material .ag-cell-not-inline-editing.ag-grid-multi-select-cell {
+.ag-material .ag-body-container .ag-cell-not-inline-editing.ag-grid-multi-select-cell {
   padding-top: 2px;
 }
 
-.ag-material .ag-header-cell-menu-button:hover {
+.ag-material .ag-body-container .ag-header-cell-menu-button:hover {
   border: 1px solid #808080;
 }
 
