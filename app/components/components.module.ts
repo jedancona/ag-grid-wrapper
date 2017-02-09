@@ -5,9 +5,9 @@ import {TableComponent} from './table/table';
 import {Ng2FrameworkFactory, Ng2ComponentFactory, BaseComponentFactory} from 'ag-grid-ng2';
 import {TableColumnComponent} from './table/column/column';
 import {MaterialModule} from '@angular/material';
-import {RowAutoSaveFactory} from './table/factories/row-auto-save';
-import {RowFooterAggregationFactory} from './table/factories/row-footer-aggregation';
-import {RowModifiedFieldsFactory} from "./table/factories/row-modified-fields.factory";
+import {RowAutoSaveFactory} from './table/row/row-auto-save.factory';
+import {RowFooterAggregationFactory} from './table/row/row-footer-aggregation.factory';
+import {RowModifiedFieldsFactory} from "./table/row/row-modified-fields.factory";
 
 @NgModule({
   imports: [CommonModule, MaterialModule],

@@ -14,13 +14,13 @@ import {
 import {Grid, GridOptions, GridApi, ColumnApi, GridParams, ComponentUtil, ColDef} from "ag-grid/main";
 import {Ng2FrameworkFactory} from "ag-grid-ng2";
 import {TableColumnComponent} from "./column/column";
-import {RowSingleSelectComponent} from "./row-single-select/row-single-select";
-import {RowActionMenuComponent} from "./row-action-menu/row-action-menu";
+import {RowSingleSelectComponent} from "./row/row-single-select.component";
+import {RowActionMenuComponent} from "./row/row-action-menu.component";
 import * as _ from "lodash";
 import {Subject} from "rxjs";
-import {RowAutoSaveFactory} from "./factories/row-auto-save";
-import {RowFooterAggregationFactory} from "./factories/row-footer-aggregation";
-import {RowModifiedFieldsFactory} from "./factories/row-modified-fields.factory";
+import {RowAutoSaveFactory} from "./row/row-auto-save.factory";
+import {RowFooterAggregationFactory} from "./row/row-footer-aggregation.factory";
+import {RowModifiedFieldsFactory} from "./row/row-modified-fields.factory";
 
 @Component({
   moduleId: module.id,

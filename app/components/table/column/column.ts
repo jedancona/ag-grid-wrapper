@@ -2,13 +2,13 @@
 import {Component, ViewEncapsulation, Input, ContentChildren, QueryList} from "@angular/core";
 import {GridApi, ColumnApi, GridParams, ColDef} from "ag-grid/main";
 import * as _ from "lodash";
-import {NumericEditorComponent} from "../editors/numeric-editor";
-import {TextEditorComponent} from "../editors/text-editor";
-import { DateCellRendererComponent } from "../cell/render/date-cell-renderer.component";
-import { ETCodeCellRendererComponent } from "../cell/render/et-code-cell-renderer.component";
-import {DefaultCellRendererComponent} from "../cell/render/default-cell-renderer.component";
+import {NumericEditorComponent} from "./editors/numeric-editor.component";
+import {TextEditorComponent} from "./editors/text-editor.component";
+import { DateCellRendererComponent } from "./render/date-cell-renderer.component";
+import { ETCodeCellRendererComponent } from "./render/et-code-cell-renderer.component";
+import {DefaultCellRendererComponent} from "./render/default-cell-renderer.component";
 import {isNullOrUndefined} from "util";
-import {SelectEditorComponent} from "../editors/select-editor.component";
+import {SelectEditorComponent} from "./editors/select-editor.component";
 
 @Component({
   selector: 'ui-table-column',
