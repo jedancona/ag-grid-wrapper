@@ -2,7 +2,7 @@
 import {Injectable} from '@angular/core';
 import {Subject} from 'rxjs';
 import * as _ from 'lodash';
-import {TableComponent} from '../table';
+import {TableComponent} from '../table.component';
 
 @Injectable()
 export class RowAutoSaveFactory {

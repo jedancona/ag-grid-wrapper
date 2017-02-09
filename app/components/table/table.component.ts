@@ -25,8 +25,8 @@ import {RowModifiedFieldsFactory} from "./row/row-modified-fields.factory";
 @Component({
   moduleId: module.id,
   selector: 'ui-table',
-  templateUrl: 'table.tpl.html',
-  styleUrls: ['table.css'],
+  templateUrl: 'table.component.tpl.html',
+  styleUrls: ['table.component.css'],
   // tell angular we don't want view encapsulation, we don't want a shadow root
   encapsulation: ViewEncapsulation.None
 })
