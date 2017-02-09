@@ -7,6 +7,7 @@ import { DateCellRendererComponent } from "../cell/render/date-cell-renderer.com
 import { ETCodeCellRendererComponent } from "../cell/render/et-code-cell-renderer.component";
 import {DefaultCellRendererComponent} from "../cell/render/default-cell-renderer.component";
 import {isNullOrUndefined} from "util";
+import {SelectEditorComponent} from "../editors/select-editor.component";
 
 @Component({
   selector: 'ui-table-column',
@@ -60,11 +61,15 @@ export class TableColumnComponent {
       this.cellClass = 'editable';
       if (!this.type || this.type === 'text') {
         this.cellEditorFramework = TextEditorComponent;
-
       }
       if (this.type === 'number') {
         this.cellEditorFramework = NumericEditorComponent;
       }
+      if (this.type === 'select') {
+        this.cellEditorFramework = SelectEditorComponent;
+        this.cellClass = 'editable select-dropdown';
+      }
+
     }
   }
 
@@ -96,9 +101,14 @@ export class TableColumnComponent {
     return colDef;
   };
 
-  @Input('display-name') public headerName: string = undefined;
-
+  @Input('aggregationType') public aggregationType: string = undefined;
+  @Input('aggregationTypeNetExpression') public aggregationTypeNetExpression: any = undefined;
   @Input('cellClass') public cellClass: string = undefined;
+  @Input('display-name') public headerName: string = undefined;
+  @Input('editDropdownCode') public editDropdownCode: string = undefined;
+  @Input('editDropdownOptionsArray') public editDropdownOptionsArray: Array<any> = undefined;
+  @Input('editDropdownValueId') public editDropdownValueId: string = undefined;
+  @Input('editDropdownValueLabel') public editDropdownValueLabel: string = undefined;
   @Input('enableMovable') public suppressMovable: boolean = true;
   @Input('type') public type: string = undefined;
   @Input('name') public field: any = undefined;
@@ -107,8 +117,7 @@ export class TableColumnComponent {
   @Input('minWidth') public minWidth: number = undefined;
   @Input('cell-filter') public cellFilter: string = undefined;
   @Input('floatingCellRenderer') public floatingCellRenderer: any = undefined;
-  @Input('aggregationType') public aggregationType: string = undefined;
-  @Input('aggregationTypeNetExpression') public aggregationTypeNetExpression: any = undefined;
+
 
 
 }

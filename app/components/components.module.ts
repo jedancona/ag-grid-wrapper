@@ -6,6 +6,7 @@ import {TableColumnComponent} from './table/column/column';
 import {MaterialModule} from '@angular/material';
 import {RowAutoSaveFactory} from './table/factories/row-auto-save';
 import {RowFooterAggregationFactory} from './table/factories/row-footer-aggregation';
+import {RowModifiedFieldsFactory} from "./table/factories/row-modified-fields.factory";
 
 @NgModule({
   imports: [CommonModule, MaterialModule],
@@ -28,6 +29,7 @@ export class CommonComponentsModule {
         Ng2ComponentFactory,
         RowAutoSaveFactory,
         RowFooterAggregationFactory,
+        RowModifiedFieldsFactory,
         {provide: BaseComponentFactory, useExisting: Ng2ComponentFactory},
         {provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: components, multi: true}
       ],

@@ -1,7 +1,14 @@
 <md-card>
   <md-card-title>Sample Table 1</md-card-title>
-  <md-card-content>
 
+  <md-card-content>
+    <div style="width:50px;">
+      <md-select placeholder="Favorite food">
+        <md-option *ngFor="let food of foods" [value]="food.value">
+          {{ food.viewValue }}
+        </md-option>
+      </md-select>
+    </div>
     <div style="height:500px;">
       <ui-table [(data)]="data" [(showSingleSelect)]="selectionMode" [onSaveRow]="saveRow" [showFooter]="true"
                 [actionMenu]="listActionMenu">
@@ -48,6 +55,13 @@
                          [enable-edit]="true"
                          aggregationType="net"
                          [aggregationTypeNetExpression]="{keyCol: 'column9',key1: 'D', key2: 'R'}"></ui-table-column>
+        <ui-table-column display-name="Select Editor Column"
+                         name="column11"
+                         type="select"
+                         [enable-edit]="true"
+                         editDropdownValueId="id"
+                         editDropdownValueLabel="id"
+                         [editDropdownOptionsArray]="[{id: 'Option1'},{id: 'Options2'}]"></ui-table-column>
       </ui-table>
     </div>
 

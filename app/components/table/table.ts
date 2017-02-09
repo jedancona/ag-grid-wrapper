@@ -19,6 +19,7 @@ import * as _ from "lodash";
 import {Subject} from "rxjs";
 import {RowAutoSaveFactory} from "./factories/row-auto-save";
 import {RowFooterAggregationFactory} from "./factories/row-footer-aggregation";
+import {RowModifiedFieldsFactory} from "./factories/row-modified-fields.factory";
 
 @Component({
   selector: 'ui-table',
@@ -51,7 +52,8 @@ export class TableComponent implements OnDestroy, AfterViewInit {
               private viewContainerRef: ViewContainerRef,
               private ng2FrameworkFactory: Ng2FrameworkFactory,
               private rowAutoSaveFactory: RowAutoSaveFactory,
-              private rowFooterFactory: RowFooterAggregationFactory) {
+              private rowFooterFactory: RowFooterAggregationFactory,
+              private rowModifiedFieldsFactory: RowModifiedFieldsFactory) {
 
     this._nativeElement = elementDef.nativeElement;
     // create all the events generically. this is done generically so that
@@ -66,10 +68,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   ngAfterViewInit(): any {
     this.gridOptions = ComponentUtil.copyAttributesToGridOptions(this.gridOptions, this);
 
-    this.rowAutoSaveFactory.registerGridListener(this._onApiRegistered);
-    if (this.showFooter) {
-      this.rowFooterFactory.registerGridListener(this._onApiRegistered);
-    }
+    this.registerGridFeatures();
 
     this.gridParams = {
       globalEventListener: this.globalEventListener.bind(this),
@@ -111,9 +110,19 @@ export class TableComponent implements OnDestroy, AfterViewInit {
     this.initializeGrid();
   };
 
+  private registerGridFeatures = (): void => {
+    if (this.enableRowAutoSave) {
+      this.rowAutoSaveFactory.registerGridListener(this._onApiRegistered);
+    }
+    if (this.showFooter) {
+      this.rowFooterFactory.registerGridListener(this._onApiRegistered);
+    }
+    if (this.enableRowModifiedFields) {
+      this.rowModifiedFieldsFactory.registerGridListener(this._onApiRegistered);
+    }
+  };
+
   private initializeGrid = (): void => {
-
-
     new Grid(this._nativeElement.getElementsByClassName('ui-table')[0], this.gridOptions, this.gridParams);
 
     if (this.gridOptions.api) {
@@ -282,7 +291,17 @@ export class TableComponent implements OnDestroy, AfterViewInit {
       }
       this._destroyed = true;
       this.api.removeEventListener('columnResized', this.onResize);
-      this.rowAutoSaveFactory.unRegisterGridListener(this);
+
+      if (this.enableRowAutoSave) {
+        this.rowAutoSaveFactory.unRegisterGridListener(this);
+      }
+      if (this.showFooter) {
+        this.rowFooterFactory.unRegisterGridListener(this);
+      }
+      if (this.enableRowModifiedFields) {
+        this.rowModifiedFieldsFactory.unRegisterGridListener(this);
+      }
+
       this.api.destroy();
     }
   }
@@ -369,6 +388,8 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   @Input() public showMultiSelect: boolean = undefined;
   @Input() public showFooter: boolean = false;
   @Input() public actionMenu: boolean = undefined;
+  @Input() public enableRowAutoSave: boolean = true;
+  @Input() public enableRowModifiedFields: boolean = true;
   @Input() public floatingTopRowData: any = undefined;
   @Input() public floatingBottomRowData: any = undefined;
   @Input() public columnDefs: any = undefined;

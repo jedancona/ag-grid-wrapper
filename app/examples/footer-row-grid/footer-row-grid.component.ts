@@ -11,6 +11,7 @@ export class FooterRowGridComponent {
   listActionMenu: any;
   selectionMode: boolean = true;
   selectedRows: any[] = [];
+  foods: any[] = [];
 
   constructor() {
     this.init();
@@ -39,6 +40,12 @@ export class FooterRowGridComponent {
         }
       ]
     };
+
+    this.foods = [
+      {value: 'steak-0', viewValue: 'Steak'},
+      {value: 'pizza-1', viewValue: 'Pizza'},
+      {value: 'tacos-2', viewValue: 'Tacos'}
+    ];
 
     for (let i = 0; i < 50; i++) {
 
