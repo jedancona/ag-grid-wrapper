@@ -1,3 +1,4 @@
+/* tslint:disable */
 import {Component, ViewContainerRef, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
 
 import {AgEditorComponent} from 'ag-grid-ng2/main';

@@ -1,17 +1,15 @@
 {
-  "name": "angular-quickstart",
-  "version": "1.0.0",
-  "description": "QuickStart package.json from the documentation, supplemented with testing support",
+  "name": "ete-ag-grid-wrapper",
+  "version": "0.0.2",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "private": false,
+
+  "description": "ETE wrapper around ag-grid",
   "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
-    "e2e": "tsc && concurrently \"http-server -s\" \"protractor protractor.config.js\" --kill-others --success first",
-    "lint": "tslint ./app/**/*.ts -t verbose",
-    "lite": "lite-server",
-    "pree2e": "webdriver-manager update",
-    "test": "tsc && concurrently \"tsc -w\" \"karma start karma.conf.js\"",
-    "test-once": "tsc && karma start karma.conf.js --single-run",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w"
+    "dev": "tsc --watch",
+    "prepublish": "tsc",
+    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" "
   },
   "keywords": [],
   "author": "",

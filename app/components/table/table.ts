@@ -1,3 +1,4 @@
+/* tslint:disable */
 import {
   Component,
   ViewEncapsulation,
@@ -22,9 +23,10 @@ import {RowFooterAggregationFactory} from "./factories/row-footer-aggregation";
 import {RowModifiedFieldsFactory} from "./factories/row-modified-fields.factory";
 
 @Component({
+  moduleId: module.id,
   selector: 'ui-table',
-  templateUrl: 'app/components/table/table.tpl.html',
-  styleUrls: ['app/components/table/table.css'],
+  templateUrl: 'table.tpl.html',
+  styleUrls: ['table.css'],
   // tell angular we don't want view encapsulation, we don't want a shadow root
   encapsulation: ViewEncapsulation.None
 })

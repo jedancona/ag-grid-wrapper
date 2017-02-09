@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { Component } from "@angular/core";
 import { AgRendererComponent } from "ag-grid-ng2";
 @Component({
