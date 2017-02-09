@@ -1522,7 +1522,7 @@ ag-grid-ng2 {
   margin: 3px;
   padding-top: 2px;
   padding-left: 3px;
-  height: auto;
+  height: 17px;
   width: auto;
   overflow: hidden;
   text-overflow: clip;
@@ -1543,13 +1543,49 @@ ag-grid-ng2 {
   border: none;
 }
 
-.ag-material .ag-body-container .ag-cell-inline-editing div.editor {
+.ag-material .ag-body-container .ag-cell-not-inline-editing.editable.select-dropdown div.inner-cell:after {
+  content: ' ';
+  display: block;
+  width: 15px;
+  height: 17px;
+  background-color: #fff;
+  position: absolute;
+  right: 5px;
+  top: 6px;
+  clear: both;
+  z-index: 10;
+
+}
+
+.ag-material .ag-row-hover .ag-cell-not-inline-editing.editable.select-dropdown div.inner-cell:after,
+.ag-material .ag-row-selected .ag-cell-not-inline-editing.editable.select-dropdown div.inner-cell:after {
+  background-color: #c9dde1;
+}
+
+.ag-material .ag-body-container .ag-cell-not-inline-editing.editable.select-dropdown:after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgba(0, 0, 0, .38);
+  position: absolute;
+  right: 9px;
+  top: 12px;
+  clear: both;
+  z-index: 15;
+
+}
+
+.ag-material .ag-body-container .ag-cell-inline-editing div.editor,
+.ag-material .ag-body-container .ag-cell-inline-editing div.select-editor {
   line-height: 17px;
+
   margin: 3px;
   padding-top: 2px;
   padding-left: 3px;
   padding-right: 0px;
-  height: auto;
+  min-height: 17px;
   width: auto;
   border-top: solid 1px rgba(75, 97, 142, .6);
   border-left: solid 1px rgba(75, 97, 142, .6);
@@ -1557,6 +1593,23 @@ ag-grid-ng2 {
   border-bottom: solid 2px rgba(75, 97, 142, .8);
   background-color: #fff;
   overflow: hidden;
+}
+
+.ag-material .ag-body-container .ag-cell-inline-editing div.select-editor md-select,
+.ag-material .ag-body-container .ag-cell-inline-editing div.select-editor .md-select-trigger {
+  min-width: 100%;
+  height: 17px;
+  border: none;
+}
+
+.ag-material .ag-body-container .ag-cell-inline-editing div.select-editor md-select {
+  display: block;
+}
+
+.ag-material .ag-body-container .ag-cell-inline-editing div.select-editor md-select .md-select-value {
+  top: 0px;
+  text-overflow: clip;
+  width: calc(100% - 15px);
 }
 
 .ag-material .ag-body-container .ag-cell-inline-editing div.editor input {

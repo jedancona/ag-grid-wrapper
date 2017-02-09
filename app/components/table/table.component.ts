@@ -14,18 +14,19 @@ import {
 import {Grid, GridOptions, GridApi, ColumnApi, GridParams, ComponentUtil, ColDef} from "ag-grid/main";
 import {Ng2FrameworkFactory} from "ag-grid-ng2";
 import {TableColumnComponent} from "./column/column";
-import {RowSingleSelectComponent} from "./row-single-select/row-single-select";
-import {RowActionMenuComponent} from "./row-action-menu/row-action-menu";
+import {RowSingleSelectComponent} from "./row/row-single-select.component";
+import {RowActionMenuComponent} from "./row/row-action-menu.component";
 import * as _ from "lodash";
 import {Subject} from "rxjs";
-import {RowAutoSaveFactory} from "./factories/row-auto-save";
-import {RowFooterAggregationFactory} from "./factories/row-footer-aggregation";
+import {RowAutoSaveFactory} from "./row/row-auto-save.factory";
+import {RowFooterAggregationFactory} from "./row/row-footer-aggregation.factory";
+import {RowModifiedFieldsFactory} from "./row/row-modified-fields.factory";
 
 @Component({
   moduleId: module.id,
   selector: 'ui-table',
-  templateUrl: 'table.tpl.html',
-  styleUrls: ['table.css'],
+  templateUrl: 'table.component.tpl.html',
+  styleUrls: ['table.component.css'],
   // tell angular we don't want view encapsulation, we don't want a shadow root
   encapsulation: ViewEncapsulation.None
 })
@@ -53,7 +54,8 @@ export class TableComponent implements OnDestroy, AfterViewInit {
               private viewContainerRef: ViewContainerRef,
               private ng2FrameworkFactory: Ng2FrameworkFactory,
               private rowAutoSaveFactory: RowAutoSaveFactory,
-              private rowFooterFactory: RowFooterAggregationFactory) {
+              private rowFooterFactory: RowFooterAggregationFactory,
+              private rowModifiedFieldsFactory: RowModifiedFieldsFactory) {
 
     this._nativeElement = elementDef.nativeElement;
     // create all the events generically. this is done generically so that
@@ -68,10 +70,7 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   ngAfterViewInit(): any {
     this.gridOptions = ComponentUtil.copyAttributesToGridOptions(this.gridOptions, this);
 
-    this.rowAutoSaveFactory.registerGridListener(this._onApiRegistered);
-    if (this.showFooter) {
-      this.rowFooterFactory.registerGridListener(this._onApiRegistered);
-    }
+    this.registerGridFeatures();
 
     this.gridParams = {
       globalEventListener: this.globalEventListener.bind(this),
@@ -113,9 +112,19 @@ export class TableComponent implements OnDestroy, AfterViewInit {
     this.initializeGrid();
   };
 
+  private registerGridFeatures = (): void => {
+    if (this.enableRowAutoSave) {
+      this.rowAutoSaveFactory.registerGridListener(this._onApiRegistered);
+    }
+    if (this.showFooter) {
+      this.rowFooterFactory.registerGridListener(this._onApiRegistered);
+    }
+    if (this.enableRowModifiedFields) {
+      this.rowModifiedFieldsFactory.registerGridListener(this._onApiRegistered);
+    }
+  };
+
   private initializeGrid = (): void => {
-
-
     new Grid(this._nativeElement.getElementsByClassName('ui-table')[0], this.gridOptions, this.gridParams);
 
     if (this.gridOptions.api) {
@@ -284,7 +293,17 @@ export class TableComponent implements OnDestroy, AfterViewInit {
       }
       this._destroyed = true;
       this.api.removeEventListener('columnResized', this.onResize);
-      this.rowAutoSaveFactory.unRegisterGridListener(this);
+
+      if (this.enableRowAutoSave) {
+        this.rowAutoSaveFactory.unRegisterGridListener(this);
+      }
+      if (this.showFooter) {
+        this.rowFooterFactory.unRegisterGridListener(this);
+      }
+      if (this.enableRowModifiedFields) {
+        this.rowModifiedFieldsFactory.unRegisterGridListener(this);
+      }
+
       this.api.destroy();
     }
   }
@@ -371,6 +390,8 @@ export class TableComponent implements OnDestroy, AfterViewInit {
   @Input() public showMultiSelect: boolean = undefined;
   @Input() public showFooter: boolean = false;
   @Input() public actionMenu: boolean = undefined;
+  @Input() public enableRowAutoSave: boolean = true;
+  @Input() public enableRowModifiedFields: boolean = true;
   @Input() public floatingTopRowData: any = undefined;
   @Input() public floatingBottomRowData: any = undefined;
   @Input() public columnDefs: any = undefined;

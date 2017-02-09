@@ -4,7 +4,7 @@ import { AgRendererComponent } from "ag-grid-ng2";
 @Component({
   moduleId: module.id,
   selector: 'row-action-menu',
-  templateUrl: 'row-action-menu-tpl.html',
+  templateUrl: 'row-action-menu.component.tpl.html',
   encapsulation: ViewEncapsulation.None
 })
 export class RowActionMenuComponent implements AgRendererComponent {
