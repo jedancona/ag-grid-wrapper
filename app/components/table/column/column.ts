@@ -1,3 +1,4 @@
+/* tslint:disable */
 import {Component, ViewEncapsulation, Input, ContentChildren, QueryList} from "@angular/core";
 import {GridApi, ColumnApi, GridParams, ColDef} from "ag-grid/main";
 import * as _ from "lodash";

@@ -1,3 +1,4 @@
+/* tslint:disable */
 import {NgModule, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TableComponent} from './table/table';

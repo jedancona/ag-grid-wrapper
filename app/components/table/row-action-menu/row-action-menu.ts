@@ -1,8 +1,10 @@
+/* tslint:disable */
 import { ViewEncapsulation, Component} from "@angular/core";
 import { AgRendererComponent } from "ag-grid-ng2";
 @Component({
+  moduleId: module.id,
   selector: 'row-action-menu',
-  templateUrl: 'app/components/table/row-action-menu/row-action-menu-tpl.html',
+  templateUrl: 'row-action-menu-tpl.html',
   encapsulation: ViewEncapsulation.None
 })
 export class RowActionMenuComponent implements AgRendererComponent {
