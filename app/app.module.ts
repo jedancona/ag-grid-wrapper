@@ -5,25 +5,17 @@ import {AppComponent} from './app.component';
 import {MaterialModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import 'hammerjs';
-import {CommonComponentsModule} from './components/components.module';
-import {RowSingleSelectComponent} from './components/table/row/row-single-select.component';
-import {RowActionMenuComponent} from './components/table/row/row-action-menu.component';
+
+
 import {Routes, RouterModule} from '@angular/router';
 import {APP_BASE_HREF} from '@angular/common';
-
-import {NumericEditorComponent} from './components/table/column/editors/numeric-editor.component';
-import {SelectEditorComponent} from './components/table/column/editors/select-editor.component';
-import {TextEditorComponent} from './components/table/column/editors/text-editor.component';
 
 import {ComponentPlaygroundComponent} from './examples/component-playground/component-playground.component'
 import {FooterRowGridComponent} from './examples/footer-row-grid/footer-row-grid.component';
 import {SingleSelectGridComponent} from './examples/single-select-grid/single-select-grid.component';
 import {MultiGridScreenComponent} from './examples/multi-grid-screen/multi-grid-screen.component';
 import {MultiSelectGridComponent} from './examples/multi-select-grid/multi-select-grid.component';
-import {DateCellRendererComponent} from "./components/table/column/render/date-cell-renderer.component";
-import {DefaultCellRendererComponent} from "./components/table/column/render/default-cell-renderer.component";
-import {ETCodeCellRendererComponent} from "./components/table/column/render/et-code-cell-renderer.component";
-import {SelectEditorDirective} from "./components/table/column/editors/select-editor.directive";
+import {TableRootModule} from './components/module';
 
 
 const appRoutes: Routes = [
@@ -42,38 +34,16 @@ const appRoutes: Routes = [
     FormsModule,
     MaterialModule.forRoot(),
     FlexLayoutModule.forRoot(),
-    CommonComponentsModule.withComponents([RowSingleSelectComponent,
-      RowActionMenuComponent,
-      SingleSelectGridComponent,
-      MultiSelectGridComponent,
-      NumericEditorComponent,
-      SelectEditorComponent,
-      TextEditorComponent,
-      ETCodeCellRendererComponent,
-      DateCellRendererComponent,
-      DefaultCellRendererComponent,
-
-    ]),
+    TableRootModule,
     RouterModule.forRoot(appRoutes),
   ],
   declarations: [
     AppComponent,
-    RowSingleSelectComponent,
-    RowActionMenuComponent,
-    NumericEditorComponent,
-    SelectEditorComponent,
-    TextEditorComponent,
     ComponentPlaygroundComponent,
     FooterRowGridComponent,
     SingleSelectGridComponent,
     MultiGridScreenComponent,
     MultiSelectGridComponent,
-    ETCodeCellRendererComponent,
-    DateCellRendererComponent,
-    DefaultCellRendererComponent,
-    SelectEditorDirective,
-
-
   ],
   bootstrap: [AppComponent],
   providers: [{provide: APP_BASE_HREF, useValue: '/'}],

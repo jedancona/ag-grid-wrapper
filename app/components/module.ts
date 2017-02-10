@@ -1,8 +1,5 @@
 /* tslint:disable */
-import {NgModule, ModuleWithProviders, ANALYZE_FOR_ENTRY_COMPONENTS} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {TableComponent} from './table/table.component';
-import {Ng2FrameworkFactory, Ng2ComponentFactory, BaseComponentFactory} from 'ag-grid-ng2';
+import {NgModule} from "@angular/core";
 import {TableModule} from "./table/table.module";
 
 

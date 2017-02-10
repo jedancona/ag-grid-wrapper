@@ -4,6 +4,6 @@ function __export(m) {
 }
 __export(require("./app"));
 __export(require("./app/components"));
-__export(require("./app/components/components.module"));
+__export(require("./app/components/module"));
 __export(require("./app/components/table"));
 //# sourceMappingURL=index.js.map
