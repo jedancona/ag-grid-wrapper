@@ -1,6 +1,5 @@
 /* tslint:disable */
 import {Injectable} from '@angular/core';
-import {Subject} from 'rxjs';
 import * as _ from 'lodash';
 import {TableComponent} from '../table.component';
 
@@ -10,10 +9,6 @@ export class RowAutoSaveFactory {
   constructor() {
   }
 
-  public registerGridListener = (onGridApiRegistered: Subject<any>): void => {
-    onGridApiRegistered.subscribe(this._onGridApiRegistered)
-  };
-
   public unRegisterGridListener = (table: TableComponent): void => {
     table.cellEditingStarted.unsubscribe();
     table.cellValueChanged.unsubscribe();
@@ -21,7 +16,7 @@ export class RowAutoSaveFactory {
     this.destroyPublicApi(table.api);
   };
 
-  private _onGridApiRegistered = (table: TableComponent): void => {
+  public onGridApiRegistered = (table: TableComponent): void => {
 
     this.setupPublicApi(table.api);
     this.setGridSavePromise(table.api, table.onSaveRow);
