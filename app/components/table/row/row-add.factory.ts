@@ -37,6 +37,10 @@ export class RowAddFactory {
             if (scrollToFocusCol) {
               grid.ensureColumnVisible(scrollToFocusCol);
               grid.setFocusedCell(rowIdx, scrollToFocusCol, null);
+              grid.startEditingCell({
+                rowIndex: rowIdx,
+                colKey: scrollToFocusCol,
+              });
             }
             return rowIdx;
           }
