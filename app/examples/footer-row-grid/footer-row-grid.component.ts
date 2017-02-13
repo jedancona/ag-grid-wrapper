@@ -74,7 +74,7 @@ export class FooterRowGridComponent {
   };
 
   public addRow = (): number => {
-   let rowIdx: number =  this.gridOptions.api.rowAdd.addRow({
+   let rowIdx: number =  this.gridOptions.api.rowEdit.addRow({
       column1: 'Added Row',
       column2: 'x',
       column3: 0,

@@ -35,14 +35,9 @@ export class TableRowAutoSaveFactory {
     _.defaultsDeep(grid, {
       rowEdit: {
         setSavePromise: this.setSavePromise,
-        getDirtyRows: this.getDirtyRows,
-        getErrorRows: this.getErrorRows,
         flushDirtyRows: this.flushDirtyRows,
         setRowsDirty: this.setRowsDirty,
         setRowsClean: this.setRowsClean,
-        dirtyRows: [],
-        errorRows: [],
-
       }
     });
   };
@@ -51,13 +46,9 @@ export class TableRowAutoSaveFactory {
     _.defaultsDeep(grid, {
       rowEdit: {
         setSavePromise: null,
-        getDirtyRows: null,
-        getErrorRows: null,
         flushDirtyRows: null,
         setRowsDirty: null,
         setRowsClean: null,
-        dirtyRows: null,
-        errorRows: null,
       }
     });
     delete grid.rowEdit;
@@ -296,35 +287,7 @@ export class TableRowAutoSaveFactory {
     }
   };
 
-  /**
-   * @ngdoc method
-   * @methodOf table.factories:TableRowAutoSaveFactory
-   * @name getDirtyRows
-   * @description Returns all currently dirty rows
-   * <pre>
-   *      gridApi.rowEdit.getDirtyRows(grid)
-   * </pre>
-   * @returns {array} An array of gridRows that are currently dirty
-   *
-   */
-  public getDirtyRows = (grid: any): Array<any> => {
-    return grid.rowEdit.dirtyRows ? grid.rowEdit.dirtyRows : [];
-  };
 
-  /**
-   * @ngdoc method
-   * @methodOf table.factories:TableRowAutoSaveFactory
-   * @name getErrorRows
-   * @description Returns all currently errored rows
-   * <pre>
-   *      gridApi.rowEdit.getErrorRows(grid)
-   * </pre>
-   * @returns {array} An array of gridRows that are currently in error
-   *
-   */
-  public getErrorRows = (grid: any): Array<any> => {
-    return grid.rowEdit.errorRows ? grid.rowEdit.errorRows : [];
-  };
 
   /**
    * @ngdoc method

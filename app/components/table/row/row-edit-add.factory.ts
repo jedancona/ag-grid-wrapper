@@ -18,7 +18,7 @@ export class TableRowAddFactory {
 
   private setAddRowApi = (grid: any) => {
     _.defaultsDeep(grid, {
-      rowAdd: {
+      rowEdit: {
         addRow: (gridRowData: any, scrollToFocusCol?: string): number => {
           if (gridRowData) {
             _.assign(gridRowData, {
@@ -52,8 +52,7 @@ export class TableRowAddFactory {
   };
 
   private removeAddRowApi = (grid: any): void => {
-    delete grid.rowAdd.addRow;
-    delete grid.rowAdd;
+    delete grid.rowEdit.addRow;
   };
 
 }

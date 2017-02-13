@@ -22,6 +22,8 @@ export class TableRowEditFactory {
   private setupPublicApi = (grid: any): void => {
     _.defaultsDeep(grid, {
       rowEdit: {
+        getDirtyRows: this.getDirtyRows,
+        getErrorRows: this.getErrorRows,
         dirtyRows: [],
         errorRows: [],
       }
@@ -31,11 +33,42 @@ export class TableRowEditFactory {
   private destroyPublicApi = (grid: any): void => {
     _.defaultsDeep(grid, {
       rowEdit: {
+        getDirtyRows: null,
+        getErrorRows: null,
         dirtyRows: null,
         errorRows: null,
       }
     });
-    delete grid.rowEdit;
+  };
+
+  /**
+   * @ngdoc method
+   * @methodOf table.factories:TableRowEditFactory
+   * @name getDirtyRows
+   * @description Returns all currently dirty rows
+   * <pre>
+   *      gridApi.rowEdit.getDirtyRows(grid)
+   * </pre>
+   * @returns {array} An array of gridRows that are currently dirty
+   *
+   */
+  public getDirtyRows = (grid: any): Array<any> => {
+    return grid.rowEdit.dirtyRows ? grid.rowEdit.dirtyRows : [];
+  };
+
+  /**
+   * @ngdoc method
+   * @methodOf table.factories:TableRowEditFactory
+   * @name getErrorRows
+   * @description Returns all currently errored rows
+   * <pre>
+   *      gridApi.rowEdit.getErrorRows(grid)
+   * </pre>
+   * @returns {array} An array of gridRows that are currently in error
+   *
+   */
+  public getErrorRows = (grid: any): Array<any> => {
+    return grid.rowEdit.errorRows ? grid.rowEdit.errorRows : [];
   };
 
   private onCellValueChanged = ($event: any): void => {
