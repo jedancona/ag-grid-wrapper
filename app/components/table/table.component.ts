@@ -23,7 +23,7 @@ import {RowFooterAggregationFactory} from "./row/row-footer-aggregation.factory"
 import {RowModifiedFieldsFactory} from "./row/row-modified-fields.factory";
 
 @Component({
-  moduleId: module.id,
+  moduleId: 'test',
   selector: 'ui-table',
   templateUrl: 'table.component.tpl.html',
   styleUrls: ['table.component.css'],
