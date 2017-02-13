@@ -96,7 +96,6 @@ export class TableRowFactory {
 
   public setFloatingRowColumnRenderer = (table: TableComponent): void => {
     if (table.showFooter) {
-      console.debug('set floating row');
       table.gridOptions.columnDefs.forEach((column: any) =>{
         column.floatingCellRenderer = (params: any): any => {
           if (params.colDef.aggregationType && params.node.floating) {

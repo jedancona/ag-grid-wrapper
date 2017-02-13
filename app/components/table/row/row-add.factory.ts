@@ -1,5 +1,6 @@
-import {Injectable} from '@angular/core';
-import {TableComponent} from '../table.component';
+import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
+import { TableComponent } from '../table.component';
 
 @Injectable()
 export class RowAddFactory {
@@ -8,14 +9,47 @@ export class RowAddFactory {
   }
 
   public unRegisterGridListener = (table: TableComponent): void => {
-    this.setAddRowApi(table);
+    this.removeAddRowApi(table.api);
   };
 
   public onGridApiRegistered = (table: TableComponent): void => {
+    this.setAddRowApi(table.api);
+  };
+
+  private setAddRowApi = (grid: any) => {
+    _.defaultsDeep(grid, {
+      rowAdd: {
+        addRow: (gridRowData: any, scrollToFocusCol?: string): number => {
+          if (gridRowData) {
+            _.assign(gridRowData, {
+              dirtyStatus: 1,
+            });
+            grid.addItems([ gridRowData ]);
+            let rowIdx: number = grid.rowModel.getRowCount() - 1;
+            let gridRow: any = grid.rowModel.getRow(rowIdx);
+
+            _.assign(gridRow, {
+              newValidation: true,
+              isDirty: true
+            });
+
+            grid.ensureIndexVisible(rowIdx);
+            if (scrollToFocusCol) {
+              grid.ensureColumnVisible(scrollToFocusCol);
+              grid.setFocusedCell(rowIdx, scrollToFocusCol, null);
+            }
+            return rowIdx;
+          }
+          return null;
+        },
+      }
+    });
 
   };
 
-  private setAddRowApi = (table: any) => {
-
+  private removeAddRowApi = (grid: any): void => {
+    delete grid.rowAdd.addRow;
+    delete grid.rowAdd;
   };
+
 }
