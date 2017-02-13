@@ -1559,7 +1559,7 @@ ag-grid-ng2 {
 
 .ag-material .ag-row.row-saving,
 .ag-material .ag-row.row-saving .ag-cell-not-inline-editing div.inner-cell {
-  color: #bebebe;
+  color: #666666;
 }
 
 .ag-material .ag-row.row-error,
