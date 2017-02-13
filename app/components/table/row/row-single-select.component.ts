@@ -17,6 +17,6 @@ export class RowSingleSelectComponent implements AgRendererComponent {
   }
 
   public onBlur = (): void => {
-    this.params.api.gridCore.gridOptions.onCellEditingStopped.emit(this.params);
+    //this.params.api.gridCore.gridOptions.onCellEditingStopped.emit(this.params);
   }
 }

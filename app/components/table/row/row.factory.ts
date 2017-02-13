@@ -22,7 +22,7 @@ export class TableRowFactory {
 
   public registerTableRowFeatures = (onGridApiRegistered: Subject<any>, table: TableComponent): void => {
     onGridApiRegistered.subscribe(this._onGridApiRegistered);
-    this.setGridRowStyle(table);
+    this.setGridRowClass(table);
     this.setTableRowHeight(table);
   };
 
@@ -73,19 +73,21 @@ export class TableRowFactory {
     };
   };
 
-  public setGridRowStyle = (table: TableComponent): void => {
-    table.gridOptions.getRowStyle = (params: any): any => {
+  public setGridRowClass = (table: TableComponent): void => {
+    table.gridOptions.getRowClass = (params: any): any => {
+      let rowStateArray: Array<any> = [];
       if (params && params.node) {
         if (params.node.isSaving) {
-          return { 'color': '#ccc' };
-        } else if (params.node.isError) {
-          return { 'color': 'red' };
-        } else if (params.node.isDirty) {
-          return { 'background-color': '#c2cde2' };
+          rowStateArray.push('row-saving');
         }
-      } else {
-        return null;
+        if (params.node.isError) {
+          rowStateArray.push('row-error');
+        }
+        if (params.node.isDirty) {
+          rowStateArray.push('row-dirty');
+        }
       }
+      return rowStateArray;
     };
   };
 

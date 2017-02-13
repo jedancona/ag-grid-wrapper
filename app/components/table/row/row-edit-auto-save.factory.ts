@@ -51,7 +51,6 @@ export class TableRowAutoSaveFactory {
         setRowsClean: null,
       }
     });
-    delete grid.rowEdit;
   };
 
   private setGridSavePromise = (grid: any, savePromise: Promise<any>) => {
