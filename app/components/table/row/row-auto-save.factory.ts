@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import {TableComponent} from '../table.component';
 
 @Injectable()
-export class RowAutoSaveFactory {
+export class TableRowAutoSaveFactory {
 
   constructor() {
   }
@@ -86,7 +86,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf table.factories:RowAutoSaveFactory
+   * @methodOf table.factories:TableRowAutoSaveFactory
    * @name saveRow
    * @description  Returns a function that saves the specified row from the grid,
    * and returns a promise
@@ -119,7 +119,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf  table.factories:RowAutoSaveFactory
+   * @methodOf  table.factories:TableRowAutoSaveFactory
    * @name setSavePromise
    * @description Sets the promise associated with the row save, mandatory that
    * the saveRow event handler calls this method somewhere before returning.
@@ -135,7 +135,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf table.factories:RowAutoSaveFactory
+   * @methodOf table.factories:TableRowAutoSaveFactory
    * @name processSuccessPromise
    * @description  Returns a function that processes the successful
    * resolution of a save promise
@@ -157,7 +157,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf table.factories:RowAutoSaveFactory
+   * @methodOf table.factories:TableRowAutoSaveFactory
    * @name processErrorPromise
    * @description  Returns a function that processes the failed
    * resolution of a save promise
@@ -184,7 +184,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf table.factories:RowAutoSaveFactory
+   * @methodOf table.factories:TableRowAutoSaveFactory
    * @name removeRow
    * @description  Removes a row from a cache of rows - either
    * grid.rowEdit.errorRows or grid.rowEdit.dirtyRows.  If the row
@@ -205,7 +205,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf table.factories:RowAutoSaveFactory
+   * @methodOf table.factories:TableRowAutoSaveFactory
    * @name beginEditCell
    * @description Receives a beginCellEdit event from the edit function,
    * and cancels any rowEditSaveTimer if present, as the user is still editing
@@ -228,7 +228,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf table.factories:RowAutoSaveFactory
+   * @methodOf table.factories:TableRowAutoSaveFactory
    * @name endEditCell
    * @description Receives an afterCellEdit event from the edit function,
    * and sets flags as appropriate.  Only the rowEntity parameter
@@ -262,7 +262,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf table.factories:RowAutoSaveFactory
+   * @methodOf table.factories:TableRowAutoSaveFactory
    * @name considerSetTimer
    * @description Consider setting a timer on this row (if it is dirty).  if there is a timer running
    * on the row and the row isn't currently saving, cancel it, using cancelTimer, then if the row is
@@ -281,7 +281,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf table.factories:RowAutoSaveFactory
+   * @methodOf table.factories:TableRowAutoSaveFactory
    * @name cancelTimer
    * @description cancel the $interval for any timer running on this row
    * then delete the timer itself
@@ -298,7 +298,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf table.factories:RowAutoSaveFactory
+   * @methodOf table.factories:TableRowAutoSaveFactory
    * @name getDirtyRows
    * @description Returns all currently dirty rows
    * <pre>
@@ -313,7 +313,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf table.factories:RowAutoSaveFactory
+   * @methodOf table.factories:TableRowAutoSaveFactory
    * @name getErrorRows
    * @description Returns all currently errored rows
    * <pre>
@@ -328,7 +328,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf table.factories:RowAutoSaveFactory
+   * @methodOf table.factories:TableRowAutoSaveFactory
    * @name flushDirtyRows
    * @description Triggers a save event for all currently dirty rows, could
    * be used where user presses a save button or navigates away from the page
@@ -350,7 +350,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf table.factories:RowAutoSaveFactory
+   * @methodOf table.factories:TableRowAutoSaveFactory
    * @name setRowsDirty
    * @description Sets each of the rows passed in dataRows
    * to be dirty.
@@ -377,7 +377,7 @@ export class RowAutoSaveFactory {
 
   /**
    * @ngdoc method
-   * @methodOf table.factories:RowAutoSaveFactory
+   * @methodOf table.factories:TableRowAutoSaveFactory
    * @name setRowsClean
    * @description Sets each of the rows passed in dataRows
    * to be clean, clearing the dirty flag and the error flag, and removing
