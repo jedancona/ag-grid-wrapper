@@ -1,7 +1,7 @@
 /* tslint:disable */
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
-import {TableComponent} from '../table.component';
+import { TableComponent } from '../table.component';
 
 @Injectable()
 export class TableRowEditFactory {
@@ -82,10 +82,19 @@ export class TableRowEditFactory {
       return;
     }
     if (newValue !== oldValue) {
-      if (!gridRow.isDirty) {
-        gridRow.isDirty = true;
-        grid.rowEdit.dirtyRows.push(gridRow);
+      if (_.isUndefined(gridRow.data.dirtyStatus)) {
+        gridRow.data.dirtyStatus = 2;
+      } else if (gridRow.data.dirtyStatus !== 1) {
+        gridRow.data.dirtyStatus = 2;
       }
+      this.setGridRowDirty(grid, gridRow);
+    }
+  };
+
+  private setGridRowDirty = (grid: any, gridRow: any): void => {
+    if (!gridRow.isDirty) {
+      gridRow.isDirty = true;
+      grid.rowEdit.dirtyRows.push(gridRow);
     }
   };
 }
