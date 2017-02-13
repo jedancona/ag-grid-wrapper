@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import {TableComponent} from '../table.component';
 
 @Injectable()
-export class RowModifiedFieldsFactory {
+export class TableRowModifiedFieldsFactory {
 
   constructor() {
   }
