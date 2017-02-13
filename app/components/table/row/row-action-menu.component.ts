@@ -2,7 +2,7 @@
 import { ViewEncapsulation, Component} from "@angular/core";
 import { AgRendererComponent } from "ag-grid-ng2";
 @Component({
-  moduleId: module.id,
+  moduleId: 'test',
   selector: 'row-action-menu',
   templateUrl: 'row-action-menu.component.tpl.html',
   encapsulation: ViewEncapsulation.None

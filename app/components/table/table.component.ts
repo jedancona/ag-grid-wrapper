@@ -16,7 +16,7 @@ import {TableBaseComponent} from "./table-base";
 import {TableRowFactory} from "./row/row.factory";
 
 @Component({
-  moduleId: module.id,
+  moduleId: 'test',
   selector: 'ui-table',
   templateUrl: 'table.component.tpl.html',
   styleUrls: ['table.component.css'],
