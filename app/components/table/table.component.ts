@@ -16,9 +16,9 @@ import {TableBaseComponent} from "./table-base";
 import {TableRowFactory} from "./row/row.factory";
 
 @Component({
-  moduleId: 'test',
+  moduleId: module.id,
   selector: 'ui-table',
-  templateUrl: 'table.component.tpl.html',
+  templateUrl: './table.component.tpl.html',
   styleUrls: ['table.component.css'],
   // tell angular we don't want view encapsulation, we don't want a shadow root
   encapsulation: ViewEncapsulation.None
