@@ -1,6 +1,5 @@
 /* tslint:disable */
 import {Injectable} from "@angular/core";
-import {Subject} from "rxjs";
 import * as _ from "lodash";
 import {TableComponent} from "../table.component";
 import {ColDef, RowNode} from "ag-grid";
@@ -11,15 +10,11 @@ export class RowFooterAggregationFactory {
   constructor() {
   }
 
-  public registerGridListener = (onGridApiRegistered: Subject<any>): void => {
-    onGridApiRegistered.subscribe(this._onGridApiRegistered)
-  };
-
   public unRegisterGridListener = (table: TableComponent): void => {
     table.cellValueChanged.unsubscribe();
   };
 
-  private _onGridApiRegistered = (table: TableComponent): void => {
+  public onGridApiRegistered = (table: TableComponent): void => {
     this.setupFooterRowData(table.api);
     table.cellValueChanged.subscribe(this.onCellValueChanged);
   };
