@@ -2,7 +2,7 @@
 import {ViewEncapsulation, Component} from '@angular/core';
 import {AgRendererComponent} from 'ag-grid-ng2';
 @Component({
-  moduleId: 'test',
+  moduleId: module.id,
   selector: 'row-single-select',
   templateUrl: './row-single-select.component.tpl.html',
   // tell angular we don't want view encapsulation, we don't want a shadow root
