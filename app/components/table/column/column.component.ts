@@ -1,12 +1,14 @@
 /* tslint:disable */
-import {Component, ViewEncapsulation, Input, ContentChildren, QueryList} from "@angular/core";
-import {GridApi, ColumnApi, GridParams, ColDef} from "ag-grid/main";
+import { Component, ViewEncapsulation, Input, ContentChildren, QueryList } from "@angular/core";
+import { GridApi, ColumnApi, GridParams, ColDef } from "ag-grid/main";
 import * as _ from "lodash";
-import {NumericEditorComponent} from "./editors/numeric-editor.component";
-import {TextEditorComponent} from "./editors/text-editor.component";
-import {DateCellRendererComponent} from "./render/date-cell-renderer.component";
-import {DefaultCellRendererComponent} from "./render/default-cell-renderer.component";
-import {SelectEditorComponent} from "./editors/select-editor.component";
+import { NumericEditorComponent } from "./editors/numeric-editor.component";
+import { TextEditorComponent } from "./editors/text-editor.component";
+import { DateCellRendererComponent } from "./render/date-cell-renderer.component";
+import { DefaultCellRendererComponent } from "./render/default-cell-renderer.component";
+import { SelectEditorComponent } from "./editors/select-editor.component";
+import { SlideToggleCellRendererComponent } from './render/slide-toggle-cell-renderer.component';
+import { SlideToggleEditorComponent } from './editors/slide-toggle-editor.component';
 
 @Component({
   selector: 'ui-table-column',
@@ -49,14 +51,14 @@ export class TableColumnComponent {
     let colDef: ColDef = this.createColDefFromGridColumn(this);
 
     if (this.hasChildColumns()) {
-      (<any>colDef)["children"] = this.getChildColDefs(this.childColumns);
+      (<any>colDef)[ "children" ] = this.getChildColDefs(this.childColumns);
     }
 
     return colDef;
   }
 
   private setColumnTypeEditor(): void {
-    if(this.editable) {
+    if (this.editable) {
       this.cellClass = 'editable';
       if (!this.type || this.type === 'text') {
         this.cellEditorFramework = TextEditorComponent;
@@ -68,16 +70,23 @@ export class TableColumnComponent {
         this.cellEditorFramework = SelectEditorComponent;
         this.cellClass = 'editable select-dropdown';
       }
-
+      if (this.type === 'slide-toggle') {
+        this.cellRendererFramework = SlideToggleCellRendererComponent;
+        this.cellEditorFramework = SlideToggleEditorComponent;
+      }
     }
   }
 
-  private setColumnCellFilter = () : void => {
-    if(this.type === 'date'){
+  private setColumnCellFilter = (): void => {
+    if (this.type === 'date') {
       this.cellRendererFramework = DateCellRendererComponent;
-      if(this.cellFilter){
+      if (this.cellFilter) {
         console.log('date with a filter', this.cellFilter);
       }
+    }
+    if(this.type === 'slide-toggle') {
+      this.cellRendererFramework = SlideToggleCellRendererComponent;
+      // TODO: Disable the slide toggle
     }
     else {
       this.cellRendererFramework = DefaultCellRendererComponent;
@@ -110,13 +119,20 @@ export class TableColumnComponent {
   @Input('editDropdownValueLabel') public editDropdownValueLabel: string = undefined;
   @Input('enableMovable') public suppressMovable: boolean = true;
   @Input('type') public type: string = undefined;
+
+  /**
+   * Used to denote the model type to use for the toggle-select and checkbox column types.
+   * @modelType {string} used to denote the type of model valid values are yesno, onezero.
+   *                      yesno will make the toggle select use Y and N.
+   *                      onezero will make the toggle select use 1 and 0.
+   *                      default will make the toggle select use true and false.
+   */
+  @Input('modelType') public modelType: string = undefined;
   @Input('name') public field: any = undefined;
   @Input('enable-edit') public editable: boolean = true;
   @Input('cell-editor') public cellEditor: string = undefined;
   @Input('minWidth') public minWidth: number = undefined;
   @Input('cell-filter') public cellFilter: string = undefined;
   @Input('floatingCellRenderer') public floatingCellRenderer: any = undefined;
-
-
 
 }

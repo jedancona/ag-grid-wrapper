@@ -5,17 +5,17 @@ import {
   EventEmitter,
   Input,
   Output,
-  HostListener, ContentChildren, QueryList
-} from "@angular/core";
-import {Grid, GridOptions, GridApi, ColumnApi, GridParams, ComponentUtil, ColDef} from "ag-grid/main";
-import {Ng2FrameworkFactory} from "ag-grid-ng2";
-import {TableColumnComponent} from "./column/column";
-
-import * as _ from "lodash";
-import {Subject} from "rxjs";
-
-import {TableComponent} from "./table.component";
-import {TableRowFactory} from "./row/row.factory";
+  HostListener,
+  ContentChild,
+  ContentChildren,
+  QueryList
+} from '@angular/core';
+import { Grid, GridOptions, GridApi, ColumnApi, GridParams, ComponentUtil, ColDef } from 'ag-grid/main';
+import { Ng2FrameworkFactory } from 'ag-grid-ng2';
+import { TableColumnComponent } from './column/column.component';
+import { Subject } from 'rxjs';
+import { TableComponent } from './table.component';
+import { TableColumnWrapperComponent } from './column/column-wrapper.component';
 
 export class TableBaseComponent {
 
@@ -33,8 +33,8 @@ export class TableBaseComponent {
   public api: GridApi;
   public columnApi: ColumnApi;
 
-
   @ContentChildren(TableColumnComponent) public columns: QueryList<TableColumnComponent>;
+  @ContentChild(TableColumnWrapperComponent) public columnWrapper: TableColumnWrapperComponent;
 
   constructor(elementDef: ElementRef,
               viewContainerRef: ViewContainerRef,
@@ -57,13 +57,12 @@ export class TableBaseComponent {
   };
 
   protected initializeGrid = (table: TableComponent): void => {
-    new Grid(table._nativeElement.getElementsByClassName('ui-table')[0], table.gridOptions, table.gridParams);
+    new Grid(table._nativeElement.getElementsByClassName('ui-table')[ 0 ], table.gridOptions, table.gridParams);
 
     if (table.gridOptions.api) {
       table.api = table.gridOptions.api;
       table.api.sizeColumnsToFit();
     }
-
 
     if (table.gridOptions.columnApi) {
       table.columnApi = table.gridOptions.columnApi;
@@ -81,6 +80,10 @@ export class TableBaseComponent {
 
   protected setColumns = (): void => {
     let self = this;
+    if (!(this.columns.length > 0)) {
+      this.columns = this.columnWrapper.columns;
+    }
+
     if (this.columns && this.columns.length > 0) {
       this.gridOptions.columnDefs = this.columns
         .map((column: TableColumnComponent) => {
@@ -93,7 +96,7 @@ export class TableBaseComponent {
 
   };
 
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize', [ '$event' ])
   protected onResize = (event: any): void => {
     if (this.api && this.api.sizeColumnsToFit && !this.resizerTimeout) {
       this.resizerTimeout = setTimeout((): void => {
@@ -110,7 +113,7 @@ export class TableBaseComponent {
       return;
     }
     // generically look up the eventType
-    let emitter = <EventEmitter<any>> (<any>this)[eventType];
+    let emitter = <EventEmitter<any>> (<any>this)[ eventType ];
     if (emitter) {
       emitter.emit(event);
     } else {
@@ -118,10 +121,9 @@ export class TableBaseComponent {
     }
   };
 
-
   protected createComponentEvents = (): void => {
     ComponentUtil.EVENTS.forEach((eventName) => {
-      (<any>this)[eventName] = new EventEmitter();
+      (<any>this)[ eventName ] = new EventEmitter();
     });
   };
 
