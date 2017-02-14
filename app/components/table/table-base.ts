@@ -1,21 +1,11 @@
 /* tslint:disable */
-import {
-  ViewContainerRef,
-  ElementRef,
-  EventEmitter,
-  Input,
-  Output,
-  HostListener,
-  ContentChild,
-  ContentChildren,
-  QueryList
-} from '@angular/core';
-import { Grid, GridOptions, GridApi, ColumnApi, GridParams, ComponentUtil, ColDef } from 'ag-grid/main';
+import { ViewContainerRef, ElementRef, EventEmitter, Input, Output, HostListener } from '@angular/core';
+import { Grid, GridOptions, GridApi, ColumnApi, GridParams, ComponentUtil } from 'ag-grid/main';
 import { Ng2FrameworkFactory } from 'ag-grid-ng2';
 import { TableColumnComponent } from './column/column.component';
 import { Subject } from 'rxjs';
 import { TableComponent } from './table.component';
-import { TableColumnWrapperComponent } from './column/column-wrapper.component';
+import { TableColumnConfigFactory } from './column/column-config.factory';
 
 export class TableBaseComponent {
 
@@ -27,18 +17,20 @@ export class TableBaseComponent {
   protected gridParams: GridParams;
   protected colDefs: any = [];
   protected ng2FrameworkFactory: any;
+  protected columnConfigFactory: TableColumnConfigFactory;
   private _table: TableComponent;
 
   // making these public, so they are accessible to people using the ng2 component references
   public api: GridApi;
   public columnApi: ColumnApi;
 
-  @ContentChildren(TableColumnComponent) public columns: QueryList<TableColumnComponent>;
-  @ContentChild(TableColumnWrapperComponent) public columnWrapper: TableColumnWrapperComponent;
+  public columns: Array<any> = [];
 
   constructor(elementDef: ElementRef,
               viewContainerRef: ViewContainerRef,
-              ng2FrameworkFactory: Ng2FrameworkFactory) {
+              ng2FrameworkFactory: Ng2FrameworkFactory,
+              columnConfigFactory: TableColumnConfigFactory) {
+    this.columnConfigFactory = columnConfigFactory;
     this._nativeElement = elementDef.nativeElement;
     this.createComponentEvents();
     this.ng2FrameworkFactory = ng2FrameworkFactory;
@@ -74,19 +66,23 @@ export class TableBaseComponent {
     table._initialized = true;
   };
 
-  protected addColumn = (colDef: TableColumnComponent) => {
-    this.colDefs.push(colDef as ColDef);
+  public addColumn = (colDef: TableColumnComponent) => {
+    this.columns.push(colDef);
+  };
+
+  public removeColumn = (colDef: TableColumnComponent) => {
+    if (colDef) {
+      this.columns.splice(this.columns.indexOf(colDef), 1);
+    }
   };
 
   protected setColumns = (): void => {
     let self = this;
-    if (!(this.columns.length > 0)) {
-      this.columns = this.columnWrapper.columns;
-    }
 
     if (this.columns && this.columns.length > 0) {
       this.gridOptions.columnDefs = this.columns
         .map((column: TableColumnComponent) => {
+          this.columnConfigFactory.configureColumn(column);
           return column.toColDef();
         });
     }
