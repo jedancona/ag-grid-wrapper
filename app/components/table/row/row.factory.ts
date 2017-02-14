@@ -2,22 +2,24 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { TableComponent } from '../table.component';
-import { TableRowAutoSaveFactory } from './row-edit-auto-save.factory';
+import { TableRowEditAutoSaveFactory } from './row-edit-auto-save.factory';
 import { TableRowFooterAggregationFactory } from './row-footer-aggregation.factory';
-import { TableRowModifiedFieldsFactory } from './row-edit-modified-fields.factory';
+import { TableRowEditModifiedFieldsFactory } from './row-edit-modified-fields.factory';
 import { RowSingleSelectComponent } from './row-single-select.component';
 import { RowActionMenuComponent } from './row-action-menu.component';
-import { TableRowAddFactory } from './row-edit-add.factory';
+import { TableRowEditAddFactory } from './row-edit-add.factory';
 import { TableRowEditFactory } from './row-edit.factory';
+import { TableRowEditDeleteFactory } from './row-edit-delete.factory';
 
 @Injectable()
 export class TableRowFactory {
 
-  constructor(private rowAddFactory: TableRowAddFactory,
-              private rowAutoSaveFactory: TableRowAutoSaveFactory,
+  constructor(private rowAddFactory: TableRowEditAddFactory,
+              private rowAutoSaveFactory: TableRowEditAutoSaveFactory,
+              private rowDeleteFactory: TableRowEditDeleteFactory,
               private rowEditFactory: TableRowEditFactory,
               private rowFooterAggregationFactory: TableRowFooterAggregationFactory,
-              private rowModifiedFieldsFactory: TableRowModifiedFieldsFactory) {
+              private rowModifiedFieldsFactory: TableRowEditModifiedFieldsFactory) {
   }
 
   public registerTableRowFeatures = (onGridApiRegistered: Subject<any>, table: TableComponent): void => {
@@ -39,12 +41,14 @@ export class TableRowFactory {
       this.rowModifiedFieldsFactory.unRegisterGridListener(table);
     }
     this.rowAddFactory.unRegisterGridListener(table);
+    this.rowDeleteFactory.unRegisterGridListener(table);
     this.rowEditFactory.unRegisterGridListener(table);
   };
 
   private _onGridApiRegistered = (table: TableComponent): void => {
     this.rowEditFactory.onGridApiRegistered(table);
     this.rowAddFactory.onGridApiRegistered(table);
+    this.rowDeleteFactory.onGridApiRegistered(table);
 
     if (table.enableRowAutoSave) {
       this.rowAutoSaveFactory.onGridApiRegistered(table);
