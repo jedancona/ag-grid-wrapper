@@ -8,10 +8,11 @@
           {{ food.viewValue }}
         </md-option>
       </md-select>
-      <button  md-raised-button (click)="addRow()"  >Add Row</button>
+      <button md-raised-button (click)="addRow()">Add Row</button>
     </div>
     <div style="height:500px;">
-      <ui-table [gridOptions]="gridOptions" [(data)]="data" [(showSingleSelect)]="selectionMode" [enableRowAutoSave]="false" [showFooter]="true"
+      <ui-table [gridOptions]="gridOptions" [(data)]="data" [(showSingleSelect)]="selectionMode"
+                [enableRowAutoSave]="false" [showFooter]="true"
                 [actionMenu]="listActionMenu">
         <ui-table-column display-name="Net Key"
                          name="column1"
@@ -29,9 +30,10 @@
                          name="column4"
                          aggregationType="min"
                          [enable-edit]="true"></ui-table-column>
-        <ui-table-column display-name="Average Type"
+        <ui-table-column display-name="slide toggle"
                          name="column5"
-                         aggregationType="avg"
+                         type="slide-toggle"
+                         modelType="yesno"
                          [enable-edit]="true"></ui-table-column>
         <ui-table-column display-name="Sum Type 2"
                          aggregationType="sum"
