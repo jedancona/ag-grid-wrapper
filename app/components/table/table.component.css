@@ -1596,6 +1596,10 @@ ag-grid-ng2 {
   z-index: 15;
 }
 
+.ag-material .ag-body-container md-slide-toggle {
+  margin: 0px;
+}
+
 .ag-material .ag-body-container .ag-cell-inline-editing div.editor,
 .ag-material .ag-body-container .ag-cell-inline-editing div.select-editor {
   line-height: 17px;
