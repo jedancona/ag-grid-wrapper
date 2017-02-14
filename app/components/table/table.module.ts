@@ -9,17 +9,16 @@ import { RowModules } from "./row/index";
 import { EteRendererModule } from "./column/render/index";
 import { TableColumnEditorsModule } from "./column/editors/index";
 import { TableColumnWrapperComponent } from './column/column-wrapper.component';
+import { TableColumnConfigFactory } from './column/column-config.factory';
 
 @NgModule({
   imports: [ CommonModule, MaterialModule, RowModules, EteRendererModule, TableColumnEditorsModule ],
   declarations: [
     TableComponent,
-    TableColumnWrapperComponent,
     TableColumnComponent,
   ],
   exports: [
     TableComponent,
-    TableColumnWrapperComponent,
     TableColumnComponent,
   ],
   entryComponents: []
@@ -34,6 +33,7 @@ export class TableModule {
       providers: [
         Ng2FrameworkFactory,
         Ng2ComponentFactory,
+        TableColumnConfigFactory,
         { provide: BaseComponentFactory, useExisting: Ng2ComponentFactory },
         { provide: ANALYZE_FOR_ENTRY_COMPONENTS, useValue: components, multi: true }
       ],

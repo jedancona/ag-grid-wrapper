@@ -7,19 +7,20 @@ import {
   ElementRef,
   OnDestroy
 } from "@angular/core";
-import {ComponentUtil} from "ag-grid/main";
-import {Ng2FrameworkFactory} from "ag-grid-ng2";
+import { ComponentUtil } from "ag-grid/main";
+import { Ng2FrameworkFactory } from "ag-grid-ng2";
 
 import * as _ from "lodash";
 
-import {TableBaseComponent} from "./table-base";
-import {TableRowFactory} from "./row/row.factory";
+import { TableBaseComponent } from "./table-base";
+import { TableRowFactory } from "./row/row.factory";
+import { TableColumnConfigFactory } from './column/column-config.factory';
 
 @Component({
   moduleId: module.id,
   selector: 'ui-table',
   templateUrl: './table.component.tpl.html',
-  styleUrls: ['table.component.css'],
+  styleUrls: [ 'table.component.css' ],
   // tell angular we don't want view encapsulation, we don't want a shadow root
   encapsulation: ViewEncapsulation.None
 })
@@ -29,9 +30,10 @@ export class TableComponent extends TableBaseComponent implements OnDestroy, Aft
   constructor(elementDef: ElementRef,
               viewContainerRef: ViewContainerRef,
               ng2FrameworkFactory: Ng2FrameworkFactory,
-              private tableRowFactory: TableRowFactory) {
+              columnConfigFactory: TableColumnConfigFactory,
+              private tableRowFactory: TableRowFactory,) {
 
-    super(elementDef, viewContainerRef, ng2FrameworkFactory);
+    super(elementDef, viewContainerRef, ng2FrameworkFactory, columnConfigFactory);
     this.table = this;
   }
 
@@ -91,6 +93,5 @@ export class TableComponent extends TableBaseComponent implements OnDestroy, Aft
       this.api.destroy();
     }
   }
-
 
 }

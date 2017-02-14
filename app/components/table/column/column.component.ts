@@ -1,14 +1,8 @@
 /* tslint:disable */
-import { Component, ViewEncapsulation, Input, ContentChildren, QueryList } from "@angular/core";
-import { GridApi, ColumnApi, GridParams, ColDef } from "ag-grid/main";
-import * as _ from "lodash";
-import { NumericEditorComponent } from "./editors/numeric-editor.component";
-import { TextEditorComponent } from "./editors/text-editor.component";
-import { DateCellRendererComponent } from "./render/date-cell-renderer.component";
-import { DefaultCellRendererComponent } from "./render/default-cell-renderer.component";
-import { SelectEditorComponent } from "./editors/select-editor.component";
-import { SlideToggleCellRendererComponent } from './render/slide-toggle-cell-renderer.component';
-import { SlideToggleEditorComponent } from './editors/slide-toggle-editor.component';
+import { Component, ViewEncapsulation, Input, ContentChildren, QueryList,OnDestroy } from '@angular/core';
+import { ColDef } from 'ag-grid/main';
+import * as _ from 'lodash';
+import { TableComponent } from '../table.component';
 
 @Component({
   selector: 'ui-table-column',
@@ -17,24 +11,20 @@ import { SlideToggleEditorComponent } from './editors/slide-toggle-editor.compon
   encapsulation: ViewEncapsulation.None
 })
 
-export class TableColumnComponent {
-
-  private gridParams: GridParams;
-
-  private colDef: any = {};
-  // making these public, so they are accessible to people using the ng2 component references
-  public api: GridApi;
-  public columnApi: ColumnApi;
-  public cellEditorFramework: any;
-  public cellRendererFramework: any;
+export class TableColumnComponent implements OnDestroy{
 
   @ContentChildren(TableColumnComponent) public childColumns: QueryList<TableColumnComponent>;
 
-  constructor() {
+  constructor(private tableComponent: TableComponent) {
     _.defaults(this, {
       minWidth: 50,
       suppressMovable: true,
     });
+    this.tableComponent.addColumn(this);
+  }
+
+  ngOnDestroy(): void {
+    this.tableComponent.removeColumn(this);
   }
 
   public hasChildColumns(): boolean {
@@ -46,51 +36,13 @@ export class TableColumnComponent {
   }
 
   public toColDef(): ColDef {
-    this.setColumnTypeEditor();
-    this.setColumnCellFilter();
+    /*this.setColumnTypeEditor();
+     this.setColumnCellFilter();*/
     let colDef: ColDef = this.createColDefFromGridColumn(this);
-
     if (this.hasChildColumns()) {
       (<any>colDef)[ "children" ] = this.getChildColDefs(this.childColumns);
     }
-
     return colDef;
-  }
-
-  private setColumnTypeEditor(): void {
-    if (this.editable) {
-      this.cellClass = 'editable';
-      if (!this.type || this.type === 'text') {
-        this.cellEditorFramework = TextEditorComponent;
-      }
-      if (this.type === 'number') {
-        this.cellEditorFramework = NumericEditorComponent;
-      }
-      if (this.type === 'select') {
-        this.cellEditorFramework = SelectEditorComponent;
-        this.cellClass = 'editable select-dropdown';
-      }
-      if (this.type === 'slide-toggle') {
-        this.cellRendererFramework = SlideToggleCellRendererComponent;
-        this.cellEditorFramework = SlideToggleEditorComponent;
-      }
-    }
-  }
-
-  private setColumnCellFilter = (): void => {
-    if (this.type === 'date') {
-      this.cellRendererFramework = DateCellRendererComponent;
-      if (this.cellFilter) {
-        console.log('date with a filter', this.cellFilter);
-      }
-    }
-    if(this.type === 'slide-toggle') {
-      this.cellRendererFramework = SlideToggleCellRendererComponent;
-      // TODO: Disable the slide toggle
-    }
-    else {
-      this.cellRendererFramework = DefaultCellRendererComponent;
-    }
   }
 
   private getChildColDefs(childColumns: QueryList<TableColumnComponent>) {
