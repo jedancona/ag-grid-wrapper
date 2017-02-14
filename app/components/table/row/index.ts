@@ -3,13 +3,14 @@ import { RowSingleSelectComponent } from './row-single-select.component';
 import { MaterialModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 import { RowActionMenuComponent } from './row-action-menu.component';
-import { TableRowAddFactory } from './row-edit-add.factory';
-import { TableRowAutoSaveFactory } from './row-edit-auto-save.factory';
+import { TableRowEditAddFactory } from './row-edit-add.factory';
+import { TableRowEditAutoSaveFactory } from './row-edit-auto-save.factory';
 import { TableRowFactory } from './row.factory';
 import { TableRowEditFactory } from './row-edit.factory';
 import { TableRowFooterAggregationFactory } from './row-footer-aggregation.factory';
-import { TableRowModifiedFieldsFactory } from './row-edit-modified-fields.factory';
+import { TableRowEditModifiedFieldsFactory } from './row-edit-modified-fields.factory';
 import { FormsModule } from '@angular/forms';
+import { TableRowEditDeleteFactory } from './row-edit-delete.factory';
 
 // All ng2 services must be listed here as a provider to allow the injector to work
 const subModules = [
@@ -25,10 +26,12 @@ const subModules = [
   providers: [
     TableRowFactory,
     TableRowEditFactory,
-    TableRowAddFactory,
-    TableRowAutoSaveFactory,
+    TableRowEditAddFactory,
+    TableRowEditAutoSaveFactory,
+    TableRowEditDeleteFactory,
+    TableRowEditModifiedFieldsFactory,
     TableRowFooterAggregationFactory,
-    TableRowModifiedFieldsFactory,
+
   ]
 })
 export class RowModules {

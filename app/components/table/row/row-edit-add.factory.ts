@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import { TableComponent } from '../table.component';
 
 @Injectable()
-export class TableRowAddFactory {
+export class TableRowEditAddFactory {
 
   constructor() {
   }
@@ -27,12 +27,11 @@ export class TableRowAddFactory {
             grid.addItems([ gridRowData ]);
             let rowIdx: number = grid.rowModel.getRowCount() - 1;
             let gridRow: any = grid.rowModel.getRow(rowIdx);
-
             _.assign(gridRow, {
               newValidation: true,
               isDirty: true
             });
-
+            grid.refreshRows([ gridRow ]);
             grid.ensureIndexVisible(rowIdx);
             if (scrollToFocusCol) {
               grid.ensureColumnVisible(scrollToFocusCol);

@@ -103,6 +103,7 @@ export class FooterRowGridComponent {
 
   public deleteAssociation = (row: any): void => {
     console.log('in the delete', row);
+    this.gridOptions.api.rowEdit.deleteRowByData(row);
   };
 
   public viewAssociation = (row: any): void => {
@@ -114,6 +115,7 @@ export class FooterRowGridComponent {
   };
 
   public selection = ($event: any): void => {
+
     this.selectedRows = $event;
   }
 
