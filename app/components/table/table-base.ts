@@ -64,6 +64,7 @@ export class TableBaseComponent {
       table.api.sizeColumnsToFit();
     }
 
+
     if (table.gridOptions.columnApi) {
       table.columnApi = table.gridOptions.columnApi;
     }

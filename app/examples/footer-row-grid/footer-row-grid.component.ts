@@ -7,6 +7,7 @@ import {Component} from "@angular/core";
 export class FooterRowGridComponent {
 
   data: any = [];
+  gridOptions: any = {};
   radioGroupValue: any;
   listActionMenu: any;
   selectionMode: boolean = true;
@@ -72,6 +73,22 @@ export class FooterRowGridComponent {
     }
   };
 
+  public addRow = (): number => {
+   let rowIdx: number =  this.gridOptions.api.rowEdit.addRow({
+      column1: 'Added Row',
+      column2: 'x',
+      column3: 0,
+      column4: 0,
+      column5: 0 + '',
+      column6: 0 + '',
+      column7: 0 + '',
+      column8: 0,
+      column9: 'R',
+      column10: 0
+    }, 'column4');
+   return rowIdx;
+  };
+
   public saveRow = (rowEntity: any): Promise<any> => {
     let self = this;
     return new Promise(resolve => {
@@ -86,17 +103,19 @@ export class FooterRowGridComponent {
 
   public deleteAssociation = (row: any): void => {
     console.log('in the delete', row);
-  }
+    this.gridOptions.api.rowEdit.deleteRowByData(row);
+  };
 
   public viewAssociation = (row: any): void => {
     console.log('in the view association', row);
-  }
+  };
 
   public validateLink = (row: any): boolean => {
     return row.column2 % 2 === 0;
-  }
+  };
 
   public selection = ($event: any): void => {
+
     this.selectedRows = $event;
   }
 

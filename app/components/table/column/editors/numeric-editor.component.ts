@@ -1,8 +1,7 @@
 /* tslint:disable */
-import {Component, ViewContainerRef, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, ViewContainerRef, ViewChild, AfterViewInit } from '@angular/core';
 
-import {AgEditorComponent} from 'ag-grid-ng2/main';
-
+import { AgEditorComponent } from 'ag-grid-ng2/main';
 
 @Component({
   selector: 'numeric-cell',
@@ -13,8 +12,7 @@ export class NumericEditorComponent implements AgEditorComponent, AfterViewInit 
   public value: number;
   private cancelBeforeStart: boolean = false;
 
-  @ViewChild('input', {read: ViewContainerRef}) public input: any;
-
+  @ViewChild('input', { read: ViewContainerRef }) public input: any;
 
   agInit(params: any): void {
     this.params = params;
@@ -24,7 +22,7 @@ export class NumericEditorComponent implements AgEditorComponent, AfterViewInit 
     this.cancelBeforeStart = params.charPress && ('1234567890'.indexOf(params.charPress) < 0);
 
     // if the row is floating a.k.a footer row do not allow editing.
-    if( this.params.node.floating) {
+    if (this.params.node.floating) {
       this.cancelBeforeStart = true;
     }
   }
@@ -50,20 +48,14 @@ export class NumericEditorComponent implements AgEditorComponent, AfterViewInit 
   // dont use afterGuiAttached for post gui events - hook into ngAfterViewInit instead for this
   ngAfterViewInit() {
     this.input.element.nativeElement.focus();
-  }
-
-  private getCharCodeFromEvent(event: any): any {
-    event = event || window.event;
-    return (typeof event.which == 'undefined') ? event.keyCode : event.which;
-  }
-
-  private isCharNumeric(charStr: any): boolean {
-    return !!/\d/.test(charStr);
+    setTimeout((): void => {
+      this.input.element.nativeElement.select();
+    });
   }
 
   private isKeyPressedNumeric(event: any): boolean {
-    let charCode = this.getCharCodeFromEvent(event);
-    let charStr = String.fromCharCode(charCode);
-    return this.isCharNumeric(charStr);
+    let charCode: any = (event.which) ? event.which : event.keyCode;
+    return !(charCode != 46 && charCode > 31
+    && (charCode < 48 || charCode > 57));
   }
 }

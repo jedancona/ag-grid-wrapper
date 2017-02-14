@@ -5,7 +5,7 @@ import {TableComponent} from "../table.component";
 import {ColDef, RowNode} from "ag-grid";
 
 @Injectable()
-export class RowFooterAggregationFactory {
+export class TableRowFooterAggregationFactory {
 
   constructor() {
   }

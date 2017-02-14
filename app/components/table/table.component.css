@@ -1,7 +1,12 @@
+.ui-table-outer {
+  width: 100%;
+  height: 100%;
+}
 
 .ui-table {
   width: 100%;
   height: 100%;
+  min-height: 250px;
 }
 
 ag-grid-ng2 {
@@ -1557,6 +1562,21 @@ ag-grid-ng2 {
 
 }
 
+.ag-material .ag-row.row-saving,
+.ag-material .ag-row.row-saving .ag-cell-not-inline-editing div.inner-cell {
+  color: #666666;
+}
+
+.ag-material .ag-row.row-error,
+.ag-material .ag-row.row-error .ag-cell-not-inline-editing div.inner-cell {
+  color: red;
+}
+
+.ag-material .ag-row.row-dirty,
+.ag-material .ag-row.row-dirty .ag-cell-not-inline-editing.editable.select-dropdown div.inner-cell:after {
+  background-color: #c2cde2;
+}
+
 .ag-material .ag-row-hover .ag-cell-not-inline-editing.editable.select-dropdown div.inner-cell:after,
 .ag-material .ag-row-selected .ag-cell-not-inline-editing.editable.select-dropdown div.inner-cell:after {
   background-color: #c9dde1;
@@ -1574,7 +1594,6 @@ ag-grid-ng2 {
   top: 12px;
   clear: both;
   z-index: 15;
-
 }
 
 .ag-material .ag-body-container .ag-cell-inline-editing div.editor,

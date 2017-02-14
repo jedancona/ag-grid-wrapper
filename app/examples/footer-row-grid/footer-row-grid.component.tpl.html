@@ -8,9 +8,10 @@
           {{ food.viewValue }}
         </md-option>
       </md-select>
+      <button  md-raised-button (click)="addRow()"  >Add Row</button>
     </div>
     <div style="height:500px;">
-      <ui-table [(data)]="data" [(showSingleSelect)]="selectionMode" [onSaveRow]="saveRow" [showFooter]="true"
+      <ui-table [gridOptions]="gridOptions" [(data)]="data" [(showSingleSelect)]="selectionMode" [enableRowAutoSave]="false" [showFooter]="true"
                 [actionMenu]="listActionMenu">
         <ui-table-column display-name="Net Key"
                          name="column1"

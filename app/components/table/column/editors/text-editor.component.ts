@@ -46,6 +46,10 @@ export class TextEditorComponent implements AgEditorComponent, AfterViewInit {
   // dont use afterGuiAttached for post gui events - hook into ngAfterViewInit instead for this
   ngAfterViewInit() {
     this.input.element.nativeElement.focus();
+    // Do a setTimeout to allow time for the value to render
+    setTimeout(():void=>{
+      this.input.element.nativeElement.select();
+    });
   }
 
 }
