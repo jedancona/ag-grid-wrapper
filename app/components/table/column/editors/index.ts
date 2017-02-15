@@ -7,12 +7,15 @@ import { SelectEditorComponent } from './select-editor.component';
 import { TextEditorComponent } from './text-editor.component';
 import { SelectEditorDirective } from './select-editor.directive';
 import { SlideToggleEditorComponent } from './slide-toggle-editor.component';
+import { CheckboxEditorComponent } from './checkbox-editor.component';
 // All ng2 services must be listed here as a provider to allow the injector to work
 const subModules = [
+  CheckboxEditorComponent,
   NumericEditorComponent,
   TextEditorComponent,
   SelectEditorComponent,
   SlideToggleEditorComponent,
+
 ];
 
 @NgModule({

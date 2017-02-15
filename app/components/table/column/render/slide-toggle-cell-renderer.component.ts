@@ -1,13 +1,13 @@
 /* tslint:disable */
-import { Component } from "@angular/core";
-import { AgRendererComponent } from "ag-grid-ng2";
+import { Component } from '@angular/core';
+import { AgRendererComponent } from 'ag-grid-ng2';
 @Component({
   selector: 'slide-toggle-cell',
   template: '<md-slide-toggle (change)="sliderChanged($event)" [checked]="isChecked()" [disabled]="isEditable()" aria-label="slide" ></md-slide-toggle>'
 })
 export class SlideToggleCellRendererComponent implements AgRendererComponent {
-  private params: any;
-  private modelType: any;
+  protected params: any;
+  protected modelType: any;
   public value: any;
 
   agInit(params: any): void {
@@ -44,19 +44,19 @@ export class SlideToggleCellRendererComponent implements AgRendererComponent {
     return !this.params.colDef.editable;
   };
 
-  private getYesNoModelValue = (): boolean => {
+  protected getYesNoModelValue = (): boolean => {
     return this.params.data[ this.params.colDef.field ] === 'Y';
   };
 
-  private getTrueFalseModelValue = (): boolean => {
+  protected getTrueFalseModelValue = (): boolean => {
     return this.params.data[ this.params.colDef.field ];
   };
 
-  private getOneZeroModelValue = (): boolean => {
+  protected getOneZeroModelValue = (): boolean => {
     return this.params.data[ this.params.colDef.field ] === 1;
   };
 
-  private setYesNoModelValue = (checked: boolean): void => {
+  protected setYesNoModelValue = (checked: boolean): void => {
     if (checked) {
       this.params.data[ this.params.colDef.field ] = 'Y';
     }
@@ -65,11 +65,11 @@ export class SlideToggleCellRendererComponent implements AgRendererComponent {
     }
   };
 
-  private setTrueFalseModelValue = (checked: boolean): void => {
+  protected setTrueFalseModelValue = (checked: boolean): void => {
     this.params.data[ this.params.colDef.field ] = checked;
   };
 
-  private setOneZeroModelValue = (checked: boolean): void => {
+  protected setOneZeroModelValue = (checked: boolean): void => {
     if (checked) {
       this.params.data[ this.params.colDef.field ] = 1;
     }
