@@ -1,7 +1,5 @@
 /* tslint:disable */
 import { Injectable } from '@angular/core';
-import * as _ from 'lodash';
-import { TableComponent } from '../table.component';
 import { DateCellRendererComponent } from './render/date-cell-renderer.component';
 import { SlideToggleCellRendererComponent } from './render/slide-toggle-cell-renderer.component';
 import { TextEditorComponent } from './editors/text-editor.component';
@@ -9,6 +7,8 @@ import { NumericEditorComponent } from './editors/numeric-editor.component';
 import { SelectEditorComponent } from './editors/select-editor.component';
 import { SlideToggleEditorComponent } from './editors/slide-toggle-editor.component';
 import { DefaultCellRendererComponent } from './render/default-cell-renderer.component';
+import { CheckboxCellRendererComponent } from './render/checkbox-cell-renderer.component';
+import { CheckboxEditorComponent } from './editors/checkbox-editor.component';
 
 @Injectable()
 export class TableColumnConfigFactory {
@@ -21,7 +21,7 @@ export class TableColumnConfigFactory {
     this.setColumnCellFilter(column);
   };
 
-  private setColumnTypeEditor(column: any): void {
+  private setColumnTypeEditor = (column: any): void => {
     if (column.editable) {
       column.cellClass = 'editable';
       if (!column.type || column.type === 'text') {
@@ -38,8 +38,13 @@ export class TableColumnConfigFactory {
         column.cellRendererFramework = SlideToggleCellRendererComponent;
         column.cellEditorFramework = SlideToggleEditorComponent;
       }
+      if (column.type === 'checkbox') {
+        column.cellRendererFramework = CheckboxCellRendererComponent;
+        column.cellEditorFramework = CheckboxEditorComponent;
+      }
+
     }
-  }
+  };
 
   private setColumnCellFilter = (column: any): void => {
     if (column.type === 'date') {
@@ -48,9 +53,11 @@ export class TableColumnConfigFactory {
         console.log('date with a filter', column.cellFilter);
       }
     }
-    if(column.type === 'slide-toggle') {
+    if (column.type === 'slide-toggle') {
       column.cellRendererFramework = SlideToggleCellRendererComponent;
-      // TODO: Disable the slide toggle
+    }
+    else if (column.type === 'checkbox') {
+      column.cellRendererFramework = CheckboxCellRendererComponent;
     }
     else {
       column.cellRendererFramework = DefaultCellRendererComponent;

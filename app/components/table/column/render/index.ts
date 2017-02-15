@@ -6,9 +6,11 @@ import { DateCellRendererComponent } from './date-cell-renderer.component';
 import { DefaultCellRendererComponent } from './default-cell-renderer.component';
 import { ETCodeCellRendererComponent } from './et-code-cell-renderer.component';
 import { SlideToggleCellRendererComponent } from './slide-toggle-cell-renderer.component';
+import { CheckboxCellRendererComponent } from './checkbox-cell-renderer.component';
 
 // All ng2 services must be listed here as a provider to allow the injector to work
 const subModules = [
+  CheckboxCellRendererComponent,
   DateCellRendererComponent,
   DefaultCellRendererComponent,
   ETCodeCellRendererComponent,
