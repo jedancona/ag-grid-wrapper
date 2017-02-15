@@ -16,10 +16,6 @@ export class TableColumnComponent implements OnDestroy{
   @ContentChildren(TableColumnComponent) public childColumns: QueryList<TableColumnComponent>;
 
   constructor(private tableComponent: TableComponent) {
-    _.defaults(this, {
-      minWidth: 50,
-      suppressMovable: true,
-    });
     this.tableComponent.addColumn(this);
   }
 
@@ -81,9 +77,9 @@ export class TableColumnComponent implements OnDestroy{
    */
   @Input('modelType') public modelType: string = undefined;
   @Input('name') public field: any = undefined;
-  @Input('enable-edit') public editable: boolean = true;
+  @Input('enable-edit') public editable: boolean = false;
   @Input('cell-editor') public cellEditor: string = undefined;
-  @Input('minWidth') public minWidth: number = undefined;
+  @Input('minWidth') public minWidth: number = 50;
   @Input('cell-filter') public cellFilter: string = undefined;
   @Input('floatingCellRenderer') public floatingCellRenderer: any = undefined;
 
