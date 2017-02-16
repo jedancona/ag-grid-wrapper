@@ -1,6 +1,6 @@
 {
   "name": "ete-ag-grid-wrapper",
-  "version": "0.0.6",
+  "version": "0.0.71",
   "main": "index.js",
   "typings": "index.d.ts",
   "private": false,
@@ -29,15 +29,27 @@
     "@angular/router": "4.0.0-beta.6"
   },
   "dependencies": {
+    "@angular/common": "4.0.0-beta.6",
+    "@angular/compiler": "4.0.0-beta.6",
+    "@angular/compiler-cli": "4.0.0-beta.6",
+    "@angular/core": "4.0.0-beta.6",
+    "@angular/flex-layout": "2.0.0-beta.4",
+    "@angular/forms": "4.0.0-beta.6",
+    "@angular/http": "4.0.0-beta.6",
+    "@angular/material": "2.0.0-beta.1",
+    "@angular/platform-browser": "4.0.0-beta.6",
+    "@angular/platform-browser-dynamic": "4.0.0-beta.6",
+    "@angular/platform-server": "4.0.0-beta.6",
+    "@angular/router": "4.0.0-beta.6",
     "ag-grid": "7.2.2",
     "ag-grid-ng2": "7.2.2",
     "angular-in-memory-web-api": "~0.2.4",
     "core-js": "^2.4.1",
     "hammerjs": "^2.0.8",
     "lodash": "^4.17.4",
-    "rxjs": "5.0.1",
+    "rxjs": "5.1.1",
     "systemjs": "0.19.40",
-    "zone.js": "^0.7.4"
+    "zone.js": "^0.7.7"
   },
   "devDependencies": {
     "@types/hammerjs": "^2.0.34",
@@ -45,7 +57,6 @@
     "@types/node": "^6.0.46",
     "@types/lodash": "^4.14.50",
     "canonical-path": "0.0.2",
-    "codelyzer": "2.0.0",
     "concurrently": "^3.1.0",
     "http-server": "^0.9.0",
     "jasmine-core": "~2.4.1",

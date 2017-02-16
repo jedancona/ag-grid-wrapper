@@ -31,7 +31,6 @@ const subModules = [
     TableRowEditDeleteFactory,
     TableRowEditModifiedFieldsFactory,
     TableRowFooterAggregationFactory,
-
   ]
 })
 export class RowModules {
