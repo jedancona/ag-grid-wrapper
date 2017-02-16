@@ -7,7 +7,7 @@ import {AgEditorComponent} from 'ag-grid-ng2/main';
   selector: 'text-cell',
   template: `<div class="editor"><input #input type="text" (blur)="onBlur($event)" [(ngModel)]="value"></div>`
 })
-export class TextEditorComponent implements AgEditorComponent, AfterViewInit {
+export class TableColumnEditTextComponent implements AgEditorComponent, AfterViewInit {
   private params: any;
   public value: number;
   private cancelBeforeStart: boolean = false;

@@ -26,5 +26,5 @@ const subModules = [
   declarations: [ subModules ],
   entryComponents: [ subModules ],
 })
-export class EteRendererModule {
+export class TableColumnRendererModule {
 }

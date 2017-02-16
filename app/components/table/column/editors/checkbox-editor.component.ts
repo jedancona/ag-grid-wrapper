@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { SlideToggleEditorComponent } from './slide-toggle-editor.component';
+import { TableColumnEditorSlideToggleComponent } from './slide-toggle-editor.component';
 
 @Component({
   selector: 'checkbox-editor',
   template: ''
 })
-export class CheckboxEditorComponent extends SlideToggleEditorComponent {
+export class TableColumnEditorCheckboxComponent extends TableColumnEditorSlideToggleComponent {
 
 }
