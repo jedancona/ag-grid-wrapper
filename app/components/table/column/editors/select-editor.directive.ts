@@ -1,7 +1,7 @@
 import {Directive, ElementRef, AfterViewInit, OnDestroy} from "@angular/core";
 
 @Directive({ selector: '[selectEditorOpenSelect]' })
-export class SelectEditorDirective implements AfterViewInit, OnDestroy{
+export class TableColumnEditSelectDropdownDirective implements AfterViewInit, OnDestroy{
 
   readonly selectTimerWait: number = 200;
 

@@ -42,8 +42,10 @@
                          [enable-edit]="true"></ui-table-column>
         <ui-table-column display-name="Max Type"
                          name="column7"
+                         type="lookup"
+                         [lookupComponent]="singleSelectComponent"
                          aggregationType="max"
-                         [enable-edit]="false"></ui-table-column>
+                         [enable-edit]="true"></ui-table-column>
         <ui-table-column display-name="Net Type"
                          name="column8"
                          aggregationType="net"

@@ -11,7 +11,7 @@ import {AgEditorComponent} from "ag-grid-ng2/main";
               </md-select>
             </div>`
 })
-export class SelectEditorComponent implements AgEditorComponent {
+export class TableColumnEditSelectDropdownComponent implements AgEditorComponent {
   private params: any;
   private editDropdownLabel: string;
   private editDropdownId: string;

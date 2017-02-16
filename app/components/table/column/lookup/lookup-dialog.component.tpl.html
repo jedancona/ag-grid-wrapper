@@ -1,0 +1,17 @@
+<div>
+  <h2 md-dialog-title>Neptune</h2>
+  <md-dialog-content>
+    <div #dialogComponent ></div>
+  </md-dialog-content>
+  <md-dialog-actions align="right">
+    <button
+      md-raised-button
+      color="primary"
+      md-dialog-close>Close</button>
+    <button
+      md-button
+      color="secondary"
+      (click)="ok()">
+      Ok</button>
+  </md-dialog-actions>
+</div>

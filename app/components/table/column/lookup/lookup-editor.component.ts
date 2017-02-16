@@ -1,25 +1,30 @@
 /* tslint:disable */
 import { Component, ViewContainerRef, ViewChild, AfterViewInit } from '@angular/core';
-
 import { AgEditorComponent } from 'ag-grid-ng2/main';
+import { MdDialog } from '@angular/material';
+import { TableColumnLookupBaseComponent } from './lookup-base.component';
 
 @Component({
-  selector: 'numeric-cell',
-  template: `<div class="editor"><input #input type="number" (keydown)="onKeyDown($event)" (blur)="onBlur($event)" [(ngModel)]="value"></div>`
+  moduleId: module.id,
+  selector: 'lookup-cell-editor',
+  templateUrl: './lookup-editor.component.tpl.html'
 })
-export class TableColumnEditorNumericComponent implements AgEditorComponent, AfterViewInit {
-  private params: any;
-  public value: number;
+export class TableColumnLookupEditorComponent extends TableColumnLookupBaseComponent implements AgEditorComponent, AfterViewInit {
   private cancelBeforeStart: boolean = false;
+  private lookupType: string = 'text';
 
   @ViewChild('input', { read: ViewContainerRef }) public input: any;
+
+  constructor(dialog: MdDialog) {
+    super(dialog);
+  }
 
   agInit(params: any): void {
     this.params = params;
     this.value = this.params.value;
-    // console.debug('numeric editor');
-    // only start edit if key pressed is a number, not a letter
-    this.cancelBeforeStart = params.charPress && ('1234567890'.indexOf(params.charPress) < 0);
+    console.debug(params);
+
+    //this.cancelBeforeStart = params.charPress && ('1234567890'.indexOf(params.charPress) < 0);
 
     // if the row is floating a.k.a footer row do not allow editing.
     if (this.params.node.floating) {
@@ -48,9 +53,9 @@ export class TableColumnEditorNumericComponent implements AgEditorComponent, Aft
   // dont use afterGuiAttached for post gui events - hook into ngAfterViewInit instead for this
   ngAfterViewInit() {
     this.input.element.nativeElement.focus();
-    setTimeout((): void => {
-      this.input.element.nativeElement.select();
-    });
+     setTimeout((): void => {
+     this.input.element.nativeElement.select();
+     });
   }
 
   private isKeyPressedNumeric(event: any): boolean {

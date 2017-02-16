@@ -5,7 +5,7 @@ import { AgEditorComponent } from "ag-grid-ng2/main";
   selector: 'slide-toggle-editor',
   template: ''
 })
-export class SlideToggleEditorComponent implements AgEditorComponent {
+export class TableColumnEditorSlideToggleComponent implements AgEditorComponent {
   private params: any;
   private cancelBeforeStart: boolean;
   private value: any;
