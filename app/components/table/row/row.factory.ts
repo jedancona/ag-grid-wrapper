@@ -40,6 +40,7 @@ export class TableRowFactory {
     if (table.enableRowModifiedFields) {
       this.rowModifiedFieldsFactory.unRegisterGridListener(table);
     }
+
     this.rowAddFactory.unRegisterGridListener(table);
     this.rowDeleteFactory.unRegisterGridListener(table);
     this.rowEditFactory.unRegisterGridListener(table);
@@ -61,6 +62,7 @@ export class TableRowFactory {
     if (table.enableRowModifiedFields) {
       this.rowModifiedFieldsFactory.onGridApiRegistered(table);
     }
+
 
   };
 

@@ -122,7 +122,7 @@ export class TableBaseComponent {
       (<any>this)[ eventName ] = new EventEmitter();
     });
   };
-
+  
   @Input() public suppressKeepFocus: boolean = false;
   @Input() public gridOptions: GridOptions;
   @Input() public slaveGrids: any = undefined;

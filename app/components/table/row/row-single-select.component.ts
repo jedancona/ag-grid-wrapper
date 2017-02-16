@@ -1,22 +1,24 @@
 /* tslint:disable */
-import {ViewEncapsulation, Component} from '@angular/core';
-import {AgRendererComponent} from 'ag-grid-ng2';
+import { ViewEncapsulation, Component } from "@angular/core";
+import { AgRendererComponent } from "ag-grid-ng2";
+import { RowNode } from "ag-grid";
+
+
 @Component({
   moduleId: module.id,
   selector: 'row-single-select',
-  templateUrl: './row-single-select.component.tpl.html',
-  // tell angular we don't want view encapsulation, we don't want a shadow root
+  template: `<md-radio-button  [(checked)]="rowNode.selected" [(value)]="rowNode.id" ></md-radio-button>`,
   encapsulation: ViewEncapsulation.None
 })
 
 export class RowSingleSelectComponent implements AgRendererComponent {
   private params: any;
+  private rowNode: RowNode;
 
   agInit(params: any): void {
-    this.params = params
+    this.params = params;
+    this.rowNode = params.node;
+
   }
 
-  public onBlur = (): void => {
-    //this.params.api.gridCore.gridOptions.onCellEditingStopped.emit(this.params);
-  }
 }
