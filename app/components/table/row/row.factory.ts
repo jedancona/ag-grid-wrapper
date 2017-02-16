@@ -10,6 +10,7 @@ import { RowActionMenuComponent } from './row-action-menu.component';
 import { TableRowEditAddFactory } from './row-edit-add.factory';
 import { TableRowEditFactory } from './row-edit.factory';
 import { TableRowEditDeleteFactory } from './row-edit-delete.factory';
+import { TableRowSelectionFactory } from "./row-selection-factory";
 
 @Injectable()
 export class TableRowFactory {
@@ -19,7 +20,8 @@ export class TableRowFactory {
               private rowDeleteFactory: TableRowEditDeleteFactory,
               private rowEditFactory: TableRowEditFactory,
               private rowFooterAggregationFactory: TableRowFooterAggregationFactory,
-              private rowModifiedFieldsFactory: TableRowEditModifiedFieldsFactory) {
+              private rowModifiedFieldsFactory: TableRowEditModifiedFieldsFactory,
+              private rowSelectionFactory: TableRowSelectionFactory) {
   }
 
   public registerTableRowFeatures = (onGridApiRegistered: Subject<any>, table: TableComponent): void => {
@@ -40,6 +42,11 @@ export class TableRowFactory {
     if (table.enableRowModifiedFields) {
       this.rowModifiedFieldsFactory.unRegisterGridListener(table);
     }
+
+    if(table.showMultiSelect || table.showSingleSelect) {
+      this.rowSelectionFactory.unRegisterGridListener(table);
+    }
+
     this.rowAddFactory.unRegisterGridListener(table);
     this.rowDeleteFactory.unRegisterGridListener(table);
     this.rowEditFactory.unRegisterGridListener(table);
@@ -61,6 +68,7 @@ export class TableRowFactory {
     if (table.enableRowModifiedFields) {
       this.rowModifiedFieldsFactory.onGridApiRegistered(table);
     }
+
 
   };
 
@@ -127,6 +135,7 @@ export class TableRowFactory {
       };
       table.gridOptions.rowSelection = 'single';
       table.gridOptions.columnDefs.unshift(singleSelectCell);
+      this.rowSelectionFactory.onGridApiRegistered(table, singleSelectCell);
     }
   };
 

@@ -8,7 +8,6 @@ import { MaterialModule } from "@angular/material";
 import { RowModules } from "./row/index";
 import { EteRendererModule } from "./column/render/index";
 import { TableColumnEditorsModule } from "./column/editors/index";
-import { TableColumnWrapperComponent } from './column/column-wrapper.component';
 import { TableColumnConfigFactory } from './column/column-config.factory';
 
 @NgModule({
