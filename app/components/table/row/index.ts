@@ -11,7 +11,6 @@ import { TableRowFooterAggregationFactory } from './row-footer-aggregation.facto
 import { TableRowEditModifiedFieldsFactory } from './row-edit-modified-fields.factory';
 import { FormsModule } from '@angular/forms';
 import { TableRowEditDeleteFactory } from './row-edit-delete.factory';
-import { TableRowSelectionFactory } from "./row-selection-factory";
 
 // All ng2 services must be listed here as a provider to allow the injector to work
 const subModules = [
@@ -32,7 +31,6 @@ const subModules = [
     TableRowEditDeleteFactory,
     TableRowEditModifiedFieldsFactory,
     TableRowFooterAggregationFactory,
-    TableRowSelectionFactory,
   ]
 })
 export class RowModules {
