@@ -111,7 +111,6 @@ export class TableBaseComponent {
     // generically look up the eventType
     let emitter = <EventEmitter<any>> (<any>this)[ eventType ];
     if (emitter) {
-      console.log('emitting event', eventType);
       emitter.emit(event);
     } else {
       console.log('ag-Grid-ng2: could not find EventEmitter: ' + eventType);
@@ -123,11 +122,7 @@ export class TableBaseComponent {
       (<any>this)[ eventName ] = new EventEmitter();
     });
   };
-
-  public onRowSelected = (event:any) : void => {
-    console.log('onRowSelected', event);
-  }
-
+  
   @Input() public suppressKeepFocus: boolean = false;
   @Input() public gridOptions: GridOptions;
   @Input() public slaveGrids: any = undefined;
