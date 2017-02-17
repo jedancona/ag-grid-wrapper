@@ -1,11 +1,6 @@
-import { Component } from "@angular/core";
-import { AgEditorComponent } from "ag-grid-ng2/main";
+import { AgEditorComponent } from 'ag-grid-ng2/main';
 
-@Component({
-  selector: 'slide-toggle-editor',
-  template: ''
-})
-export class TableColumnEditorSlideToggleComponent implements AgEditorComponent {
+export class TableColumnToggleBaseEditor implements AgEditorComponent {
   private params: any;
   private cancelBeforeStart: boolean;
   private value: any;

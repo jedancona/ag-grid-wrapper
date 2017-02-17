@@ -1,16 +1,23 @@
 /* tslint:disable */
 import { Injectable } from '@angular/core';
-import { DateCellRendererComponent } from './render/date-cell-renderer.component';
-import { SlideToggleCellRendererComponent } from './render/slide-toggle-cell-renderer.component';
-import { TableColumnEditTextComponent } from './editors/text-editor.component';
-import { TableColumnEditorNumericComponent } from './editors/numeric-editor.component';
-import { TableColumnEditSelectDropdownComponent } from './editors/select-editor.component';
-import { TableColumnEditorSlideToggleComponent } from './editors/slide-toggle-editor.component';
-import { DefaultCellRendererComponent } from './render/default-cell-renderer.component';
-import { CheckboxCellRendererComponent } from './render/checkbox-cell-renderer.component';
-import { TableColumnEditorCheckboxComponent } from './editors/checkbox-editor.component';
+
+import { TableColumnCheckboxRendererComponent } from './checkbox/checkbox-renderer.component';
+import { TableColumnCheckboxEditorComponent } from './checkbox/checkbox-editor.component';
+
+import { TableColumnDefaultEditorComponent } from './default/default-editor.component';
+import { TableColumnDefaultRendererComponent } from './default/default-renderer.component';
+
+import { TableColumnDateRendererComponent } from './date/date-renderer.component';
+
 import { TableColumnLookupEditorComponent } from './lookup/lookup-editor.component';
 import { TableColumnLookupRendererComponent } from './lookup/lookup-renderer.component';
+
+import { TableColumnNumericEditorComponent } from './numeric/numeric-editor.component';
+
+import { TableColumnSelectDropdownEditorComponent } from './select-dropdown/select-dropdown-editor.component';
+
+import { TableColumnSlideToggleEditorComponent } from './slide-toggle/slide-toggle-editor.component';
+import { TableColumnSlideToggleRendererComponent } from './slide-toggle/slide-toggle-renderer.component';
 
 @Injectable()
 export class TableColumnConfigFactory {
@@ -27,22 +34,20 @@ export class TableColumnConfigFactory {
     if (column.editable) {
       column.cellClass = 'editable';
       if (!column.type || column.type === 'text') {
-        column.cellEditorFramework = TableColumnEditTextComponent;
+        column.cellEditorFramework = TableColumnDefaultEditorComponent;
       }
       if (column.type === 'number') {
-        column.cellEditorFramework = TableColumnEditorNumericComponent;
+        column.cellEditorFramework = TableColumnNumericEditorComponent;
       }
       if (column.type === 'select') {
-        column.cellEditorFramework = TableColumnEditSelectDropdownComponent;
+        column.cellEditorFramework = TableColumnSelectDropdownEditorComponent;
         column.cellClass = 'editable select-dropdown';
       }
       if (column.type === 'slide-toggle') {
-        column.cellRendererFramework = SlideToggleCellRendererComponent;
-        column.cellEditorFramework = TableColumnEditorSlideToggleComponent;
+        column.cellEditorFramework = TableColumnSlideToggleEditorComponent;
       }
       if (column.type === 'checkbox') {
-        column.cellRendererFramework = CheckboxCellRendererComponent;
-        column.cellEditorFramework = TableColumnEditorCheckboxComponent;
+        column.cellEditorFramework = TableColumnCheckboxEditorComponent;
       }
       if (column.type === 'lookup') {
         column.cellEditorFramework = TableColumnLookupEditorComponent;
@@ -53,22 +58,22 @@ export class TableColumnConfigFactory {
 
   private setColumnCellFilter = (column: any): void => {
     if (column.type === 'date') {
-      column.cellRendererFramework = DateCellRendererComponent;
+      column.cellRendererFramework = TableColumnDateRendererComponent;
       if (column.cellFilter) {
         console.log('date with a filter', column.cellFilter);
       }
     }
     if (column.type === 'slide-toggle') {
-      column.cellRendererFramework = SlideToggleCellRendererComponent;
+      column.cellRendererFramework = TableColumnSlideToggleRendererComponent;
     }
     else if (column.type === 'checkbox') {
-      column.cellRendererFramework = CheckboxCellRendererComponent;
+      column.cellRendererFramework = TableColumnCheckboxRendererComponent;
     }
     else if (column.type === 'lookup' && column.editable) {
       column.cellRendererFramework = TableColumnLookupRendererComponent;
     }
     else {
-      column.cellRendererFramework = DefaultCellRendererComponent;
+      column.cellRendererFramework = TableColumnDefaultRendererComponent;
     }
 
   }

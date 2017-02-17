@@ -1,0 +1,7 @@
+<div class="select-editor">
+  <md-select selectEditorOpenSelect (onClose)="onSelectClose()" [(ngModel)]="value" >
+    <md-option *ngFor="let field of params.column.colDef.editDropdownOptionsArray" [value]="field[editDropdownId]">
+      {{ field[editDropdownLabel] }}
+    </md-option>
+  </md-select>
+</div>

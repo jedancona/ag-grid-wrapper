@@ -2,10 +2,11 @@
 import { Component } from "@angular/core";
 import { AgRendererComponent } from "ag-grid-ng2";
 @Component({
-  selector: 'default-cell',
-  template: '<div class="inner-cell" >{{params.value}}</div>'
+  moduleId: module.id,
+  selector: 'table-column-default-renderer',
+  templateUrl: './default-renderer.component.tpl.html'
 })
-export class DefaultCellRendererComponent implements AgRendererComponent {
+export class TableColumnDefaultRendererComponent implements AgRendererComponent {
   private params: any;
   agInit(params: any): void {
     this.params = params;

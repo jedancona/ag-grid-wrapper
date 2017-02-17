@@ -1,11 +1,12 @@
 /* tslint:disable */
-import { Component } from "@angular/core";
-import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
-import { AgRendererComponent } from "ag-grid-ng2";
+import { Component } from '@angular/core';
+import { MdDialog } from '@angular/material';
+import { AgRendererComponent } from 'ag-grid-ng2';
 import { TableColumnLookupBaseComponent } from './lookup-base.component';
+
 @Component({
   moduleId: module.id,
-  selector: 'table-column-render-lookup',
+  selector: 'table-column-lookup-render',
   templateUrl: './lookup-renderer.component.tpl.html'
 })
 export class TableColumnLookupRendererComponent extends TableColumnLookupBaseComponent implements AgRendererComponent {
