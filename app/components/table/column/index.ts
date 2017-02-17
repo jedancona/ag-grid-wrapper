@@ -1,22 +1,31 @@
+/* tslint:disable */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
-import { TableColumnLookupModule } from './lookup/index'
-import { TableColumnEditorsModule } from './editors/index';
-import { TableColumnRendererModule } from './render/index';
-import { TableColumnConfigFactory } from './column-config.factory';
-import { TableColumnComponent } from './column.component';
 
+import { TableColumnConfigFactory } from './column-config.factory';
+
+import { TableColumnCheckboxModule } from './checkbox/index';
+import { TableColumnDateModule } from './date/index';
+import { TableColumnDefaultModule } from './default/index';
+import { TableColumnLookupModule } from './lookup/index';
+import { TableColumnNumericModule } from './numeric/index';
+import { TableColumnSelectDropdownModule } from './select-dropdown/index';
+import { TableColumnSlideToggleModule } from './slide-toggle/index';
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
+    TableColumnCheckboxModule,
+    TableColumnDateModule,
+    TableColumnDefaultModule,
     TableColumnLookupModule,
-    TableColumnEditorsModule,
-    TableColumnRendererModule,
+    TableColumnNumericModule,
+    TableColumnSelectDropdownModule,
+    TableColumnSlideToggleModule,
   ],
   providers: [ TableColumnConfigFactory, ]
 })

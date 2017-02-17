@@ -10,7 +10,7 @@ import { TableComponent } from '../table.component';
   encapsulation: ViewEncapsulation.None
 })
 
-export class TableColumnComponent implements OnDestroy{
+export class TableColumnComponent implements OnDestroy {
 
   @ContentChildren(TableColumnComponent) public childColumns: QueryList<TableColumnComponent>;
 

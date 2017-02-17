@@ -1,10 +1,10 @@
 /* tslint:disable */
-import { Component, ViewContainerRef, ViewChild, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, ViewContainerRef, ViewChild, OnInit } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 
 @Component({
   moduleId: module.id,
-  selector: 'table-lookup-dialog-component',
+  selector: 'table-lookup-dialog',
   templateUrl: './lookup-dialog.component.tpl.html'
 })
 export class TableColumnLookupDialogComponent implements OnInit {
@@ -20,8 +20,7 @@ export class TableColumnLookupDialogComponent implements OnInit {
   }
 
   private ok = () => {
-    this.dialogRef.close({somedata: 'none'});
+    this.dialogRef.close({ somedata: 'none' });
   }
-
 
 }

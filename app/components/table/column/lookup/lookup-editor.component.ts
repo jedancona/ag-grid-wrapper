@@ -6,7 +6,7 @@ import { TableColumnLookupBaseComponent } from './lookup-base.component';
 
 @Component({
   moduleId: module.id,
-  selector: 'lookup-cell-editor',
+  selector: 'table-column-lookup-editor',
   templateUrl: './lookup-editor.component.tpl.html'
 })
 export class TableColumnLookupEditorComponent extends TableColumnLookupBaseComponent implements AgEditorComponent, AfterViewInit {

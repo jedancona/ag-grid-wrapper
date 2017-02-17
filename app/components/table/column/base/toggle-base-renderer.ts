@@ -1,11 +1,6 @@
-/* tslint:disable */
-import { Component } from '@angular/core';
 import { AgRendererComponent } from 'ag-grid-ng2';
-@Component({
-  selector: 'slide-toggle-cell',
-  template: '<md-slide-toggle (change)="valueChanged($event)" [checked]="isChecked()" [disabled]="isEditable()" aria-label="slide" ></md-slide-toggle>'
-})
-export class SlideToggleCellRendererComponent implements AgRendererComponent {
+
+export class TableColumnToggleBaseRenderer implements AgRendererComponent {
   protected params: any;
   protected modelType: any;
   public value: any;

@@ -4,10 +4,11 @@ import { Component, ViewContainerRef, ViewChild, AfterViewInit } from '@angular/
 import { AgEditorComponent } from 'ag-grid-ng2/main';
 
 @Component({
-  selector: 'numeric-cell',
-  template: `<div class="editor"><input #input type="number" (keydown)="onKeyDown($event)" (blur)="onBlur($event)" [(ngModel)]="value"></div>`
+  moduleId: module.id,
+  selector: 'table-column-numeric-editor',
+  templateUrl: './numeric-editor.component.tpl.html'
 })
-export class TableColumnEditorNumericComponent implements AgEditorComponent, AfterViewInit {
+export class TableColumnNumericEditorComponent implements AgEditorComponent, AfterViewInit {
   private params: any;
   public value: number;
   private cancelBeforeStart: boolean = false;

@@ -1,17 +1,12 @@
-import {Component} from "@angular/core";
-import {AgEditorComponent} from "ag-grid-ng2/main";
+import { Component } from "@angular/core";
+import { AgEditorComponent } from "ag-grid-ng2/main";
 
 @Component({
-  selector: 'select-editor',
-  template: `<div class="select-editor">
-               <md-select selectEditorOpenSelect (onClose)="onSelectClose()" [(ngModel)]="value" >
-                <md-option *ngFor="let field of params.column.colDef.editDropdownOptionsArray" [value]="field[editDropdownId]">
-                  {{ field[editDropdownLabel] }}
-                </md-option>
-              </md-select>
-            </div>`
+  moduleId: module.id,
+  selector: 'table-column-select-dropdown-editor',
+  template: './select-dropdown-editor.component.tpl.html'
 })
-export class TableColumnEditSelectDropdownComponent implements AgEditorComponent {
+export class TableColumnSelectDropdownEditorComponent implements AgEditorComponent {
   private params: any;
   private editDropdownLabel: string;
   private editDropdownId: string;
