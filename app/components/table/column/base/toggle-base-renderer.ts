@@ -7,7 +7,7 @@ export class TableColumnToggleBaseRenderer implements AgRendererComponent {
 
   agInit(params: any): void {
     this.params = params;
-    this.modelType = this.params.colDef.modelType;
+    this.modelType = this.params.colDef.toggleModelType;
   }
 
   public valueChanged = ($event: any): void => {
