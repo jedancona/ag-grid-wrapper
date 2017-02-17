@@ -1,4 +1,5 @@
-import {Component} from "@angular/core";
+import {Component, ComponentFactoryResolver} from "@angular/core";
+import { SingleSelectGridComponent } from '../single-select-grid/single-select-grid.component';
 
 @Component({
   selector: 'footer-row-grid',
@@ -13,8 +14,11 @@ export class FooterRowGridComponent {
   selectionMode: boolean = true;
   selectedRows: any[] = [];
   foods: any[] = [];
+  singleSelectComponent: any;
 
-  constructor() {
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+    this.singleSelectComponent = this.componentFactoryResolver.resolveComponentFactory(SingleSelectGridComponent);
+
     this.init();
   }
 

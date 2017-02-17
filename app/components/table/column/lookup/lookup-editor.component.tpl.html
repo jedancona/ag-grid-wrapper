@@ -1,0 +1,6 @@
+<div class="lookup-editor">
+  <input #input type="text" (blur)="onBlur($event)" [(ngModel)]="value">
+  <button md-icon-button (click)="openDialog($event)">
+    <md-icon>search</md-icon>
+  </button>
+</div>

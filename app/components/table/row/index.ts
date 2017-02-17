@@ -1,3 +1,4 @@
+/* tslint:disable */
 import { NgModule } from '@angular/core';
 import { RowSingleSelectComponent } from './row-single-select.component';
 import { MaterialModule } from '@angular/material';

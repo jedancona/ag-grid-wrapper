@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, Optional} from '@angular/core';
 import {BaseGridComponent} from '../base-grid';
+import { MdDialogRef } from '@angular/material';
 
 @Component({
   selector: 'single-select-grid',
@@ -7,7 +8,7 @@ import {BaseGridComponent} from '../base-grid';
 })
 export class SingleSelectGridComponent extends BaseGridComponent {
 
-  constructor() {
+  constructor(@Optional() private dialogRef: MdDialogRef<any>) {
     super();
   }
 
@@ -20,6 +21,9 @@ export class SingleSelectGridComponent extends BaseGridComponent {
 
   public processResolve = (rowEntity: any): any => {
     console.debug('SavingRow', rowEntity);
+    if(this.dialogRef){
+      this.dialogRef.close(rowEntity);
+    }
     return {success: 'true'};
   };
 

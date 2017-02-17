@@ -1,7 +1,6 @@
 /* tslint:disable */
-import { Component, ViewEncapsulation, Input, ContentChildren, QueryList,OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, Input, ContentChildren, QueryList, OnDestroy } from '@angular/core';
 import { ColDef } from 'ag-grid/main';
-import * as _ from 'lodash';
 import { TableComponent } from '../table.component';
 
 @Component({
@@ -11,7 +10,7 @@ import { TableComponent } from '../table.component';
   encapsulation: ViewEncapsulation.None
 })
 
-export class TableColumnComponent implements OnDestroy{
+export class TableColumnComponent implements OnDestroy {
 
   @ContentChildren(TableColumnComponent) public childColumns: QueryList<TableColumnComponent>;
 
@@ -67,6 +66,7 @@ export class TableColumnComponent implements OnDestroy{
   @Input('editDropdownValueLabel') public editDropdownValueLabel: string = undefined;
   @Input('enableMovable') public suppressMovable: boolean = true;
   @Input('type') public type: string = undefined;
+  @Input() public lookupComponent: any = undefined;
 
   /**
    * Used to denote the model type to use for the toggle-select and checkbox column types.

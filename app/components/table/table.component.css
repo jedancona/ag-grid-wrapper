@@ -1601,6 +1601,7 @@ ag-grid-ng2 {
 }
 
 .ag-material .ag-body-container .ag-cell-inline-editing div.editor,
+.ag-material .ag-body-container .ag-cell-inline-editing div.lookup-editor,
 .ag-material .ag-body-container .ag-cell-inline-editing div.select-editor {
   line-height: 17px;
 
@@ -1633,6 +1634,40 @@ ag-grid-ng2 {
   top: 0px;
   text-overflow: clip;
   width: calc(100% - 15px);
+}
+
+.ag-material .ag-body-container .ag-cell-inline-editing div.lookup-editor input {
+  font: inherit;
+  border: none;
+  outline: 0;
+  width: calc(100% - 24px);
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
+}
+
+.ag-material .ag-body-container .ag-cell-not-inline-editing.editable div.inner-cell div.inner-cell-lookup-value {
+  display: inline-block;
+  width: calc(100% - 24px);
+}
+
+.ag-material .ag-body-container .ag-cell-inline-editing div.lookup-editor button,
+.ag-material .ag-body-container .ag-cell-not-inline-editing.editable div.inner-cell button {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  line-height: 15px;
+  border: 0;
+  margin: 0;
+  position: relative;
+  top: -5px;
+}
+
+.ag-material .ag-body-container .ag-cell-inline-editing div.lookup-editor button md-icon,
+.ag-material .ag-body-container .ag-cell-not-inline-editing.editable div.inner-cell button md-icon {
+  width: 15px;
+  height: 15px;
+  font-size: 15px;
 }
 
 .ag-material .ag-body-container .ag-cell-inline-editing div.editor input {

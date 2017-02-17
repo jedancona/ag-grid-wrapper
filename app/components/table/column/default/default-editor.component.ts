@@ -1,13 +1,13 @@
 /* tslint:disable */
-import {Component, ViewContainerRef, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
-
-import {AgEditorComponent} from 'ag-grid-ng2/main';
+import { Component, ViewContainerRef, ViewChild, AfterViewInit } from '@angular/core';
+import { AgEditorComponent } from 'ag-grid-ng2/main';
 
 @Component({
-  selector: 'text-cell',
-  template: `<div class="editor"><input #input type="text" (blur)="onBlur($event)" [(ngModel)]="value"></div>`
+  moduleId: module.id,
+  selector: 'table-column-default-editor',
+  templateUrl: './default-editor.component.tpl.html'
 })
-export class TextEditorComponent implements AgEditorComponent, AfterViewInit {
+export class TableColumnDefaultEditorComponent implements AgEditorComponent, AfterViewInit {
   private params: any;
   public value: number;
   private cancelBeforeStart: boolean = false;

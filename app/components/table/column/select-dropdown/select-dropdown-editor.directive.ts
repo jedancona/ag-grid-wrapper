@@ -1,20 +1,21 @@
-import {Directive, ElementRef, AfterViewInit, OnDestroy} from "@angular/core";
+import { Directive, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 
 @Directive({ selector: '[selectEditorOpenSelect]' })
-export class SelectEditorDirective implements AfterViewInit, OnDestroy{
+export class TableColumnSelectDropdownEditorDirective implements AfterViewInit, OnDestroy {
 
   readonly selectTimerWait: number = 200;
 
   private mdSelect: any;
   private selectTimer: any;
+
   constructor(el: ElementRef) {
     this.mdSelect = el.nativeElement;
   }
 
   ngAfterViewInit() {
-    this.selectTimer = setTimeout(()=>{
-      this.mdSelect.getElementsByClassName('md-select-trigger')[0].click();
-    },this.selectTimerWait);
+    this.selectTimer = setTimeout(() => {
+      this.mdSelect.getElementsByClassName('md-select-trigger')[ 0 ].click();
+    }, this.selectTimerWait);
   }
 
   ngOnDestroy() {
