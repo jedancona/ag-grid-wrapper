@@ -1,6 +1,8 @@
 /* tslint:disable */
 import { Injectable } from '@angular/core';
 
+import * as _ from 'lodash';
+
 import { TableColumnCheckboxRendererComponent } from './checkbox/checkbox-renderer.component';
 import { TableColumnCheckboxEditorComponent } from './checkbox/checkbox-editor.component';
 
@@ -51,6 +53,7 @@ export class TableColumnConfigFactory {
       }
       if (column.type === 'lookup') {
         column.cellEditorFramework = TableColumnLookupEditorComponent;
+        this.setLookupDefaults(column);
       }
 
     }
@@ -75,7 +78,14 @@ export class TableColumnConfigFactory {
     else {
       column.cellRendererFramework = TableColumnDefaultRendererComponent;
     }
+  };
 
+  private setLookupDefaults = (column: any): void => {
+    _.defaults(column, {
+      lookupAction: 'key',
+      lookupModalHeight: '80%',
+      lookupModalWidth: '80%',
+    })
   }
 
 }
