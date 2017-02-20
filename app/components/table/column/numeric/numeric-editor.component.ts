@@ -4,7 +4,7 @@ import { Component, ViewContainerRef, ViewChild, AfterViewInit } from '@angular/
 import { AgEditorComponent } from 'ag-grid-ng2/main';
 
 @Component({
-  moduleId: module.id,
+  moduleId: module.id + '',
   selector: 'table-column-numeric-editor',
   templateUrl: './numeric-editor.component.tpl.html'
 })

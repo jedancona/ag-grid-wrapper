@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { AgEditorComponent } from "ag-grid-ng2/main";
 
 @Component({
-  moduleId: module.id,
+  moduleId: module.id + '',
   selector: 'table-column-select-dropdown-editor',
   template: './select-dropdown-editor.component.tpl.html'
 })

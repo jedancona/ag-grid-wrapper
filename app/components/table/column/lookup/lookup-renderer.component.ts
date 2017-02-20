@@ -5,7 +5,7 @@ import { AgRendererComponent } from 'ag-grid-ng2';
 import { TableColumnLookupBaseComponent } from './lookup-base.component';
 
 @Component({
-  moduleId: module.id,
+  moduleId: module.id + '',
   selector: 'table-column-lookup-render',
   templateUrl: './lookup-renderer.component.tpl.html'
 })

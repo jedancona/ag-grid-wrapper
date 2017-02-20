@@ -18,4 +18,8 @@ export class MultiSelectGridComponent extends  BaseGridComponent
         err => console.log(err),
         () => console.log('Completed'));
   }
+
+  public onRowClicked=(event:any) :void => {
+    console.log('on row clicked ', event);
+  }
 }

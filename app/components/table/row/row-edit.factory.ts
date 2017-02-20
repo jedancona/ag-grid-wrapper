@@ -24,7 +24,6 @@ export class TableRowEditFactory {
       rowEdit: {
         getDirtyRows: this.getDirtyRows,
         getErrorRows: this.getErrorRows,
-        setGridRowDirty: this.setGridRowDirty,
         dirtyRows: [],
         errorRows: [],
       }
@@ -36,7 +35,6 @@ export class TableRowEditFactory {
       rowEdit: {
         getDirtyRows: null,
         getErrorRows: null,
-        setGridRowDirty: null,
         dirtyRows: null,
         errorRows: null,
       }
@@ -84,18 +82,16 @@ export class TableRowEditFactory {
       return;
     }
     if (newValue !== oldValue) {
+      if (_.isUndefined(gridRow.data.dirtyStatus)) {
+        gridRow.data.dirtyStatus = 2;
+      } else if (gridRow.data.dirtyStatus !== 1) {
+        gridRow.data.dirtyStatus = 2;
+      }
       this.setGridRowDirty(grid, gridRow);
     }
   };
 
-
-
   private setGridRowDirty = (grid: any, gridRow: any): void => {
-    if (_.isUndefined(gridRow.data.dirtyStatus)) {
-      gridRow.data.dirtyStatus = 2;
-    } else if (gridRow.data.dirtyStatus !== 1) {
-      gridRow.data.dirtyStatus = 2;
-    }
     if (!gridRow.isDirty) {
       gridRow.isDirty = true;
       grid.rowEdit.dirtyRows.push(gridRow);

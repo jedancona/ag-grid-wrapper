@@ -12,15 +12,19 @@ import { TableRowFooterAggregationFactory } from './row-footer-aggregation.facto
 import { TableRowEditModifiedFieldsFactory } from './row-edit-modified-fields.factory';
 import { FormsModule } from '@angular/forms';
 import { TableRowEditDeleteFactory } from './row-edit-delete.factory';
+import { TableColumnModules } from "../column";
+import { RowMultipleSelectComponent } from "./row-multiple-select.component";
 
 // All ng2 services must be listed here as a provider to allow the injector to work
 const subModules = [
   RowSingleSelectComponent,
+  RowMultipleSelectComponent,
   RowActionMenuComponent,
+
 ];
 
 @NgModule({
-  imports: [ CommonModule, FormsModule, MaterialModule ],
+  imports: [ CommonModule, FormsModule, MaterialModule, ],
   exports: [ subModules ],
   declarations: [ subModules ],
   entryComponents: [ subModules ],

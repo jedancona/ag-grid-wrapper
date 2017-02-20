@@ -17,7 +17,7 @@ import { TableRowFactory } from "./row/row.factory";
 import { TableColumnConfigFactory } from './column/column-config.factory';
 
 @Component({
-  moduleId: module.id,
+  moduleId: module.id + '',
   selector: 'ui-table',
   templateUrl: './table.component.tpl.html',
   styleUrls: [ 'table.component.css' ],
