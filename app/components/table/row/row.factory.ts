@@ -10,6 +10,8 @@ import { RowActionMenuComponent } from './row-action-menu.component';
 import { TableRowEditAddFactory } from './row-edit-add.factory';
 import { TableRowEditFactory } from './row-edit.factory';
 import { TableRowEditDeleteFactory } from './row-edit-delete.factory';
+import { RowMultipleSelectComponent } from "./row-multiple-select.component";
+
 
 @Injectable()
 export class TableRowFactory {
@@ -137,10 +139,10 @@ export class TableRowFactory {
       let multiSelectCell = {
         headerName: '',
         field: 'multiSelect',
+        cellRendererFramework: RowMultipleSelectComponent,
         width: 30,
         minWidth: 30,
         maxWidth: 30,
-        checkboxSelection: true,
         cellClass: 'ag-grid-multi-select-cell',
       };
       table.gridOptions.rowSelection = 'multiple';
