@@ -5,7 +5,7 @@ import { MdDialog } from '@angular/material';
 import { TableColumnLookupBaseComponent } from './lookup-base.component';
 
 @Component({
-  moduleId: module.id,
+  moduleId: module.id + '',
   selector: 'table-column-lookup-editor',
   templateUrl: './lookup-editor.component.tpl.html'
 })

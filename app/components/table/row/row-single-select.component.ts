@@ -5,7 +5,7 @@ import { RowNode } from "ag-grid";
 
 
 @Component({
-  moduleId: module.id,
+  moduleId: module.id + '',
   selector: 'row-single-select',
   template: `<md-radio-button  [(checked)]="rowNode.selected" [(value)]="rowNode.id" ></md-radio-button>`,
   encapsulation: ViewEncapsulation.None

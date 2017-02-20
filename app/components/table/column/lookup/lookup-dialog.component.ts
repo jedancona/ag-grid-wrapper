@@ -3,7 +3,7 @@ import { Component, ViewContainerRef, ViewChild, OnInit } from '@angular/core';
 import { MdDialogRef } from '@angular/material';
 
 @Component({
-  moduleId: module.id,
+  moduleId: module.id + '',
   selector: 'table-lookup-dialog',
   templateUrl: './lookup-dialog.component.tpl.html'
 })

@@ -3,7 +3,7 @@ import { Component, ViewContainerRef, ViewChild, AfterViewInit } from '@angular/
 import { AgEditorComponent } from 'ag-grid-ng2/main';
 
 @Component({
-  moduleId: module.id,
+  moduleId: module.id + '',
   selector: 'table-column-default-editor',
   templateUrl: './default-editor.component.tpl.html'
 })
