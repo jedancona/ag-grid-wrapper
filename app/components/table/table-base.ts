@@ -122,7 +122,7 @@ export class TableBaseComponent {
       (<any>this)[ eventName ] = new EventEmitter();
     });
   };
-  
+
   @Input() public suppressKeepFocus: boolean = false;
   @Input() public gridOptions: GridOptions;
   @Input() public slaveGrids: any = undefined;
@@ -130,7 +130,8 @@ export class TableBaseComponent {
   @Input() public showSingleSelect: boolean = undefined;
   @Input() public showMultiSelect: boolean = undefined;
   @Input() public showFooter: boolean = false;
-  @Input() public actionMenu: boolean = undefined;
+  @Input() public actionMenu: any = undefined;
+  @Input() public navigationMenu: any = undefined;
   @Input() public enableRowAutoSave: boolean = true;
   @Input() public enableRowModifiedFields: boolean = true;
   @Input() public floatingTopRowData: any = undefined;
