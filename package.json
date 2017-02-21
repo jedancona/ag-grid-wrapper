@@ -1,6 +1,6 @@
 {
   "name": "ete-ag-grid-wrapper",
-  "version": "0.0.72",
+  "version": "0.0.73",
   "main": "index.js",
   "typings": "index.d.ts",
   "private": false,

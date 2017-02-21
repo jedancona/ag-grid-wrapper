@@ -1,0 +1,14 @@
+<button *ngIf="!params.node.floating" md-icon-button [mdMenuTriggerFor]="menu">
+  <md-icon>more_vert</md-icon>
+  <md-menu #menu="mdMenu">
+    <div>
+      <h4>{{menuName}}</h4>
+      <md-divider></md-divider>
+    </div>
+    <button md-menu-item *ngFor="let item of menuItems.sections">
+      <md-icon>{{item.icon}}</md-icon>
+      <span>{{item.name}}</span>
+    </button>
+
+  </md-menu>
+</button>

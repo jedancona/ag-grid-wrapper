@@ -23,7 +23,7 @@
   <md-card-title>Sample Table 2</md-card-title>
   <md-card-content>
       <div style="height:250px;">
-        <ui-table [(data)]="data2" [onSaveRow]="saveRow2">
+        <ui-table [(data)]="data2" [onSaveRow]="saveRow2" [navigationMenu]="navMenu">
           <ui-table-column display-name="Svc K" name="column1" [enable-edit]="false"></ui-table-column>
           <ui-table-column display-name="RR" name="column2" [enable-edit]="false"></ui-table-column>
           <ui-table-column display-name="Sch Qty" type="number" name="column3" [enable-edit]="true"></ui-table-column>

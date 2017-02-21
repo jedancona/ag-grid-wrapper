@@ -1,17 +1,17 @@
 /* tslint:disable */
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { TableComponent } from '../table.component';
-import { TableRowEditAutoSaveFactory } from './row-edit-auto-save.factory';
-import { TableRowFooterAggregationFactory } from './row-footer-aggregation.factory';
-import { TableRowEditModifiedFieldsFactory } from './row-edit-modified-fields.factory';
-import { RowSingleSelectComponent } from './row-single-select.component';
-import { RowActionMenuComponent } from './row-action-menu.component';
-import { TableRowEditAddFactory } from './row-edit-add.factory';
-import { TableRowEditFactory } from './row-edit.factory';
-import { TableRowEditDeleteFactory } from './row-edit-delete.factory';
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
+import { TableComponent } from "../table.component";
+import { TableRowEditAutoSaveFactory } from "./row-edit-auto-save.factory";
+import { TableRowFooterAggregationFactory } from "./row-footer-aggregation.factory";
+import { TableRowEditModifiedFieldsFactory } from "./row-edit-modified-fields.factory";
+import { RowSingleSelectComponent } from "./row-single-select.component";
+import { RowActionMenuComponent } from "./row-action-menu.component";
+import { TableRowEditAddFactory } from "./row-edit-add.factory";
+import { TableRowEditFactory } from "./row-edit.factory";
+import { TableRowEditDeleteFactory } from "./row-edit-delete.factory";
 import { RowMultipleSelectComponent } from "./row-multiple-select.component";
-
+import { RowNavigationComponent } from "./row-navigation.component";
 
 @Injectable()
 export class TableRowFactory {
@@ -65,7 +65,6 @@ export class TableRowFactory {
       this.rowModifiedFieldsFactory.onGridApiRegistered(table);
     }
 
-
   };
 
   public setTableRowHeight = (table: TableComponent) => {
@@ -103,6 +102,7 @@ export class TableRowFactory {
     this.setSingleSelect(table);
     this.setMultiSelect(table);
     this.setActionMenu(table);
+    this.setNavigationMenu(table);
   };
 
   public setFloatingRowColumnRenderer = (table: TableComponent): void => {
@@ -115,6 +115,22 @@ export class TableRowFactory {
           return '';
         };
       });
+    }
+  };
+
+  private setNavigationMenu = (table: TableComponent): void => {
+    if (table.navigationMenu) {
+      let navigationMenuCell = {
+        headerName: '',
+        field: 'navigationMenu"',
+        data: table.navigationMenu,
+        cellRendererFramework: RowNavigationComponent,
+        width: 30,
+        minWidth: 30,
+        maxWidth: 30,
+        cellClass: 'ag-grid-action-menu-cell',
+      };
+      table.gridOptions.columnDefs.unshift(navigationMenuCell);
     }
   };
 
