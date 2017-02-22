@@ -1,12 +1,15 @@
 import {Component, Optional} from '@angular/core';
 import {BaseGridComponent} from '../base-grid';
 import { MdDialogRef } from '@angular/material';
+import { TableColumnLookupDialog } from '../../components/module';
 
 @Component({
   selector: 'single-select-grid',
   templateUrl: 'app/examples/single-select-grid/single-select-grid.component.tpl.html',
 })
-export class SingleSelectGridComponent extends BaseGridComponent {
+export class SingleSelectGridComponent extends BaseGridComponent implements TableColumnLookupDialog {
+
+  public selectedItem: any = {};
 
   constructor(@Optional() private dialogRef: MdDialogRef<any>) {
     super();
@@ -19,12 +22,12 @@ export class SingleSelectGridComponent extends BaseGridComponent {
     });
   };
 
+  public onRowClicked=(event:any) :void => {
+    this.selectedItem = event.data;
+  };
+
   public processResolve = (rowEntity: any): any => {
-    console.debug('SavingRow', rowEntity);
-    if(this.dialogRef){
-      this.dialogRef.close(rowEntity);
-    }
-    return {success: 'true'};
+    return {success: rowEntity};
   };
 
 }

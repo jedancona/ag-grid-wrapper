@@ -1,7 +1,7 @@
 /* tslint:disable */
 import {
   Component, ViewEncapsulation, Input, ContentChildren, QueryList, OnDestroy,
-  ComponentFactory
+  ComponentFactory, Output, EventEmitter
 } from '@angular/core';
 import { ColDef } from 'ag-grid/main';
 import { TableComponent } from '../table.component';
@@ -111,6 +111,8 @@ export class TableColumnComponent implements OnDestroy {
    *
    * @lookupModalWidth {string}  Optional The width of the lookup modal. value is '80%' by default.
    *
+   * @lookupModalTitle {string}  The Title to be displayed for the lookup modal.
+   *
    * @minWidth {number} Optional. 50 by default.  The minimum with a column can be resized to.
    *
    * @name {any} the object field for the column.
@@ -150,11 +152,12 @@ export class TableColumnComponent implements OnDestroy {
    * the column is not of type lookup
    */
   @Input() public lookupAction: string = undefined;
-  @Input() public lookupCallback: Promise<any> = undefined;
+  @Output() public lookupCallback: EventEmitter<any> = new EventEmitter();
   @Input() public lookupComponent: ComponentFactory<any> = undefined;
   @Input() public lookupKey: string = undefined;
   @Input() public lookupModalHeight: string = undefined;
   @Input() public lookupModalWidth: string = undefined;
+  @Input() public lookupModalTitle: string = undefined;
 
   @Input() public minWidth: number = 50;
 
