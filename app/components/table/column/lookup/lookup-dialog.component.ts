@@ -9,18 +9,21 @@ import { MdDialogRef } from '@angular/material';
 })
 export class TableColumnLookupDialogComponent implements OnInit {
   public data: any;
-
+  private componentRef: any;
+  private title: string;
   @ViewChild('dialogComponent', { read: ViewContainerRef }) public targetEle: any;
 
   constructor(public dialogRef: MdDialogRef<TableColumnLookupDialogComponent>) {
   }
 
   ngOnInit(): void {
-    this.targetEle.createComponent(this.data.component, 0);
+    this.title = this.data.colDef.lookupModalTitle;
+    let componentFactory: any = this.targetEle.createComponent(this.data.component, 0);
+    this.componentRef = componentFactory._component;
   }
 
   private ok = () => {
-    this.dialogRef.close({ somedata: 'none' });
-  }
+    this.dialogRef.close(this.componentRef.selectedItem);
+  };
 
 }
