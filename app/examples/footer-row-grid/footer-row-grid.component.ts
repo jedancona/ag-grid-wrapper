@@ -1,5 +1,6 @@
-import {Component, ComponentFactoryResolver} from "@angular/core";
+import { Component, ComponentFactoryResolver } from "@angular/core";
 import { SingleSelectGridComponent } from '../single-select-grid/single-select-grid.component';
+import { TableColumnLookupDialog } from '../../components/table/column/lookup/lookup-dialog';
 
 @Component({
   selector: 'footer-row-grid',
@@ -47,9 +48,9 @@ export class FooterRowGridComponent {
     };
 
     this.foods = [
-      {value: 'steak-0', viewValue: 'Steak'},
-      {value: 'pizza-1', viewValue: 'Pizza'},
-      {value: 'tacos-2', viewValue: 'Tacos'}
+      { value: 'steak-0', viewValue: 'Steak' },
+      { value: 'pizza-1', viewValue: 'Pizza' },
+      { value: 'tacos-2', viewValue: 'Tacos' }
     ];
 
     for (let i = 0; i < 50; i++) {
@@ -78,7 +79,7 @@ export class FooterRowGridComponent {
   };
 
   public addRow = (): number => {
-   let rowIdx: number =  this.gridOptions.api.rowEdit.addRow({
+    let rowIdx: number = this.gridOptions.api.rowEdit.addRow({
       column1: 'Added Row',
       column2: 'x',
       column3: 0,
@@ -90,7 +91,17 @@ export class FooterRowGridComponent {
       column9: 'R',
       column10: 0
     }, 'column4');
-   return rowIdx;
+    return rowIdx;
+  };
+
+  public lookupCallback = (resultData: any): Promise<any> => {
+    console.debug('lookup callback', resultData);
+    return new Promise(resolve => {
+      setTimeout(() => resolve(() => {
+        console.debug('resolved');
+        return resultData;
+      }));
+    });
   };
 
   public saveRow = (rowEntity: any): Promise<any> => {
@@ -102,7 +113,7 @@ export class FooterRowGridComponent {
 
   public processResolve = (rowEntity: any): any => {
     console.debug('SavingRow', rowEntity);
-    return {success: 'true'};
+    return { success: 'true' };
   };
 
   public deleteAssociation = (row: any): void => {

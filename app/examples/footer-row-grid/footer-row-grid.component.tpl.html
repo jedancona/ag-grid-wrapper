@@ -43,7 +43,10 @@
         <ui-table-column display-name="Max Type"
                          name="column7"
                          type="lookup"
+                         lookupKey="column1"
+                         (lookupCallback)="lookupCallback($event)"
                          [lookupComponent]="singleSelectComponent"
+                         lookupModalTitle="Single Select Lookup Modal"
                          aggregationType="max"
                          [enable-edit]="true"></ui-table-column>
         <ui-table-column display-name="Net Type"

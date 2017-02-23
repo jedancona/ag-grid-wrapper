@@ -53,9 +53,9 @@ export class TableColumnLookupEditorComponent extends TableColumnLookupBaseCompo
   // dont use afterGuiAttached for post gui events - hook into ngAfterViewInit instead for this
   ngAfterViewInit() {
     this.input.element.nativeElement.focus();
-     setTimeout((): void => {
-     this.input.element.nativeElement.select();
-     });
+    setTimeout((): void => {
+      this.input.element.nativeElement.select();
+    });
   }
 
   private isKeyPressedNumeric(event: any): boolean {
@@ -63,4 +63,14 @@ export class TableColumnLookupEditorComponent extends TableColumnLookupBaseCompo
     return !(charCode != 46 && charCode > 31
     && (charCode < 48 || charCode > 57));
   }
+
+  protected setLookupKeyValue = (lookupKey: any, item: any): void => {
+    if (lookupKey) {
+      console.debug('editor set key', lookupKey);
+      this.input.element.nativeElement.value = item[ lookupKey ];
+    }
+    else {
+      // Warning lookupKey is not defined on the column.
+    }
+  };
 }
