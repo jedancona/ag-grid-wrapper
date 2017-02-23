@@ -1,1 +1,1 @@
-<md-slide-toggle (change)="valueChanged($event)" [checked]="isChecked()" [disabled]="isEditable()" aria-label="slide" ></md-slide-toggle>
+<md-slide-toggle (change)="valueChanged($event)" (click)="toggleClicked($event)" [checked]="isChecked()" [disabled]="isEditable()" aria-label="slide" ></md-slide-toggle>
