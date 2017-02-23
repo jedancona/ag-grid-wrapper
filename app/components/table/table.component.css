@@ -1503,6 +1503,37 @@ ag-grid-ng2 {
   padding-right: 2px;
 }
 
+.cdk-focus-trap-content,
+table-lookup-dialog {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+table-lookup-dialog h2 {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 0%;
+  -webkit-flex-direction: column;
+  -webkit-flex-grow: 0;
+  -webkit-flex-shrink: 0;
+  -webkit-flex-basis: 0%;
+}
+
+table-lookup-dialog md-dialog-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+  -webkit-flex-direction: column;
+  -webkit-flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -webkit-flex-basis: 0%;
+}
+
 .ag-material .ag-select-agg-func-item:hover {
   background-color: #bde2e5;
 }
@@ -1654,19 +1685,24 @@ ag-grid-ng2 {
 .ag-material .ag-body-container .ag-cell-inline-editing div.lookup-editor button,
 .ag-material .ag-body-container .ag-cell-not-inline-editing.editable div.inner-cell button {
   display: inline-block;
-  width: 15px;
-  height: 15px;
+  width: 17px;
+  height: 19px;
   line-height: 15px;
   border: 0;
   margin: 0;
   position: relative;
-  top: -5px;
+  top: -3px;
+  right: -3px;
+  background-color: #fff;
 }
 
 .ag-material .ag-body-container .ag-cell-inline-editing div.lookup-editor button md-icon,
-.ag-material .ag-body-container .ag-cell-not-inline-editing.editable div.inner-cell button md-icon {
+.ag-material .ag-body-container .ag-cell-inline-editing div.lookup-editor button md-icon div,
+.ag-material .ag-body-container .ag-cell-not-inline-editing.editable div.inner-cell button md-icon,
+.ag-material .ag-body-container .ag-cell-not-inline-editing.editable div.inner-cell button md-icon div{
+
   width: 15px;
-  height: 15px;
+  height: 19px;
   font-size: 15px;
 }
 
