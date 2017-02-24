@@ -13,6 +13,7 @@ import { TableColumnLookupModule } from './lookup/index';
 import { TableColumnNumericModule } from './numeric/index';
 import { TableColumnSelectDropdownModule } from './select-dropdown/index';
 import { TableColumnSlideToggleModule } from './slide-toggle/index';
+import { TableColumnContextMenuModule } from './context-menu/index';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { TableColumnSlideToggleModule } from './slide-toggle/index';
     MaterialModule,
     FormsModule,
     TableColumnCheckboxModule,
+    TableColumnContextMenuModule,
     TableColumnDateModule,
     TableColumnDefaultModule,
     TableColumnLookupModule,
