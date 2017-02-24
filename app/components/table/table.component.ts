@@ -5,7 +5,7 @@ import {
   AfterViewInit,
   ViewContainerRef,
   ElementRef,
-  OnDestroy
+  OnDestroy, ViewChild
 } from "@angular/core";
 import { ComponentUtil } from "ag-grid/main";
 import { Ng2FrameworkFactory } from "ag-grid-ng2";
@@ -15,6 +15,7 @@ import * as _ from "lodash";
 import { TableBaseComponent } from "./table-base";
 import { TableRowFactory } from "./row/row.factory";
 import { TableColumnConfigFactory } from './column/column-config.factory';
+import { MdMenuTrigger } from '@angular/material';
 
 @Component({
   moduleId: module.id + '',
@@ -26,7 +27,7 @@ import { TableColumnConfigFactory } from './column/column-config.factory';
 })
 
 export class TableComponent extends TableBaseComponent implements OnDestroy, AfterViewInit {
-
+  @ViewChild(MdMenuTrigger) trigger: MdMenuTrigger;
   constructor(elementDef: ElementRef,
               viewContainerRef: ViewContainerRef,
               ng2FrameworkFactory: Ng2FrameworkFactory,

@@ -4,7 +4,6 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "private": false,
-
   "description": "ETE wrapper around ag-grid",
   "scripts": {
     "dev": "tsc --watch",
@@ -49,6 +48,7 @@
     "lodash": "^4.17.4",
     "rxjs": "5.1.1",
     "systemjs": "0.19.40",
+    "ts-clipboard": "^1.0.13",
     "zone.js": "^0.7.7"
   },
   "devDependencies": {
