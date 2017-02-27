@@ -123,6 +123,12 @@ export class TableBaseComponent {
     });
   };
 
+  public onRowSelected = (event: any) : void => {
+    if(event.node && event.node.selected){
+      this.selectedRows.emit(event.node.selectionController.selectedNodes);
+    }
+  }
+
   @Input() public suppressKeepFocus: boolean = false;
   @Input() public gridOptions: GridOptions;
   @Input() public slaveGrids: any = undefined;

@@ -22,8 +22,8 @@ export class SingleSelectGridComponent extends BaseGridComponent implements Tabl
     });
   };
 
-  public onRowClicked=(event:any) :void => {
-    this.selectedItem = event.data;
+  public selectedRow=(event:any) :void => {
+    console.log('selected row', event);
   };
 
   public processResolve = (rowEntity: any): any => {
