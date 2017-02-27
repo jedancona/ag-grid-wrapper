@@ -10,7 +10,6 @@ export class BaseGridComponent {
   listActionMenu: any;
   navMenu: any;
   selectionMode: boolean = true;
-  selectedRows: any[] = [];
 
   constructor() {
     this.init();
@@ -233,8 +232,5 @@ export class BaseGridComponent {
     return row.column2 % 2 === 0;
   }
 
-  public selection = ($event: any): void => {
-    this.selectedRows = $event;
-  }
 
 }

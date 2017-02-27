@@ -1,11 +1,9 @@
 <md-card>
   <md-card-title>Multi Selected Items</md-card-title>
   <md-card-content>
-    <span>Selected values: </span>
-    <span *ngFor="let item of selectedRows">{{item.column1 }}, </span>
     <div style="height:500px;">
       <ui-table (rowClicked)="onRowClicked($event)"
-                (selectedRows)="selection($event)" [(data)]="data"  [(showMultiSelect)]="selectionMode"  [actionMenu]="listActionMenu">
+                (selectedRows)="selectedRows($event)" [(data)]="data"  [(showMultiSelect)]="selectionMode"  [actionMenu]="listActionMenu">
         <ui-table-column display-name="First Name" name="firstName" [enable-edit]="false"></ui-table-column>
         <ui-table-column display-name="Last Name" name="lastName" [enable-edit]="true"></ui-table-column>
         <ui-table-column type='date' display-name="Eff Begin Date" name="effBeginDt" [enable-edit]="false"></ui-table-column>

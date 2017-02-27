@@ -8,6 +8,7 @@ import { Http } from "@angular/http";
 })
 export class MultiSelectGridComponent extends  BaseGridComponent
 {
+  rows: any[] = [];
   constructor(private http: Http) {
     super();
     console.log('in constructor');
@@ -21,5 +22,10 @@ export class MultiSelectGridComponent extends  BaseGridComponent
 
   public onRowClicked=(event:any) :void => {
     console.log('on row clicked ', event);
+  }
+
+  public selectedRows = (event: any) :void => {
+    console.log('selected node', event);
+    this.rows = event;
   }
 }
