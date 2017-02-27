@@ -11,9 +11,20 @@
       <button md-raised-button (click)="addRow()">Add Row</button>
     </div>
     <div style="height:500px;">
-      <ui-table [gridOptions]="gridOptions" [(data)]="data" [(showSingleSelect)]="selectionMode"
-                [enableRowAutoSave]="false" [showFooter]="true"
+      <ui-table [gridOptions]="gridOptions"
+                [(data)]="data"
+                [(showSingleSelect)]="selectionMode"
+                [enableRowAutoSave]="false"
+                [showFooter]="true"
                 [actionMenu]="listActionMenu">
+        <ui-table-column display-name="Lookup replace"
+                         name="column0"
+                         type="lookup"
+                         lookupAction="assign"
+                         (lookupCallback)="lookupCallback($event)"
+                         [lookupComponent]="singleSelectComponent"
+                         lookupModalTitle="Single Select Lookup Modal"
+                         [enable-edit]="true"></ui-table-column>
         <ui-table-column display-name="Net Key"
                          name="column1"
                          [enable-edit]="false"></ui-table-column>
