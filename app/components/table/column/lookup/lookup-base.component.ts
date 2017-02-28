@@ -45,11 +45,9 @@ export class TableColumnLookupBaseComponent {
   };
 
   protected setLookupRowValue = (colDef: any, item: any): void => {
-
     let lookupAction: string = colDef.lookupAction;
     let lookupKey: string = colDef.lookupKey;
-
-    switch (lookupKey) {
+    switch (lookupAction) {
       case 'assign':
         this.setLookupAssignValue(item);
         break;
@@ -59,7 +57,7 @@ export class TableColumnLookupBaseComponent {
   };
 
   protected setLookupKeyValue = (lookupKey: any, item: any): void => {
-    if (lookupKey) {
+    if (lookupKey && item && item [ lookupKey ]) {
       this.params.api.valueService.setValue(this.params.node, this.params.column.colId, item [ lookupKey ]);
       this.params.api.refreshCells([ this.params.node ], [ this.params.column.colId ], true);
     }
@@ -68,8 +66,9 @@ export class TableColumnLookupBaseComponent {
     }
   };
 
-  protected setLookupAssignValue = (item: any) => {
-
+  protected setLookupAssignValue = (item: any): void => {
+    _.assignIn(this.params.node.data,item);
+    this.params.api.softRefreshView();
   };
 }
 

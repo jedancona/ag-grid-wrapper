@@ -165,5 +165,6 @@ export class TableColumnComponent implements OnDestroy {
 
   @Input() public toggleModelType: string = undefined;
   @Input() public type: string = undefined;
+  @Input() public volatile: boolean = true;
 
 }
