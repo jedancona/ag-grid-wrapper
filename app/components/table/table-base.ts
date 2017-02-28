@@ -1,11 +1,11 @@
 /* tslint:disable */
-import { ViewContainerRef, ElementRef, EventEmitter, Input, Output, HostListener } from '@angular/core';
-import { Grid, GridOptions, GridApi, ColumnApi, GridParams, ComponentUtil } from 'ag-grid/main';
-import { Ng2FrameworkFactory } from 'ag-grid-ng2';
-import { TableColumnComponent } from './column/column.component';
-import { Subject } from 'rxjs';
-import { TableComponent } from './table.component';
-import { TableColumnConfigFactory } from './column/column-config.factory';
+import { ViewContainerRef, ElementRef, EventEmitter, Input, Output, HostListener } from "@angular/core";
+import { Grid, GridOptions, GridApi, ColumnApi, GridParams, ComponentUtil, RowNode } from "ag-grid/main";
+import { Ng2FrameworkFactory } from "ag-grid-ng2";
+import { TableColumnComponent } from "./column/column.component";
+import { Subject } from "rxjs";
+import { TableComponent } from "./table.component";
+import { TableColumnConfigFactory } from "./column/column-config.factory";
 
 export class TableBaseComponent {
 
@@ -49,7 +49,7 @@ export class TableBaseComponent {
   };
 
   protected initializeGrid = (table: TableComponent): void => {
-    new Grid(table._nativeElement.getElementsByClassName('ui-table')[ 0 ], table.gridOptions, table.gridParams);
+    new Grid(table._nativeElement.getElementsByClassName('ui-table')[0], table.gridOptions, table.gridParams);
 
     if (table.gridOptions.api) {
       table.api = table.gridOptions.api;
@@ -92,7 +92,7 @@ export class TableBaseComponent {
 
   };
 
-  @HostListener('window:resize', [ '$event' ])
+  @HostListener('window:resize', ['$event'])
   protected onResize = (event: any): void => {
     if (this.api && this.api.sizeColumnsToFit && !this.resizerTimeout) {
       this.resizerTimeout = setTimeout((): void => {
@@ -109,7 +109,7 @@ export class TableBaseComponent {
       return;
     }
     // generically look up the eventType
-    let emitter = <EventEmitter<any>> (<any>this)[ eventType ];
+    let emitter = <EventEmitter<any>> (<any>this)[eventType];
     if (emitter) {
       emitter.emit(event);
     } else {
@@ -119,14 +119,12 @@ export class TableBaseComponent {
 
   protected createComponentEvents = (): void => {
     ComponentUtil.EVENTS.forEach((eventName) => {
-      (<any>this)[ eventName ] = new EventEmitter();
+      (<any>this)[eventName] = new EventEmitter();
     });
   };
 
-  public onRowSelected = (event: any) : void => {
-    if(event.node && event.node.selected){
-      this.selectedRows.emit(event.node.selectionController.selectedNodes);
-    }
+  private onSelectionChanged = (): void => {
+    this.selectedRows.emit(this.api.getSelectedNodes());
   }
 
   @Input() public suppressKeepFocus: boolean = false;
