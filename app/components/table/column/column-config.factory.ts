@@ -66,7 +66,7 @@ export class TableColumnConfigFactory {
         console.log('date with a filter', column.cellFilter);
       }
     }
-    if (column.type === 'slide-toggle') {
+    else if (column.type === 'slide-toggle') {
       column.cellRendererFramework = TableColumnSlideToggleRendererComponent;
     }
     else if (column.type === 'checkbox') {
